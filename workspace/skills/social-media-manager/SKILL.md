@@ -28,6 +28,7 @@ The **parent** social agent: owns **consistency** (voice, CTA ladder, disclosure
 
 1. **Intake (`00-intake.md`)**
    - Capture: goals, KPIs, platforms, **blacklist topics**, **legal/compliance** (region, disclaimers), **deadlines**, asset links.
+   - Optional: path to **`marketer-agent`** output (`workspace/drafts/marketing/.../README-handoff.md` or `06-channel-plan.md`) to align pillars and CTAs.
 
 2. **Trend pass (optional)**
    - Invoke or simulate `social-trend-monitor` → save `trends-in.md` reference in folder.
@@ -66,6 +67,7 @@ The **parent** social agent: owns **consistency** (voice, CTA ladder, disclosure
 
 | Skill | Delivers |
 |--------|-----------|
+| `marketer-agent` (optional upstream) | ICP, positioning, channel plan, `briefs/` for social |
 | `social-content-planning` | `calendar.md` skeleton |
 | `social-caption-writer` | Raw copy per slot |
 | `social-community-engagement` | Reply drafts |

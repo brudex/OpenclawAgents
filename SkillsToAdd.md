@@ -70,6 +70,41 @@ An AI agent focused on product planning, documentation, prioritization, and exec
 * Release notes
 * Product roadmaps
 
+> **OpenClaw skills:** **`product-manager-agent`** (canonical workflow) and **`product-manager`** (same outputs; delegates to `product-manager-agent` for a natural “product manager” invoke name).
+
+---
+
+## 2b. Marketer Agent
+
+An AI agent for **marketing strategy** and **go-to-market** narrative—not day-to-day posting (that stays with the Social Media Management agent and sub-skills).
+
+### Responsibilities
+
+* Define ICP, positioning, and messaging pillars
+* Map offers, funnel stages, and campaign angles
+* Produce channel plans and **briefs** for LinkedIn, social, and paid ads
+* Hand off structured inputs to caption, social orchestration, and adverts skills
+* Align metrics, UTMs, and campaign naming with business goals
+
+### Outputs
+
+* ICP and positioning docs
+* Messaging pillar maps
+* Campaign and channel plans
+* Creative/copy briefs for downstream agents
+* README-handoff linking to `social-media-manager`, `adverts-creator`, `linkedin-article-writer`, etc.
+
+> **OpenClaw skill:** **`marketer-agent`** → `workspace/drafts/marketing/<date>-<slug>/`.
+
+---
+
+## 2c. Agency marketing & project-management packs
+
+Imported from **`agency-agents-main`** (marketing + project-management folders): many **persona playbooks** live under **`references/`** inside two umbrella skills.
+
+* **`agency-marketing`** — 29 marketing personas (SEO, growth, LinkedIn, TikTok, Reddit, China/social platforms, ASO, podcast, etc.). One persona per run; outputs `workspace/drafts/agency-marketing/<date>-<slug>/`.
+* **`agency-project-management`** — 6 PM personas (senior spec→tasks, shepherd, Jira steward, experiment tracker, studio ops, studio producer). Outputs `workspace/drafts/agency-project-management/<date>-<slug>/`; path rules in **`SKILL.md`** adapt legacy `ai/memory-bank` examples to the workspace.
+
 ---
 
 ## 3. Auto Research Agent

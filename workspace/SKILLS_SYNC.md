@@ -24,7 +24,8 @@ rsync -avz --delete \
 ## What gets synced
 
 - `INTEGRATIONS.md` — consolidated **config paths**, **env vars**, and **curl** patterns (same idea as `qf-course-researcher` Prerequisites)
-- `skills/**/SKILL.md` — AgentSkills (including new skills from `SkillsToAdd.md`)
+- `skills/**/SKILL.md` — AgentSkills (including new skills from `SkillsToAdd.md`), e.g. **`product-manager`**, **`marketer-agent`**, **`agency-marketing`**, **`agency-project-management`**
+- `skills/agency-marketing/references/*.md` and `skills/agency-project-management/references/*.md` — bundled agency playbooks (not separate skills)
 - `AGENTS.md`, `USER.md`, `SOUL.md`, etc. — session context
 - Existing `qf-*`, `notion`, `youtube-watcher`, … unchanged unless you edit them here first
 

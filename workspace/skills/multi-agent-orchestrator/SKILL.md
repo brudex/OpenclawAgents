@@ -38,7 +38,12 @@ metadata: {"clawdbot":{"emoji":"🧩"},"openclaw":{"emoji":"🧩"}}
      - **Approval gate:** `none` | `human` | `human+legal`
 
 4. **Recommended chains (templates)**
-   - `chain-research-pm.md` — `auto-research-agent` → `product-manager-agent`
+   - `chain-research-pm.md` — `auto-research-agent` → `product-manager-agent` (or `product-manager`)
+   - `chain-research-marketer.md` — `auto-research-agent` → `marketer-agent`
+   - `chain-marketer-social.md` — `marketer-agent` → `social-media-manager` → optional `adverts-creator`
+   - `chain-pm-marketer.md` — `product-manager-agent` → `marketer-agent` (launch messaging after PRD)
+   - `chain-agency-marketing-execution.md` — `agency-marketing` (persona) → `marketer-agent` → `social-media-manager`
+   - `chain-agency-pm-delivery.md` — `agency-project-management` (shepherd or senior PM) → `product-manager-agent` (PRD) as needed
    - `chain-trend-tiktok.md` — `social-trend-monitor` → `tiktok-video-ads-creator`
    - `chain-image-ads.md` — `auto-image-generation` → `adverts-creator`
    - `chain-li-social.md` — `linkedin-article-writer` → `social-media-manager`

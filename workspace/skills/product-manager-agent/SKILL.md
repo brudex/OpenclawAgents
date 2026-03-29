@@ -8,6 +8,8 @@ metadata: {"clawdbot":{"emoji":"🧭"},"openclaw":{"emoji":"🧭"}}
 
 Turn **fuzzy ideas** into **ship-ready product docs**, with the same rigor as `qf-course-researcher` uses for matching courses (clear heuristics, explicit states, no ambiguous “done”). Each engagement produces a **dated folder** under `drafts/product/`.
 
+> **Also invokable as:** **`product-manager`** — that skill points here so chat can say “product manager” without duplicating logic.
+
 ## Prerequisites
 
 - Inputs: problem statement, users, constraints, metrics—or `auto-research-agent` / `report.md` path.
