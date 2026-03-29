@@ -20,8 +20,9 @@ metadata: {"clawdbot":{"emoji":"💼"},"openclaw":{"emoji":"💼"}}
 
 ## Credentials & API (qf-style)
 
-- **Draft-only:** No credentials; write `article.md`, `teaser.md`, etc. under the path above. Human publishes.
-- **Live (optional):** Prefer an **OpenClaw LinkedIn channel** if configured. Otherwise store a long-lived token securely, e.g. `~/.config/linkedin/access_token` or `LINKEDIN_ACCESS_TOKEN` in `~/.openclaw/.env` — see **`workspace/INTEGRATIONS.md`**. UGC / Marketing API payloads follow [LinkedIn’s current API docs](https://learn.microsoft.com/en-us/linkedin/); do not commit tokens or paste them into skill files.
+- **Draft-only:** No credentials; write `article.md`, `teaser.md`, etc. under the path above. Human publishes unless a live path below is used.
+- **Live LinkedIn feed teaser (preferred for this workspace):** After human approval, publish **`teaser.md`** via **`hype-engine`** (LinkedIn account UUID from HypeEngine Accounts API, Posts API). Same stack as **`social-media-manager`** for **`linkedin_feed`**.
+- **Fallback:** **OpenClaw LinkedIn channel** if documented in **`TOOLS.md`**, or direct LinkedIn token paths in **`workspace/INTEGRATIONS.md`** only when HypeEngine is unavailable and humans allow it.
 
 ## High-level Workflow
 

@@ -1,13 +1,22 @@
 ---
 name: hype-engine
-description: HypeEngine API v1 for managing social media accounts, media, tags, and posts.
+description: HypeEngine API v1 for managing social media accounts, media, tags, and posts—canonical live path for Twitter/X and LinkedIn feed posts after approval when this stack is configured.
 homepage: https://example.com/hypeengine
-metadata: {"clawdbot":{"emoji":"📣"}}
+metadata: {"clawdbot":{"emoji":"📣"},"openclaw":{"emoji":"📣"}}
 ---
 
 # hype-engine
 
 Use the HypeEngine API v1 to manage social media **accounts**, upload **media**, organize **tags**, and create/schedule **posts** across channels.
+
+## Twitter/X and LinkedIn: use this skill to post
+
+For this workspace, **live** posts to **Twitter/X** and **LinkedIn** (feed / teaser-style updates) go through **HypeEngine** when `~/.config/hype-engine/` is configured—not direct Twitter or LinkedIn Marketing API calls from other skills.
+
+- **Upstream:** `social-media-manager`, `social-caption-writer`, and `linkedin-article-writer` produce markdown under `workspace/drafts/...` and `APPROVAL.md` (or human approval in chat).
+- **This skill:** Resolve **account UUIDs** via the Accounts API (X and LinkedIn rows), map caption/teaser HTML into the Posts API `content[].body`, attach **media UUIDs** if needed, then **create** a draft, **schedule**, or **publish** per human instruction.
+- **Threads (X):** If the draft is a multi-tweet thread, either post as HypeEngine supports multi-part content for that account, or post tweet 1 and reply-chain per product behavior—document which you used in the run summary.
+- If HypeEngine is **down or unconfigured**, stop and say so; do not silently fall back to another API unless **`USER.md` / `TOOLS.md`** explicitly allows OpenClaw channels or raw LinkedIn for that agent.
 
 ## Setup
 
@@ -196,8 +205,9 @@ curl -X PUT "$HYPE_BASE_URL/api/v1/$HYPE_PROJECT_UUID/posts/$POST_UUID" \
 
 ## Typical social posting workflow
 
-- **Discover accounts**: Call the Accounts API to list available social accounts and grab their UUIDs.
+- **Discover accounts**: Call the Accounts API to list available social accounts and grab their UUIDs. **Filter** to the **Twitter/X** and **LinkedIn** accounts you need before building `accountUuids`.
 - **Find or upload media**: Use the Media API to either list existing media or upload new images/videos and capture their UUIDs.
 - **Pick / create tags**: Use the Tags API to find tag UUIDs to attach to the post.
 - **Create or update posts**: Use the Posts API examples above to draft, schedule, or update posts across multiple accounts, attaching media and tags as needed.
+- **Pair with workspace drafts**: Read approved copy from `workspace/drafts/social/.../post-bundle.md` or captions files, and `workspace/drafts/linkedin/.../teaser.md` for LinkedIn teasers; convert line breaks to `<p>` / `<br>` as required by your HypeEngine payload format.
 

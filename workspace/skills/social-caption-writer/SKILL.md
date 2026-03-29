@@ -19,7 +19,7 @@ metadata: {"clawdbot":{"emoji":"✍️"},"openclaw":{"emoji":"✍️"}}
 
 ## Credentials & API (qf-style)
 
-- **None:** Copy-only artifacts. **Posting** uses **`social-media-manager`** + channel or API setup from **`workspace/INTEGRATIONS.md`**.
+- **None:** Copy-only artifacts. **Posting** for **`twitter_x`** and **`linkedin_feed`** goes **`social-media-manager`** → **`hype-engine`** (HypeEngine Posts API; config `~/.config/hype-engine/`). Other platforms: **`INTEGRATIONS.md`** or OpenClaw channels per **`TOOLS.md`**.
 
 ## High-level Workflow
 

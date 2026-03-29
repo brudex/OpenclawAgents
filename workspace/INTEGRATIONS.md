@@ -14,6 +14,9 @@ Suggested layout (create on server):
 ~/.config/meta_ads/access_token       # Meta Marketing API (long-lived)
 ~/.config/google_ads/refresh_token   # Google Ads OAuth (or use gcloud ADC)
 ~/.config/tiktok/                     # TikTok for Business tokens if available
+~/.config/hype-engine/api_key         # HypeEngine / Mixpost — Bearer token
+~/.config/hype-engine/project_uuid
+~/.config/hype-engine/base_url
 ```
 
 Environment variables (alternative to files — set in `~/.openclaw/.env` or systemd):
@@ -30,9 +33,13 @@ Environment variables (alternative to files — set in `~/.openclaw/.env` or sys
 | `TIKTOK_ACCESS_TOKEN` | TikTok Marketing / Content API when eligible |
 | `OPENAI_API_KEY`, `FAL_KEY`, `GEMINI_API_KEY` | Image/video generation tools |
 
+## HypeEngine (Twitter/X + LinkedIn posts)
+
+This workspace routes **approved** **Twitter/X** and **LinkedIn feed** publishing through the **`hype-engine`** skill when configured. Files: `~/.config/hype-engine/api_key`, `project_uuid`, `base_url`. See **`skills/hype-engine/SKILL.md`** for Accounts, Media, Tags, and Posts `curl` examples.
+
 ## OpenClaw channels (preferred when available)
 
-If **`~/.openclaw/openclaw.json`** already defines **Telegram, Discord, LinkedIn, etc.**, prefer **channel tools** for publish/read instead of raw curl. Skills should say: “use configured channel” first, curl second.
+If **`~/.openclaw/openclaw.json`** defines **Telegram, Discord**, etc., use **channel tools** where the team uses them. For **X + LinkedIn feed**, default to **`hype-engine`** unless **`USER.md` / `TOOLS.md`** says otherwise. For direct LinkedIn API without HypeEngine, use **`~/.config/linkedin/`** or env vars in this doc.
 
 ## Example: QuizFactor (with Bearer)
 
