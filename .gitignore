@@ -39,3 +39,5 @@ tmp/
 temp/
 .notion_api_key
 .sensitive
+workspace/.git
+workspace/.gitignore
