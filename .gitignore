@@ -41,3 +41,17 @@ temp/
 .sensitive
 workspace/.git
 workspace/.gitignore
+# Ignore internal Git metadata if you haven't deleted it yet
+workspace/.git/
+
+# Ignore common dependency and environment files inside workspace
+workspace/node_modules/
+workspace/venv/
+workspace/.env
+workspace/dist/
+workspace/build/
+
+# Ignore OS-specific files
+workspace/.DS_Store
+workspace/Thumbs.db
+workspace/.git_bck
