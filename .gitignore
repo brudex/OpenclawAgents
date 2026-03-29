@@ -1,0 +1,41 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Secrets and credentials (Google OAuth, service accounts, etc.)
+client_secret*.json
+*credentials*.json
+token.json
+token.pickle
+*.pem
+*.key
+
+# Local auth / API keys (OpenClaw)
+auth-profiles.json
+
+# OpenClaw config often contains tokens; track a sanitized openclaw.example.json if needed
+openclaw.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Python / Node
+__pycache__/
+*.py[cod]
+node_modules/
+dist/
+build/
+*.egg-info/
+
+# Logs and temp
+*.log
+tmp/
+temp/
+.notion_api_key
+.sensitive

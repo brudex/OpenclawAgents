@@ -1,0 +1,2852 @@
+{
+	"info": {
+		"_postman_id": "3cc4c513-4d06-41f0-844a-82081f63ae2b",
+		"name": "HypeEngine API v1",
+		"description": "Complete API collection for HypeEngine API v1 endpoints. All endpoints require Bearer token authentication.\n\n## Authentication\n\nAll requests require an `Authorization` header with a Bearer token:\n```\nAuthorization: Bearer <your-access-token>\n```\n\n## Base URL\n\nSet the `base_url` variable to your Mixpost instance URL (e.g., `http://localhost:3000` or `https://your-domain.com`).\n\n## Variables\n\n- `base_url`: Your Mixpost instance base URL\n- `project_uuid`: Project UUID for testing\n- `access_token`: Your API access token (Bearer token)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Projects",
+			"item": [
+				{
+					"name": "List Projects",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/projects",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"projects"
+							]
+						},
+						"description": "Retrieve a list of all projects for the authenticated user."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v1/projects",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"projects"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"uuid\": \"18eee8fe-acea-4553-97e0-9db25f7f742b\",\n            \"name\": \"My Project\",\n            \"description\": \"Project description\",\n            \"image_url\": \"/uploads/projects/image.jpg\",\n            \"accounts\": [\n                {\n                    \"uuid\": \"7be42d53-a784-43be-81d2-87daef160b93\",\n                    \"name\": \"Twitter Account 1\",\n                    \"username\": \"twitter_user_1\",\n                    \"provider\": \"twitter\",\n                    \"provider_id\": \"1234567890\",\n                    \"authorized\": true,\n                    \"image\": \"https://via.placeholder.com/150?text=Twitter1\",\n                    \"created_at\": \"2025-12-30T01:53:33.889Z\"\n                }\n            ],\n            \"created_at\": \"2025-12-30T01:53:33.889Z\",\n            \"updated_at\": \"2025-12-30T01:53:33.889Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Project",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/projects/:project_uuid",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"projects",
+								":project_uuid"
+							],
+							"variable": [
+								{
+									"key": "project_uuid",
+									"value": "18eee8fe-acea-4553-97e0-9db25f7f742b",
+									"description": "Project UUID"
+								}
+							]
+						},
+						"description": "Retrieve details of a specific project."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v1/projects/:project_uuid",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"projects",
+										":project_uuid"
+									],
+									"variable": [
+										{
+											"key": "project_uuid",
+											"value": "18eee8fe-acea-4553-97e0-9db25f7f742b",
+											"description": "Project UUID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"uuid\": \"18eee8fe-acea-4553-97e0-9db25f7f742b\",\n        \"name\": \"My Project\",\n        \"description\": \"Project description\",\n        \"image_url\": \"/uploads/projects/image.jpg\",\n        \"accounts\": [\n            {\n                \"uuid\": \"7be42d53-a784-43be-81d2-87daef160b93\",\n                \"name\": \"Twitter Account 1\",\n                \"username\": \"twitter_user_1\",\n                \"provider\": \"twitter\",\n                \"provider_id\": \"1234567890\",\n                \"authorized\": true,\n                \"image\": \"https://via.placeholder.com/150?text=Twitter1\",\n                \"created_at\": \"2025-12-30T01:53:33.889Z\"\n            },\n            {\n                \"uuid\": \"bf0d77d0-71bf-4ced-9472-87ac4acb3f7e\",\n                \"name\": \"Facebook Page 1\",\n                \"username\": \"facebook_page_1\",\n                \"provider\": \"facebook\",\n                \"provider_id\": \"111222333444\",\n                \"authorized\": true,\n                \"image\": \"https://via.placeholder.com/150?text=Facebook1\",\n                \"created_at\": \"2025-12-30T01:53:33.889Z\"\n            }\n        ],\n        \"created_at\": \"2025-12-30T01:53:33.889Z\",\n        \"updated_at\": \"2025-12-30T01:53:33.889Z\"\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "Endpoints for managing projects."
+		},
+		{
+			"name": "Accounts",
+			"item": [
+				{
+					"name": "List Accounts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "hypengn-bb9ac737e0f9267c61494dcc932360f8627dc238c35e739d58bbae0a57ca6420",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/{{project_uuid}}/accounts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"{{project_uuid}}",
+								"accounts"
+							]
+						},
+						"description": "Retrieve a list of all accounts for a specific project."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v1/{{project_uuid}}/accounts",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"{{project_uuid}}",
+										"accounts"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"897-iC2C4KYKorO7f04Vc/KvmtB1PAk\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "x-session-id=s%3AwWGrrzY7P8rhoDVuY5DixiVDxRh5Z2xu.S6PmYgYwzNaw6pna6jO7YIuDcz9yM6zwVz%2BGfCJn4Rs; Path=/; Expires=Tue, 13 Jan 2026 01:05:53 GMT; HttpOnly; SameSite=Strict"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 01:05:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"uuid\": \"7be42d53-a784-43be-81d2-87daef160b93\",\n            \"name\": \"Twitter Account 1\",\n            \"username\": \"twitter_user_1\",\n            \"provider\": \"twitter\",\n            \"provider_id\": \"1234567890\",\n            \"authorized\": true,\n            \"image\": \"https://via.placeholder.com/150?text=Twitter1\",\n            \"created_at\": \"2025-12-30T01:53:33.889Z\"\n        },\n        {\n            \"uuid\": \"bf0d77d0-71bf-4ced-9472-87ac4acb3f7e\",\n            \"name\": \"Twitter Account 2\",\n            \"username\": \"twitter_user_2\",\n            \"provider\": \"twitter\",\n            \"provider_id\": \"0987654321\",\n            \"authorized\": true,\n            \"image\": \"https://via.placeholder.com/150?text=Twitter2\",\n            \"created_at\": \"2025-12-30T01:53:33.889Z\"\n        },\n        {\n            \"uuid\": \"4f3a798b-690d-40da-9783-780fa19e7797\",\n            \"name\": \"Facebook Page 1\",\n            \"username\": \"facebook_page_1\",\n            \"provider\": \"facebook\",\n            \"provider_id\": \"111222333444\",\n            \"authorized\": true,\n            \"image\": \"https://via.placeholder.com/150?text=Facebook1\",\n            \"created_at\": \"2025-12-30T01:53:33.889Z\"\n        },\n        {\n            \"uuid\": \"2bb071f4-c923-4e35-8581-9a85875f0a83\",\n            \"name\": \"Facebook Page 2\",\n            \"username\": \"facebook_page_2\",\n            \"provider\": \"facebook\",\n            \"provider_id\": \"555666777888\",\n            \"authorized\": true,\n            \"image\": \"https://via.placeholder.com/150?text=Facebook2\",\n            \"created_at\": \"2025-12-30T01:53:33.889Z\"\n        },\n        {\n            \"uuid\": \"0de15221-f956-46ea-a76b-ce729e8116c5\",\n            \"name\": \"Instagram Account 1\",\n            \"username\": \"instagram_user_1\",\n            \"provider\": \"instagram\",\n            \"provider_id\": \"ig_123456789\",\n            \"authorized\": true,\n            \"image\": \"https://via.placeholder.com/150?text=Instagram1\",\n            \"created_at\": \"2025-12-30T01:53:33.889Z\"\n        },\n        {\n            \"uuid\": \"81e4d85c-e6d1-49ea-b842-52a3dff5827f\",\n            \"name\": \"Instagram Account 2\",\n            \"username\": \"instagram_user_2\",\n            \"provider\": \"instagram\",\n            \"provider_id\": \"ig_987654321\",\n            \"authorized\": true,\n            \"image\": \"https://via.placeholder.com/150?text=Instagram2\",\n            \"created_at\": \"2025-12-30T01:53:33.889Z\"\n        },\n        {\n            \"uuid\": \"6c0b53ed-18bf-4ae6-81c5-a9edc436c336\",\n            \"name\": \"LinkedIn Company Page 1\",\n            \"username\": \"linkedin_company_1\",\n            \"provider\": \"linkedin\",\n            \"provider_id\": \"li_123456789\",\n            \"authorized\": true,\n            \"image\": \"https://via.placeholder.com/150?text=LinkedIn1\",\n            \"created_at\": \"2025-12-30T01:53:33.889Z\"\n        },\n        {\n            \"uuid\": \"cf8f7da6-b33c-411b-b2f5-509f248469d4\",\n            \"name\": \"LinkedIn Company Page 2\",\n            \"username\": \"linkedin_company_2\",\n            \"provider\": \"linkedin\",\n            \"provider_id\": \"li_987654321\",\n            \"authorized\": true,\n            \"image\": \"https://via.placeholder.com/150?text=LinkedIn2\",\n            \"created_at\": \"2025-12-30T01:53:33.889Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Account",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/{{project_uuid}}/accounts/:account_uuid",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"{{project_uuid}}",
+								"accounts",
+								":account_uuid"
+							],
+							"variable": [
+								{
+									"key": "account_uuid",
+									"value": "7be42d53-a784-43be-81d2-87daef160b93",
+									"description": "Account UUID"
+								}
+							]
+						},
+						"description": "Retrieve details of a specific account."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v1/{{project_uuid}}/accounts/:account_uuid",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"{{project_uuid}}",
+										"accounts",
+										":account_uuid"
+									],
+									"variable": [
+										{
+											"key": "account_uuid",
+											"value": "7be42d53-a784-43be-81d2-87daef160b93",
+											"description": "Account UUID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "288"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"120-1h5tH0vHCHDz5lIPadA12DbeKrE\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "x-session-id=s%3AMYG7litmgJi4j37s395ZTNmEbMmHNz18.cuQxSgPRO8tAeDoCaYVowVvvNIJ0vSRI5pUcvZ%2Bs5wE; Path=/; Expires=Tue, 13 Jan 2026 01:13:15 GMT; HttpOnly; SameSite=Strict"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 01:13:15 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"uuid\": \"7be42d53-a784-43be-81d2-87daef160b93\",\n        \"name\": \"Twitter Account 1\",\n        \"username\": \"twitter_user_1\",\n        \"provider\": \"twitter\",\n        \"provider_id\": \"1234567890\",\n        \"authorized\": true,\n        \"image\": \"https://via.placeholder.com/150?text=Twitter1\",\n        \"created_at\": \"2025-12-30T01:53:33.889Z\"\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "Endpoints for managing social media accounts."
+		},
+		{
+			"name": "Media",
+			"item": [
+				{
+					"name": "List Media",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/media?page=1&limit=20",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"media"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Page number (default: 1)"
+								},
+								{
+									"key": "limit",
+									"value": "20",
+									"description": "Items per page (default: 20)"
+								}
+							]
+						},
+						"description": "Retrieve a paginated list of media files."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v1/media?page=1&limit=20",
+									"host": [
+										"{{base_url}}"
+									],
+							"path": [
+								"api",
+								"v1",
+								"media"
+							],
+									"query": [
+										{
+											"key": "page",
+											"value": "1",
+											"description": "Page number (default: 1)"
+										},
+										{
+											"key": "limit",
+											"value": "20",
+											"description": "Items per page (default: 20)"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6c4-1DSddyZtUODfo4FlB8bJdkdh97M\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "x-session-id=s%3AMYG7litmgJi4j37s395ZTNmEbMmHNz18.cuQxSgPRO8tAeDoCaYVowVvvNIJ0vSRI5pUcvZ%2Bs5wE; Path=/; Expires=Tue, 13 Jan 2026 01:14:11 GMT; HttpOnly; SameSite=Strict"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 01:14:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"uuid\": \"36a98757-1909-4c6c-b6b5-1f2f5c71ba39\",\n            \"name\": \"Screenshot 2025-12-18 at 5.25.28â\\u0080¯PM.png\",\n            \"mime_type\": \"image/png\",\n            \"url\": \"/uploads/18eee8fe-acea-4553-97e0-9db25f7f742b/743e5a3e-67c7-4793-9536-8d58d1ed82d1.png\",\n            \"thumb_url\": null,\n            \"size\": \"1844194\",\n            \"created_at\": \"2025-12-27T01:53:15.501Z\",\n            \"updated_at\": \"2025-12-27T01:53:15.501Z\"\n        },\n        {\n            \"uuid\": \"877203be-fe95-4d04-b114-7bf423304993\",\n            \"name\": \"Screenshot 2025-12-18 at 5.26.52â\\u0080¯PM.png\",\n            \"mime_type\": \"image/png\",\n            \"url\": \"/uploads/18eee8fe-acea-4553-97e0-9db25f7f742b/607750bf-5a3e-4454-bd4c-b1fbec754527.png\",\n            \"thumb_url\": null,\n            \"size\": \"1590885\",\n            \"created_at\": \"2025-12-27T01:51:50.631Z\",\n            \"updated_at\": \"2025-12-27T01:51:50.631Z\"\n        },\n        {\n            \"uuid\": \"494430b7-4e43-4b1e-8b97-e1d70b06264d\",\n            \"name\": \"Screenshot 2025-12-18 at 5.26.32â\\u0080¯PM.png\",\n            \"mime_type\": \"image/png\",\n            \"url\": \"/uploads/18eee8fe-acea-4553-97e0-9db25f7f742b/e0c432fe-4516-4265-8ea8-72d3e5eebbbd.png\",\n            \"thumb_url\": null,\n            \"size\": \"1566368\",\n            \"created_at\": \"2025-12-26T12:13:22.527Z\",\n            \"updated_at\": \"2025-12-26T12:13:22.527Z\"\n        },\n        {\n            \"uuid\": \"b937d003-6a9b-4cf2-9560-9b819513f883\",\n            \"name\": \"Screenshot 2025-12-18 at 5.19.59â\\u0080¯PM.png\",\n            \"mime_type\": \"image/png\",\n            \"url\": \"/uploads/18eee8fe-acea-4553-97e0-9db25f7f742b/57a6f487-6246-4029-87df-a67eb8b07741.png\",\n            \"thumb_url\": null,\n            \"size\": \"688400\",\n            \"created_at\": \"2025-12-26T12:13:13.225Z\",\n            \"updated_at\": \"2025-12-26T12:13:13.225Z\"\n        },\n        {\n            \"uuid\": \"88dad186-42a8-45be-95f4-1be5e6355111\",\n            \"name\": \"App Icon - sample 4.png\",\n            \"mime_type\": \"image/png\",\n            \"url\": \"/uploads/18eee8fe-acea-4553-97e0-9db25f7f742b/35208c92-deaf-4cac-b8a3-4a3b703c6c7b.png\",\n            \"thumb_url\": null,\n            \"size\": \"18204\",\n            \"created_at\": \"2025-12-15T21:45:56.396Z\",\n            \"updated_at\": \"2025-12-15T21:45:56.396Z\"\n        }\n    ],\n    \"meta\": {\n        \"total\": 5,\n        \"page\": 1,\n        \"per_page\": 20,\n        \"last_page\": 1\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Media",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/media/:media_uuid",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"media",
+								":media_uuid"
+							],
+							"variable": [
+								{
+									"key": "media_uuid",
+									"value": "36a98757-1909-4c6c-b6b5-1f2f5c71ba39",
+									"description": "Media UUID"
+								}
+							]
+						},
+						"description": "Retrieve details of a specific media file."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v1/media/:media_uuid",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"media",
+										":media_uuid"
+									],
+									"variable": [
+										{
+											"key": "media_uuid",
+											"value": "36a98757-1909-4c6c-b6b5-1f2f5c71ba39",
+											"description": "Media UUID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "358"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"166-3o4RO7OzqxIt4/KkExA/bqsQLts\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "x-session-id=s%3AMYG7litmgJi4j37s395ZTNmEbMmHNz18.cuQxSgPRO8tAeDoCaYVowVvvNIJ0vSRI5pUcvZ%2Bs5wE; Path=/; Expires=Tue, 13 Jan 2026 01:16:55 GMT; HttpOnly; SameSite=Strict"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 01:16:55 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"uuid\": \"36a98757-1909-4c6c-b6b5-1f2f5c71ba39\",\n        \"name\": \"Screenshot 2025-12-18 at 5.25.28â\\u0080¯PM.png\",\n        \"mime_type\": \"image/png\",\n        \"url\": \"/uploads/18eee8fe-acea-4553-97e0-9db25f7f742b/743e5a3e-67c7-4793-9536-8d58d1ed82d1.png\",\n        \"thumb_url\": null,\n        \"size\": \"1844194\",\n        \"created_at\": \"2025-12-27T01:53:15.501Z\",\n        \"updated_at\": \"2025-12-27T01:53:15.501Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Upload Media",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"description": "Media file to upload (image or video)",
+									"type": "file",
+									"src": "/Users/nana/Desktop/Screenshot 2026-01-05 at 5.00.11 PM.png"
+								},
+								{
+									"key": "name",
+									"value": "",
+									"description": "Optional: Custom name for the media file",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/media",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"{{project_uuid}}",
+								"media"
+							]
+						},
+						"description": "Upload a media file (image or video) to the media library. Supported formats: JPEG, PNG, GIF, MP4, MOV. Maximum file size: 50MB."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"description": "Media file to upload (image or video)",
+											"type": "file",
+											"src": "/Users/nana/Desktop/Screenshot 2026-01-05 at 5.00.11 PM.png"
+										},
+										{
+											"key": "name",
+											"value": "",
+											"description": "Optional: Custom name for the media file",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/media",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"{{project_uuid}}",
+										"media"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "307"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"133-aL9xKJoMq9D8wC85RmqjFAqYocc\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "x-session-id=s%3AMYG7litmgJi4j37s395ZTNmEbMmHNz18.cuQxSgPRO8tAeDoCaYVowVvvNIJ0vSRI5pUcvZ%2Bs5wE; Path=/; Expires=Tue, 13 Jan 2026 01:18:50 GMT; HttpOnly; SameSite=Strict"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 01:18:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"uuid\": \"d36209fc-435e-4de7-9577-d3a00f891157\",\n        \"name\": \"Screenshot 2026-01-05 at 5.00.11\\u202fPM.png\",\n        \"mime_type\": \"image/png\",\n        \"url\": \"/uploads/18eee8fe-acea-4553-97e0-9db25f7f742b/289095f0-f4ce-45de-8036-b07972023c29.png\",\n        \"size\": \"173125\",\n        \"created_at\": \"2026-01-12T01:18:50.509Z\"\n    },\n    \"count\": 1\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Media",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Updated Media Name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/media/:media_uuid",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"media",
+								":media_uuid"
+							],
+							"variable": [
+								{
+									"key": "media_uuid",
+									"value": "88dad186-42a8-45be-95f4-1be5e6355111",
+									"description": "Media UUID"
+								}
+							]
+						},
+						"description": "Update metadata for a media file (e.g., name)."
+					},
+					"response": [
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Updated Media Name\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/media/:media_uuid",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"media",
+										":media_uuid"
+									],
+									"variable": [
+										{
+											"key": "media_uuid",
+											"value": "d36209fc-435e-4de7-9577-d3a00f891157",
+											"description": "Media UUID"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "70"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"46-Fe6PYBLr1pXtaU9PZjXp47K6kJs\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "x-session-id=s%3AFGtdiFgqUh0D6PLJR9wuAyHwTlMdFueV.agP4%2BK4NIQu%2FSCmUwBUr53WRHi9Wxo7BY%2BL2ygMsFO0; Path=/; Expires=Tue, 13 Jan 2026 12:46:17 GMT; HttpOnly; SameSite=Strict"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 12:46:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"error\": \"Not Found\",\n    \"message\": \"Media file not found\"\n}"
+						},
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Updated Media Name\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/media/:media_uuid",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"media",
+										":media_uuid"
+									],
+									"variable": [
+										{
+											"key": "media_uuid",
+											"value": "88dad186-42a8-45be-95f4-1be5e6355111",
+											"description": "Media UUID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "330"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"14a-B5OH+If+zJeo+Bh3DZlbTUSQCK0\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "x-session-id=s%3AFGtdiFgqUh0D6PLJR9wuAyHwTlMdFueV.agP4%2BK4NIQu%2FSCmUwBUr53WRHi9Wxo7BY%2BL2ygMsFO0; Path=/; Expires=Tue, 13 Jan 2026 12:48:52 GMT; HttpOnly; SameSite=Strict"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 12:48:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"uuid\": \"88dad186-42a8-45be-95f4-1be5e6355111\",\n        \"name\": \"Updated Media Name\",\n        \"mime_type\": \"image/png\",\n        \"url\": \"/uploads/18eee8fe-acea-4553-97e0-9db25f7f742b/35208c92-deaf-4cac-b8a3-4a3b703c6c7b.png\",\n        \"thumb_url\": null,\n        \"size\": \"18204\",\n        \"created_at\": \"2025-12-15T21:45:56.396Z\",\n        \"updated_at\": \"2026-01-12T12:48:52.431Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Media",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/media/:media_uuid",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"media",
+								":media_uuid"
+							],
+							"variable": [
+								{
+									"key": "media_uuid",
+									"value": "d36209fc-435e-4de7-9577-d3a00f891157",
+									"description": "Media UUID"
+								}
+							]
+						},
+						"description": "Permanently delete a media file. This action cannot be undone."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v1/media/:media_uuid",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"media",
+										":media_uuid"
+									],
+									"variable": [
+										{
+											"key": "media_uuid",
+											"value": "d36209fc-435e-4de7-9577-d3a00f891157",
+											"description": "Media UUID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "60"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3c-Qitd6HpK1Etxoi9vAxnWKzdf9lY\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "x-session-id=s%3AB9q_9H5UUjhomGjmGapeM-Z6KdU46lMf.vQM5ZX0o6sdTvbcWAiSPmolCcVwKp2Ft4J%2FwNdGC1Ok; Path=/; Expires=Tue, 13 Jan 2026 01:35:17 GMT; HttpOnly; SameSite=Strict"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 01:35:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Media file deleted successfully\"\n}"
+						}
+					]
+				}
+			],
+			"description": "Endpoints for managing media files (images and videos)."
+		},
+		{
+			"name": "Tags",
+			"item": [
+				{
+					"name": "List Tags",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/{{project_uuid}}/tags",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"{{project_uuid}}",
+								"tags"
+							]
+						},
+						"description": "Retrieve a list of all tags for a project."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v1/{{project_uuid}}/tags",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"{{project_uuid}}",
+										"tags"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"7c4-bYR8HGXHy+zsjPYbQttT9ND2jw8\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "x-session-id=s%3AB9q_9H5UUjhomGjmGapeM-Z6KdU46lMf.vQM5ZX0o6sdTvbcWAiSPmolCcVwKp2Ft4J%2FwNdGC1Ok; Path=/; Expires=Tue, 13 Jan 2026 01:36:53 GMT; HttpOnly; SameSite=Strict"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 01:36:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"uuid\": \"b70e03da-23b0-478a-92e7-89d64ef35362\",\n            \"name\": \"john\",\n            \"hex_color\": \"e879f9\",\n            \"created_at\": \"2025-12-26T15:37:16.732Z\",\n            \"updated_at\": \"2025-12-26T15:37:16.732Z\"\n        },\n        {\n            \"uuid\": \"f6b90d39-c5e4-4773-a039-1193be921ba0\",\n            \"name\": \"greennn\",\n            \"hex_color\": \"818cf8\",\n            \"created_at\": \"2025-12-26T15:29:37.524Z\",\n            \"updated_at\": \"2025-12-26T15:29:37.524Z\"\n        },\n        {\n            \"uuid\": \"50e938cf-c19e-4de8-b4c5-8d9e3e09d667\",\n            \"name\": \"green\",\n            \"hex_color\": \"c084fc\",\n            \"created_at\": \"2025-12-26T15:29:09.850Z\",\n            \"updated_at\": \"2025-12-26T15:29:09.850Z\"\n        },\n        {\n            \"uuid\": \"5a2fc274-4df8-4c70-a96d-f275b4f8a07a\",\n            \"name\": \"blue\",\n            \"hex_color\": \"0891b2\",\n            \"created_at\": \"2025-12-26T15:29:01.256Z\",\n            \"updated_at\": \"2025-12-26T15:29:01.256Z\"\n        },\n        {\n            \"uuid\": \"4d6a8ca9-5685-41f5-b7bb-ea444661a1cd\",\n            \"name\": \"taggg\",\n            \"hex_color\": \"2dd4bf\",\n            \"created_at\": \"2025-12-26T15:28:48.933Z\",\n            \"updated_at\": \"2025-12-26T15:28:48.933Z\"\n        },\n        {\n            \"uuid\": \"765a8572-eff1-43f8-95a8-bcfecfc88f0e\",\n            \"name\": \"taggg\",\n            \"hex_color\": \"e11923\",\n            \"created_at\": \"2025-12-26T15:22:28.290Z\",\n            \"updated_at\": \"2025-12-26T15:22:28.290Z\"\n        },\n        {\n            \"uuid\": \"1820b656-f378-4d3b-a9fe-85c534928720\",\n            \"name\": \"cr\",\n            \"hex_color\": \"fb923c\",\n            \"created_at\": \"2025-12-26T14:30:36.177Z\",\n            \"updated_at\": \"2025-12-26T14:30:36.177Z\"\n        },\n        {\n            \"uuid\": \"e3d85f88-04c7-41f9-86b7-dd42515bab0c\",\n            \"name\": \"tag3\",\n            \"hex_color\": \"a8a29e\",\n            \"created_at\": \"2025-12-26T14:29:13.104Z\",\n            \"updated_at\": \"2025-12-26T14:29:13.104Z\"\n        },\n        {\n            \"uuid\": \"527863d9-b260-4379-a99e-ddc4c9d30412\",\n            \"name\": \"red\",\n            \"hex_color\": \"34d399\",\n            \"created_at\": \"2025-12-26T14:22:57.655Z\",\n            \"updated_at\": \"2025-12-26T14:22:57.655Z\"\n        },\n        {\n            \"uuid\": \"e300fcab-e656-4a25-b5ed-a1ded2656e19\",\n            \"name\": \"red\",\n            \"hex_color\": \"34d399\",\n            \"created_at\": \"2025-12-26T14:22:52.548Z\",\n            \"updated_at\": \"2025-12-26T14:22:52.548Z\"\n        },\n        {\n            \"uuid\": \"6f8f6b40-f886-4005-b4ba-598580d34486\",\n            \"name\": \"favorites\",\n            \"hex_color\": \"0369a1\",\n            \"created_at\": \"2025-12-26T14:12:56.703Z\",\n            \"updated_at\": \"2025-12-26T14:12:56.703Z\"\n        },\n        {\n            \"uuid\": \"661883ff-c56e-4824-b0c7-6f8395efcf6e\",\n            \"name\": \"tag1\",\n            \"hex_color\": \"60a5fa\",\n            \"created_at\": \"2025-12-26T14:11:03.536Z\",\n            \"updated_at\": \"2025-12-26T14:11:03.536Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Tag",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/{{project_uuid}}/tags/:tag_uuid",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"{{project_uuid}}",
+								"tags",
+								":tag_uuid"
+							],
+							"variable": [
+								{
+									"key": "tag_uuid",
+									"value": "b70e03da-23b0-478a-92e7-89d64ef35362",
+									"description": "Tag UUID"
+								}
+							]
+						},
+						"description": "Retrieve details of a specific tag."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v1/{{project_uuid}}/tags/:tag_uuid",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"{{project_uuid}}",
+										"tags",
+										":tag_uuid"
+									],
+									"variable": [
+										{
+											"key": "tag_uuid",
+											"value": "b70e03da-23b0-478a-92e7-89d64ef35362",
+											"description": "Tag UUID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "186"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ba-8QkYxOy50AqVRMgiZK8hRhE5Xyc\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "x-session-id=s%3AB9q_9H5UUjhomGjmGapeM-Z6KdU46lMf.vQM5ZX0o6sdTvbcWAiSPmolCcVwKp2Ft4J%2FwNdGC1Ok; Path=/; Expires=Tue, 13 Jan 2026 01:44:19 GMT; HttpOnly; SameSite=Strict"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 01:44:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"uuid\": \"b70e03da-23b0-478a-92e7-89d64ef35362\",\n        \"name\": \"john\",\n        \"hex_color\": \"e879f9\",\n        \"created_at\": \"2025-12-26T15:37:16.732Z\",\n        \"updated_at\": \"2025-12-26T15:37:16.732Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Tag",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Tag Name\",\n  \"hex_color\": \"3B82F6\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/{{project_uuid}}/tags",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"{{project_uuid}}",
+								"tags"
+							]
+						},
+						"description": "Create a new tag. The name is required and must be unique within the project."
+					},
+					"response": [
+						{
+							"name": "201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Tag Name\",\n  \"hex_color\": \"3B82F6\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/{{project_uuid}}/tags",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"{{project_uuid}}",
+										"tags"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "196"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c4-FGjGl6Hk7dSNS/achbMOLk6OUoI\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "x-session-id=s%3AKZzUvW34l4SNxf-RapfdtxfXeGGR1YEQ.Q%2Fdrnv9G9EbBVWGmbwWLl2XUcH5p0A%2FOpnmYAL6sAek; Path=/; Expires=Tue, 13 Jan 2026 01:50:05 GMT; HttpOnly; SameSite=Strict"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 01:50:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"uuid\": \"ef84f472-890f-4b59-b7bf-beaa92cca864\",\n        \"name\": \"Marketing11134\",\n        \"hex_color\": \"3B82F6\",\n        \"created_at\": \"2026-01-12T01:50:05.070Z\",\n        \"updated_at\": \"2026-01-12T01:50:05.070Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Tag",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"motivation\",\n  \"hex_color\": \"FF5733\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/{{project_uuid}}/tags/:tag_uuid",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"{{project_uuid}}",
+								"tags",
+								":tag_uuid"
+							],
+							"variable": [
+								{
+									"key": "tag_uuid",
+									"value": "f6b90d39-c5e4-4773-a039-1193be921ba0",
+									"description": "Tag UUID"
+								}
+							]
+						},
+						"description": "Update a tag's name and/or color."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"motivation\",\n  \"hex_color\": \"FF5733\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/{{project_uuid}}/tags/:tag_uuid",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"{{project_uuid}}",
+										"tags",
+										":tag_uuid"
+									],
+									"variable": [
+										{
+											"key": "tag_uuid",
+											"value": "f6b90d39-c5e4-4773-a039-1193be921ba0",
+											"description": "Tag UUID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "192"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c0-h7q5G/YrL5y6exw+sjGXb5l3pYI\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "x-session-id=s%3AKZzUvW34l4SNxf-RapfdtxfXeGGR1YEQ.Q%2Fdrnv9G9EbBVWGmbwWLl2XUcH5p0A%2FOpnmYAL6sAek; Path=/; Expires=Tue, 13 Jan 2026 01:53:47 GMT; HttpOnly; SameSite=Strict"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 01:53:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"uuid\": \"f6b90d39-c5e4-4773-a039-1193be921ba0\",\n        \"name\": \"motivation\",\n        \"hex_color\": \"FF5733\",\n        \"created_at\": \"2025-12-26T15:29:37.524Z\",\n        \"updated_at\": \"2026-01-12T01:53:47.824Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Tag",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/{{project_uuid}}/tags/:tag_uuid",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"{{project_uuid}}",
+								"tags",
+								":tag_uuid"
+							],
+							"variable": [
+								{
+									"key": "tag_uuid",
+									"value": "765a8572-eff1-43f8-95a8-bcfecfc88f0e",
+									"description": "Tag UUID"
+								}
+							]
+						},
+						"description": "Delete a tag from the project."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for managing tags."
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "List Posts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/{{project_uuid}}/posts?status=&page=1&limit=20",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"{{project_uuid}}",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "",
+									"description": "Filter by status: 0 (draft), 1 (scheduled), 2 (published), 3 (failed)"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Page number (default: 1)"
+								},
+								{
+									"key": "limit",
+									"value": "20",
+									"description": "Items per page (default: 20)"
+								}
+							]
+						},
+						"description": "Retrieve a paginated list of posts. Optionally filter by status."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v1/{{project_uuid}}/posts?status=&page=1&limit=20",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"{{project_uuid}}",
+										"posts"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "",
+											"description": "Filter by status: 0 (draft), 1 (scheduled), 2 (published), 3 (failed)"
+										},
+										{
+											"key": "page",
+											"value": "1",
+											"description": "Page number (default: 1)"
+										},
+										{
+											"key": "limit",
+											"value": "20",
+											"description": "Items per page (default: 20)"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2997-1dD0KIs+LgzsfQ3xkCICSWmbVWg\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "x-session-id=s%3AFGtdiFgqUh0D6PLJR9wuAyHwTlMdFueV.agP4%2BK4NIQu%2FSCmUwBUr53WRHi9Wxo7BY%2BL2ygMsFO0; Path=/; Expires=Tue, 13 Jan 2026 13:00:39 GMT; HttpOnly; SameSite=Strict"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 13:00:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"uuid\": \"b38b4a22-096f-4aac-bda1-011e24c5d33e\",\n            \"status\": 2,\n            \"scheduled_at\": \"2026-01-07T11:22:00.000Z\",\n            \"published_at\": null,\n            \"accounts\": [\n                {\n                    \"uuid\": \"7be42d53-a784-43be-81d2-87daef160b93\",\n                    \"name\": \"Twitter Account 1\",\n                    \"username\": \"twitter_user_1\",\n                    \"provider\": \"twitter\"\n                },\n                {\n                    \"uuid\": \"bf0d77d0-71bf-4ced-9472-87ac4acb3f7e\",\n                    \"name\": \"Twitter Account 2\",\n                    \"username\": \"twitter_user_2\",\n                    \"provider\": \"twitter\"\n                },\n                {\n                    \"uuid\": \"0de15221-f956-46ea-a76b-ce729e8116c5\",\n                    \"name\": \"Instagram Account 1\",\n                    \"username\": \"instagram_user_1\",\n                    \"provider\": \"instagram\"\n                },\n                {\n                    \"uuid\": \"81e4d85c-e6d1-49ea-b842-52a3dff5827f\",\n                    \"name\": \"Instagram Account 2\",\n                    \"username\": \"instagram_user_2\",\n                    \"provider\": \"instagram\"\n                }\n            ],\n            \"tags\": [\n                {\n                    \"uuid\": \"1820b656-f378-4d3b-a9fe-85c534928720\",\n                    \"name\": \"cr\",\n                    \"hex_color\": \"fb923c\"\n                },\n                {\n                    \"uuid\": \"4d6a8ca9-5685-41f5-b7bb-ea444661a1cd\",\n                    \"name\": \"taggg\",\n                    \"hex_color\": \"2dd4bf\"\n                },\n                {\n                    \"uuid\": \"50e938cf-c19e-4de8-b4c5-8d9e3e09d667\",\n                    \"name\": \"green\",\n                    \"hex_color\": \"c084fc\"\n                }\n            ],\n            \"versions\": [\n                {\n                    \"account\": null,\n                    \"content\": {\n                        \"body\": \"<p>my original post</p>\",\n                        \"media\": []\n                    },\n                    \"is_original\": true\n                },\n                {\n                    \"account\": {\n                        \"uuid\": \"7be42d53-a784-43be-81d2-87daef160b93\",\n                        \"name\": \"Twitter Account 1\",\n                        \"username\": \"twitter_user_1\",\n                        \"provider\": \"twitter\"\n                    },\n                    \"content\": {\n                        \"body\": \"<p>my twitter post</p>\",\n                        \"media\": []\n                    },\n                    \"is_original\": false\n                },\n                {\n                    \"account\": {\n                        \"uuid\": \"0de15221-f956-46ea-a76b-ce729e8116c5\",\n                        \"name\": \"Instagram Account 1\",\n                        \"username\": \"instagram_user_1\",\n                        \"provider\": \"instagram\"\n                    },\n                    \"content\": {\n                        \"body\": \"<p>my instagram post</p>\",\n                        \"media\": []\n                    },\n                    \"is_original\": false\n                }\n            ],\n            \"created_at\": \"2026-01-07T19:57:40.010Z\",\n            \"updated_at\": \"2026-01-07T19:57:40.010Z\"\n        },\n        {\n            \"uuid\": \"6c5184d7-950d-4f96-b618-9038489f727b\",\n            \"status\": 0,\n            \"scheduled_at\": null,\n            \"published_at\": null,\n            \"accounts\": [\n                {\n                    \"uuid\": \"7be42d53-a784-43be-81d2-87daef160b93\",\n                    \"name\": \"Twitter Account 1\",\n                    \"username\": \"twitter_user_1\",\n                    \"provider\": \"twitter\"\n                },\n                {\n                    \"uuid\": \"bf0d77d0-71bf-4ced-9472-87ac4acb3f7e\",\n                    \"name\": \"Twitter Account 2\",\n                    \"username\": \"twitter_user_2\",\n                    \"provider\": \"twitter\"\n                },\n                {\n                    \"uuid\": \"0de15221-f956-46ea-a76b-ce729e8116c5\",\n                    \"name\": \"Instagram Account 1\",\n                    \"username\": \"instagram_user_1\",\n                    \"provider\": \"instagram\"\n                },\n                {\n                    \"uuid\": \"81e4d85c-e6d1-49ea-b842-52a3dff5827f\",\n                    \"name\": \"Instagram Account 2\",\n                    \"username\": \"instagram_user_2\",\n                    \"provider\": \"instagram\"\n                }\n            ],\n            \"tags\": [\n                {\n                    \"uuid\": \"1820b656-f378-4d3b-a9fe-85c534928720\",\n                    \"name\": \"cr\",\n                    \"hex_color\": \"fb923c\"\n                },\n                {\n                    \"uuid\": \"4d6a8ca9-5685-41f5-b7bb-ea444661a1cd\",\n                    \"name\": \"taggg\",\n                    \"hex_color\": \"2dd4bf\"\n                }\n            ],\n            \"versions\": [\n                {\n                    \"account\": null,\n                    \"content\": {\n                        \"body\": \"<p>the ngigg</p>\",\n                        \"media\": [\n                            \"36a98757-1909-4c6c-b6b5-1f2f5c71ba39\"\n                        ]\n                    },\n                    \"is_original\": true\n                },\n                {\n                    \"account\": {\n                        \"uuid\": \"7be42d53-a784-43be-81d2-87daef160b93\",\n                        \"name\": \"Twitter Account 1\",\n                        \"username\": \"twitter_user_1\",\n                        \"provider\": \"twitter\"\n                    },\n                    \"content\": {\n                        \"body\": \"<p>the ngigg is twitter</p>\",\n                        \"media\": [\n                            \"88dad186-42a8-45be-95f4-1be5e6355111\"\n                        ]\n                    },\n                    \"is_original\": false\n                },\n                {\n                    \"account\": {\n                        \"uuid\": \"0de15221-f956-46ea-a76b-ce729e8116c5\",\n                        \"name\": \"Instagram Account 1\",\n                        \"username\": \"instagram_user_1\",\n                        \"provider\": \"instagram\"\n                    },\n                    \"content\": {\n                        \"body\": \"<p>the ngigg is instagram</p>\",\n                        \"media\": [\n                            \"36a98757-1909-4c6c-b6b5-1f2f5c71ba39\"\n                        ]\n                    },\n                    \"is_original\": false\n                }\n            ],\n            \"created_at\": \"2026-01-01T00:28:59.523Z\",\n            \"updated_at\": \"2026-01-01T00:28:59.523Z\"\n        },\n        {\n            \"uuid\": \"f901ebe1-9bee-43f8-a679-f2fa6dc32974\",\n            \"status\": 1,\n            \"scheduled_at\": \"2025-12-30T11:22:00.000Z\",\n            \"published_at\": null,\n            \"accounts\": [\n                {\n                    \"uuid\": \"7be42d53-a784-43be-81d2-87daef160b93\",\n                    \"name\": \"Twitter Account 1\",\n                    \"username\": \"twitter_user_1\",\n                    \"provider\": \"twitter\"\n                },\n                {\n                    \"uuid\": \"bf0d77d0-71bf-4ced-9472-87ac4acb3f7e\",\n                    \"name\": \"Twitter Account 2\",\n                    \"username\": \"twitter_user_2\",\n                    \"provider\": \"twitter\"\n                },\n                {\n                    \"uuid\": \"0de15221-f956-46ea-a76b-ce729e8116c5\",\n                    \"name\": \"Instagram Account 1\",\n                    \"username\": \"instagram_user_1\",\n                    \"provider\": \"instagram\"\n                },\n                {\n                    \"uuid\": \"81e4d85c-e6d1-49ea-b842-52a3dff5827f\",\n                    \"name\": \"Instagram Account 2\",\n                    \"username\": \"instagram_user_2\",\n                    \"provider\": \"instagram\"\n                }\n            ],\n            \"tags\": [\n                {\n                    \"uuid\": \"1820b656-f378-4d3b-a9fe-85c534928720\",\n                    \"name\": \"cr\",\n                    \"hex_color\": \"fb923c\"\n                },\n                {\n                    \"uuid\": \"4d6a8ca9-5685-41f5-b7bb-ea444661a1cd\",\n                    \"name\": \"taggg\",\n                    \"hex_color\": \"2dd4bf\"\n                }\n            ],\n            \"versions\": [\n                {\n                    \"account\": null,\n                    \"content\": {\n                        \"body\": \"<p>the nigga was a real nigga </p>\",\n                        \"media\": [\n                            \"36a98757-1909-4c6c-b6b5-1f2f5c71ba39\"\n                        ]\n                    },\n                    \"is_original\": true\n                },\n                {\n                    \"account\": {\n                        \"uuid\": \"7be42d53-a784-43be-81d2-87daef160b93\",\n                        \"name\": \"Twitter Account 1\",\n                        \"username\": \"twitter_user_1\",\n                        \"provider\": \"twitter\"\n                    },\n                    \"content\": {\n                        \"body\": \"<p>the ngigg is twitter is owned by Elon</p>\",\n                        \"media\": [\n                            \"88dad186-42a8-45be-95f4-1be5e6355111\"\n                        ]\n                    },\n                    \"is_original\": false\n                },\n                {\n                    \"account\": {\n                        \"uuid\": \"0de15221-f956-46ea-a76b-ce729e8116c5\",\n                        \"name\": \"Instagram Account 1\",\n                        \"username\": \"instagram_user_1\",\n                        \"provider\": \"instagram\"\n                    },\n                    \"content\": {\n                        \"body\": \"<p>the ngigg is instagram is owned by Mark</p>\",\n                        \"media\": [\n                            \"36a98757-1909-4c6c-b6b5-1f2f5c71ba39\"\n                        ]\n                    },\n                    \"is_original\": false\n                }\n            ],\n            \"created_at\": \"2025-12-30T23:01:13.851Z\",\n            \"updated_at\": \"2025-12-30T23:01:13.851Z\"\n        },\n        {\n            \"uuid\": \"bf0d185a-4119-4909-b57d-2f6e928f780d\",\n            \"status\": 1,\n            \"scheduled_at\": \"2025-12-30T02:34:00.000Z\",\n            \"published_at\": null,\n            \"accounts\": [],\n            \"tags\": [],\n            \"versions\": [\n                {\n                    \"account\": null,\n                    \"content\": {\n                        \"body\": \"<p>my original post</p>\",\n                        \"media\": [\n                            \"36a98757-1909-4c6c-b6b5-1f2f5c71ba39\",\n                            \"877203be-fe95-4d04-b114-7bf423304993\"\n                        ]\n                    },\n                    \"is_original\": true\n                },\n                {\n                    \"account\": {\n                        \"uuid\": \"81e4d85c-e6d1-49ea-b842-52a3dff5827f\",\n                        \"name\": \"Instagram Account 2\",\n                        \"username\": \"instagram_user_2\",\n                        \"provider\": \"instagram\"\n                    },\n                    \"content\": {\n                        \"body\": \"<p>my original post orignal instagram</p>\",\n                        \"media\": [\n                            \"36a98757-1909-4c6c-b6b5-1f2f5c71ba39\",\n                            \"877203be-fe95-4d04-b114-7bf423304993\"\n                        ]\n                    },\n                    \"is_original\": false\n                },\n                {\n                    \"account\": {\n                        \"uuid\": \"7be42d53-a784-43be-81d2-87daef160b93\",\n                        \"name\": \"Twitter Account 1\",\n                        \"username\": \"twitter_user_1\",\n                        \"provider\": \"twitter\"\n                    },\n                    \"content\": {\n                        \"body\": \"<p>my original post original twitter</p>\",\n                        \"media\": [\n                            \"36a98757-1909-4c6c-b6b5-1f2f5c71ba39\",\n                            \"877203be-fe95-4d04-b114-7bf423304993\"\n                        ]\n                    },\n                    \"is_original\": false\n                }\n            ],\n            \"created_at\": \"2025-12-30T22:58:12.404Z\",\n            \"updated_at\": \"2025-12-30T22:58:12.404Z\"\n        },\n        {\n            \"uuid\": \"6cab0784-36e8-484e-b06a-07c40106b091\",\n            \"status\": 0,\n            \"scheduled_at\": \"2025-12-30T00:22:00.000Z\",\n            \"published_at\": null,\n            \"accounts\": [\n                {\n                    \"uuid\": \"7be42d53-a784-43be-81d2-87daef160b93\",\n                    \"name\": \"Twitter Account 1\",\n                    \"username\": \"twitter_user_1\",\n                    \"provider\": \"twitter\"\n                },\n                {\n                    \"uuid\": \"81e4d85c-e6d1-49ea-b842-52a3dff5827f\",\n                    \"name\": \"Instagram Account 2\",\n                    \"username\": \"instagram_user_2\",\n                    \"provider\": \"instagram\"\n                },\n                {\n                    \"uuid\": \"6c0b53ed-18bf-4ae6-81c5-a9edc436c336\",\n                    \"name\": \"LinkedIn Company Page 1\",\n                    \"username\": \"linkedin_company_1\",\n                    \"provider\": \"linkedin\"\n                }\n            ],\n            \"tags\": [\n                {\n                    \"uuid\": \"1820b656-f378-4d3b-a9fe-85c534928720\",\n                    \"name\": \"cr\",\n                    \"hex_color\": \"fb923c\"\n                },\n                {\n                    \"uuid\": \"4d6a8ca9-5685-41f5-b7bb-ea444661a1cd\",\n                    \"name\": \"taggg\",\n                    \"hex_color\": \"2dd4bf\"\n                },\n                {\n                    \"uuid\": \"5a2fc274-4df8-4c70-a96d-f275b4f8a07a\",\n                    \"name\": \"blue\",\n                    \"hex_color\": \"0891b2\"\n                }\n            ],\n            \"versions\": [\n                {\n                    \"account\": null,\n                    \"content\": {\n                        \"body\": \"<p>original twitter</p>\",\n                        \"media\": []\n                    },\n                    \"is_original\": true\n                },\n                {\n                    \"account\": null,\n                    \"content\": {\n                        \"body\": \"<p>original twitter</p>\",\n                        \"media\": []\n                    },\n                    \"is_original\": false\n                },\n                {\n                    \"account\": null,\n                    \"content\": {\n                        \"body\": \"<p>original twitter</p>\",\n                        \"media\": []\n                    },\n                    \"is_original\": false\n                }\n            ],\n            \"created_at\": \"2025-12-30T16:37:13.408Z\",\n            \"updated_at\": \"2025-12-30T16:37:13.408Z\"\n        },\n        {\n            \"uuid\": \"c3eb4882-51bf-46db-9bad-bc4c32a4fd9a\",\n            \"status\": 2,\n            \"scheduled_at\": \"2025-12-30T11:33:00.000Z\",\n            \"published_at\": null,\n            \"accounts\": [\n                {\n                    \"uuid\": \"7be42d53-a784-43be-81d2-87daef160b93\",\n                    \"name\": \"Twitter Account 1\",\n                    \"username\": \"twitter_user_1\",\n                    \"provider\": \"twitter\"\n                },\n                {\n                    \"uuid\": \"81e4d85c-e6d1-49ea-b842-52a3dff5827f\",\n                    \"name\": \"Instagram Account 2\",\n                    \"username\": \"instagram_user_2\",\n                    \"provider\": \"instagram\"\n                },\n                {\n                    \"uuid\": \"6c0b53ed-18bf-4ae6-81c5-a9edc436c336\",\n                    \"name\": \"LinkedIn Company Page 1\",\n                    \"username\": \"linkedin_company_1\",\n                    \"provider\": \"linkedin\"\n                }\n            ],\n            \"tags\": [\n                {\n                    \"uuid\": \"e3d85f88-04c7-41f9-86b7-dd42515bab0c\",\n                    \"name\": \"tag3\",\n                    \"hex_color\": \"a8a29e\"\n                },\n                {\n                    \"uuid\": \"1820b656-f378-4d3b-a9fe-85c534928720\",\n                    \"name\": \"cr\",\n                    \"hex_color\": \"fb923c\"\n                },\n                {\n                    \"uuid\": \"4d6a8ca9-5685-41f5-b7bb-ea444661a1cd\",\n                    \"name\": \"taggg\",\n                    \"hex_color\": \"2dd4bf\"\n                }\n            ],\n            \"versions\": [\n                {\n                    \"account\": null,\n                    \"content\": {\n                        \"body\": \"<p>Original post </p>\",\n                        \"media\": []\n                    },\n                    \"is_original\": true\n                },\n                {\n                    \"account\": {\n                        \"uuid\": \"7be42d53-a784-43be-81d2-87daef160b93\",\n                        \"name\": \"Twitter Account 1\",\n                        \"username\": \"twitter_user_1\",\n                        \"provider\": \"twitter\"\n                    },\n                    \"content\": {\n                        \"body\": \"<p>Original post </p>\",\n                        \"media\": []\n                    },\n                    \"is_original\": false\n                }\n            ],\n            \"created_at\": \"2025-12-30T03:00:27.960Z\",\n            \"updated_at\": \"2025-12-30T03:00:27.960Z\"\n        },\n        {\n            \"uuid\": \"97f4de2e-aba8-4f76-b754-773024202471\",\n            \"status\": 0,\n            \"scheduled_at\": null,\n            \"published_at\": null,\n            \"accounts\": [\n                {\n                    \"uuid\": \"7be42d53-a784-43be-81d2-87daef160b93\",\n                    \"name\": \"Twitter Account 1\",\n                    \"username\": \"twitter_user_1\",\n                    \"provider\": \"twitter\"\n                }\n            ],\n            \"tags\": [\n                {\n                    \"uuid\": \"661883ff-c56e-4824-b0c7-6f8395efcf6e\",\n                    \"name\": \"tag1\",\n                    \"hex_color\": \"60a5fa\"\n                },\n                {\n                    \"uuid\": \"6f8f6b40-f886-4005-b4ba-598580d34486\",\n                    \"name\": \"favorites\",\n                    \"hex_color\": \"0369a1\"\n                },\n                {\n                    \"uuid\": \"e300fcab-e656-4a25-b5ed-a1ded2656e19\",\n                    \"name\": \"red\",\n                    \"hex_color\": \"34d399\"\n                },\n                {\n                    \"uuid\": \"1820b656-f378-4d3b-a9fe-85c534928720\",\n                    \"name\": \"cr\",\n                    \"hex_color\": \"fb923c\"\n                }\n            ],\n            \"versions\": [\n                {\n                    \"account\": null,\n                    \"content\": {\n                        \"body\": \"<p>Orignal post </p>\",\n                        \"media\": [\n                            \"36a98757-1909-4c6c-b6b5-1f2f5c71ba39\"\n                        ]\n                    },\n                    \"is_original\": true\n                },\n                {\n                    \"account\": {\n                        \"uuid\": \"7be42d53-a784-43be-81d2-87daef160b93\",\n                        \"name\": \"Twitter Account 1\",\n                        \"username\": \"twitter_user_1\",\n                        \"provider\": \"twitter\"\n                    },\n                    \"content\": {\n                        \"body\": \"<p>Orignal post twitter</p>\",\n                        \"media\": []\n                    },\n                    \"is_original\": false\n                }\n            ],\n            \"created_at\": \"2025-12-30T02:49:34.176Z\",\n            \"updated_at\": \"2025-12-30T02:49:34.176Z\"\n        },\n        {\n            \"uuid\": \"c5438c50-e23c-4bf8-9cd1-85512b272e68\",\n            \"status\": 2,\n            \"scheduled_at\": \"2025-12-30T11:23:00.000Z\",\n            \"published_at\": null,\n            \"accounts\": [\n                {\n                    \"uuid\": \"7be42d53-a784-43be-81d2-87daef160b93\",\n                    \"name\": \"Twitter Account 1\",\n                    \"username\": \"twitter_user_1\",\n                    \"provider\": \"twitter\"\n                }\n            ],\n            \"tags\": [\n                {\n                    \"uuid\": \"e3d85f88-04c7-41f9-86b7-dd42515bab0c\",\n                    \"name\": \"tag3\",\n                    \"hex_color\": \"a8a29e\"\n                }\n            ],\n            \"versions\": [\n                {\n                    \"account\": null,\n                    \"content\": {\n                        \"body\": \"<p>this is the original post</p>\",\n                        \"media\": [\n                            \"36a98757-1909-4c6c-b6b5-1f2f5c71ba39\"\n                        ]\n                    },\n                    \"is_original\": true\n                },\n                {\n                    \"account\": {\n                        \"uuid\": \"7be42d53-a784-43be-81d2-87daef160b93\",\n                        \"name\": \"Twitter Account 1\",\n                        \"username\": \"twitter_user_1\",\n                        \"provider\": \"twitter\"\n                    },\n                    \"content\": {\n                        \"body\": \"<p>this is the twitter post</p>\",\n                        \"media\": [\n                            \"36a98757-1909-4c6c-b6b5-1f2f5c71ba39\"\n                        ]\n                    },\n                    \"is_original\": false\n                }\n            ],\n            \"created_at\": \"2025-12-30T02:25:27.383Z\",\n            \"updated_at\": \"2025-12-30T02:25:27.383Z\"\n        },\n        {\n            \"uuid\": \"45c27f9b-051d-4de3-8aac-019c53c40b7f\",\n            \"status\": 0,\n            \"scheduled_at\": \"2025-12-30T10:22:00.000Z\",\n            \"published_at\": null,\n            \"accounts\": [],\n            \"tags\": [\n                {\n                    \"uuid\": \"e3d85f88-04c7-41f9-86b7-dd42515bab0c\",\n                    \"name\": \"tag3\",\n                    \"hex_color\": \"a8a29e\"\n                }\n            ],\n            \"versions\": [\n                {\n                    \"account\": null,\n                    \"content\": {\n                        \"body\": \"<p>this is the original post</p>\",\n                        \"media\": [\n                            \"36a98757-1909-4c6c-b6b5-1f2f5c71ba39\"\n                        ]\n                    },\n                    \"is_original\": true\n                },\n                {\n                    \"account\": {\n                        \"uuid\": \"7be42d53-a784-43be-81d2-87daef160b93\",\n                        \"name\": \"Twitter Account 1\",\n                        \"username\": \"twitter_user_1\",\n                        \"provider\": \"twitter\"\n                    },\n                    \"content\": {\n                        \"body\": \"<p>this is the   twitter  post</p>\",\n                        \"media\": [\n                            \"494430b7-4e43-4b1e-8b97-e1d70b06264d\"\n                        ]\n                    },\n                    \"is_original\": false\n                }\n            ],\n            \"created_at\": \"2025-12-30T02:12:04.665Z\",\n            \"updated_at\": \"2025-12-30T02:12:04.665Z\"\n        }\n    ],\n    \"meta\": {\n        \"total\": 9,\n        \"page\": 1,\n        \"per_page\": 20,\n        \"last_page\": 1\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Post",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/{{project_uuid}}/posts/:post_uuid",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"{{project_uuid}}",
+								"posts",
+								":post_uuid"
+							],
+							"variable": [
+								{
+									"key": "post_uuid",
+									"value": "6c5184d7-950d-4f96-b618-9038489f727b",
+									"description": "Post UUID"
+								}
+							]
+						},
+						"description": "Retrieve details of a specific post."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v1/{{project_uuid}}/posts/:post_uuid",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"{{project_uuid}}",
+										"posts",
+										":post_uuid"
+									],
+									"variable": [
+										{
+											"key": "post_uuid",
+											"value": "6c5184d7-950d-4f96-b618-9038489f727b",
+											"description": "Post UUID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"60d-pmrTCeu8q4Hio7V5hTgWVzGvaP8\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "x-session-id=s%3AFGtdiFgqUh0D6PLJR9wuAyHwTlMdFueV.agP4%2BK4NIQu%2FSCmUwBUr53WRHi9Wxo7BY%2BL2ygMsFO0; Path=/; Expires=Tue, 13 Jan 2026 13:01:27 GMT; HttpOnly; SameSite=Strict"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 13:01:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"uuid\": \"6c5184d7-950d-4f96-b618-9038489f727b\",\n        \"status\": 0,\n        \"scheduled_at\": null,\n        \"published_at\": null,\n        \"accounts\": [\n            {\n                \"uuid\": \"7be42d53-a784-43be-81d2-87daef160b93\",\n                \"name\": \"Twitter Account 1\",\n                \"username\": \"twitter_user_1\",\n                \"provider\": \"twitter\"\n            },\n            {\n                \"uuid\": \"bf0d77d0-71bf-4ced-9472-87ac4acb3f7e\",\n                \"name\": \"Twitter Account 2\",\n                \"username\": \"twitter_user_2\",\n                \"provider\": \"twitter\"\n            },\n            {\n                \"uuid\": \"0de15221-f956-46ea-a76b-ce729e8116c5\",\n                \"name\": \"Instagram Account 1\",\n                \"username\": \"instagram_user_1\",\n                \"provider\": \"instagram\"\n            },\n            {\n                \"uuid\": \"81e4d85c-e6d1-49ea-b842-52a3dff5827f\",\n                \"name\": \"Instagram Account 2\",\n                \"username\": \"instagram_user_2\",\n                \"provider\": \"instagram\"\n            }\n        ],\n        \"tags\": [\n            {\n                \"uuid\": \"1820b656-f378-4d3b-a9fe-85c534928720\",\n                \"name\": \"cr\",\n                \"hex_color\": \"fb923c\"\n            },\n            {\n                \"uuid\": \"4d6a8ca9-5685-41f5-b7bb-ea444661a1cd\",\n                \"name\": \"taggg\",\n                \"hex_color\": \"2dd4bf\"\n            }\n        ],\n        \"versions\": [\n            {\n                \"account\": null,\n                \"content\": {\n                    \"body\": \"<p>the ngigg</p>\",\n                    \"media\": [\n                        \"36a98757-1909-4c6c-b6b5-1f2f5c71ba39\"\n                    ]\n                },\n                \"is_original\": true\n            },\n            {\n                \"account\": {\n                    \"uuid\": \"7be42d53-a784-43be-81d2-87daef160b93\",\n                    \"name\": \"Twitter Account 1\",\n                    \"username\": \"twitter_user_1\",\n                    \"provider\": \"twitter\"\n                },\n                \"content\": {\n                    \"body\": \"<p>the ngigg is twitter</p>\",\n                    \"media\": [\n                        \"88dad186-42a8-45be-95f4-1be5e6355111\"\n                    ]\n                },\n                \"is_original\": false\n            },\n            {\n                \"account\": {\n                    \"uuid\": \"0de15221-f956-46ea-a76b-ce729e8116c5\",\n                    \"name\": \"Instagram Account 1\",\n                    \"username\": \"instagram_user_1\",\n                    \"provider\": \"instagram\"\n                },\n                \"content\": {\n                    \"body\": \"<p>the ngigg is instagram</p>\",\n                    \"media\": [\n                        \"36a98757-1909-4c6c-b6b5-1f2f5c71ba39\"\n                    ]\n                },\n                \"is_original\": false\n            }\n        ],\n        \"created_at\": \"2026-01-01T00:28:59.523Z\",\n        \"updated_at\": \"2026-01-01T00:28:59.523Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"versions\": [\n    {\n      \"accountUuid\": \"\",\n      \"original\": true,\n      \"content\": [\n        {\n          \"body\": \"Base content for all accounts\",\n          \"media\": [\n            \"550e8400-e29b-41d4-a716-446655440000\"\n          ]\n        }\n      ]\n    },\n    {\n      \"accountUuid\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"original\": false,\n      \"content\": [\n        {\n          \"body\": \"Custom content for Twitter account\",\n          \"media\": [\n            \"550e8400-e29b-41d4-a716-446655440000\",\n            \"660e8400-e29b-41d4-a716-446655440001\"\n          ]\n        }\n      ]\n    },\n    {\n      \"accountUuid\": \"bf0d77d0-71bf-4ced-9472-87ac4acb3f7e\",\n      \"original\": false,\n      \"content\": [\n        {\n          \"body\": \"Custom content for Facebook account\",\n          \"media\": []\n        }\n      ]\n    }\n  ],\n  \"accountUuids\": [\n    \"7be42d53-a784-43be-81d2-87daef160b93\",\n    \"bf0d77d0-71bf-4ced-9472-87ac4acb3f7e\"\n    ],\n  \"tags\": [\n    \"1820b656-f378-4d3b-a9fe-85c534928720\"\n  ],\n  \"date\": \"2024-12-25\",\n  \"time\": \"14:30\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/{{project_uuid}}/posts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"{{project_uuid}}",
+								"posts"
+							]
+						},
+						"description": "Create a new post. If `scheduled_at` is provided, the post will be scheduled; otherwise, it will be created as a draft.\n\n**Required fields:**\n- `accounts`: Array of account UUIDs (at least one required)\n- `content.body`: Post content in HTML format\n\n**Optional fields:**\n- `content.media`: Array of media UUIDs\n- `content.tags`: Array of tag UUIDs\n- `scheduled_at`: ISO 8601 date string for scheduling"
+					},
+					"response": [
+						{
+							"name": "201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"versions\": [\n    {\n      \"accountUuid\": \"\",\n      \"original\": true,\n      \"content\": [\n        {\n          \"body\": \"Base content for all accounts\",\n          \"media\": [\n            \"550e8400-e29b-41d4-a716-446655440000\"\n          ]\n        }\n      ]\n    },\n    {\n      \"accountUuid\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"original\": false,\n      \"content\": [\n        {\n          \"body\": \"Custom content for Twitter account\",\n          \"media\": [\n            \"550e8400-e29b-41d4-a716-446655440000\",\n            \"660e8400-e29b-41d4-a716-446655440001\"\n          ]\n        }\n      ]\n    },\n    {\n      \"accountUuid\": \"bf0d77d0-71bf-4ced-9472-87ac4acb3f7e\",\n      \"original\": false,\n      \"content\": [\n        {\n          \"body\": \"Custom content for Facebook account\",\n          \"media\": []\n        }\n      ]\n    }\n  ],\n  \"accountUuids\": [\n    \"7be42d53-a784-43be-81d2-87daef160b93\",\n    \"bf0d77d0-71bf-4ced-9472-87ac4acb3f7e\"\n    ],\n  \"tags\": [\n    \"1820b656-f378-4d3b-a9fe-85c534928720\"\n  ],\n  \"date\": \"2024-12-25\",\n  \"time\": \"14:30\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/{{project_uuid}}/posts",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"{{project_uuid}}",
+										"posts"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "948"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3b4-ptPQlK5qdKfJZ7M/2ijlE3Bt8Ec\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "x-session-id=s%3AFGtdiFgqUh0D6PLJR9wuAyHwTlMdFueV.agP4%2BK4NIQu%2FSCmUwBUr53WRHi9Wxo7BY%2BL2ygMsFO0; Path=/; Expires=Tue, 13 Jan 2026 13:16:25 GMT; HttpOnly; SameSite=Strict"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 13:16:25 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"uuid\": \"214f1f35-d4d0-4e1e-8054-1ec1aba4dde9\",\n        \"status\": 1,\n        \"scheduled_at\": \"2024-12-25T14:30:00.000Z\",\n        \"published_at\": null,\n        \"accounts\": [\n            {\n                \"uuid\": \"7be42d53-a784-43be-81d2-87daef160b93\",\n                \"name\": \"Twitter Account 1\",\n                \"username\": \"twitter_user_1\",\n                \"provider\": \"twitter\"\n            },\n            {\n                \"uuid\": \"bf0d77d0-71bf-4ced-9472-87ac4acb3f7e\",\n                \"name\": \"Twitter Account 2\",\n                \"username\": \"twitter_user_2\",\n                \"provider\": \"twitter\"\n            }\n        ],\n        \"tags\": [\n            {\n                \"uuid\": \"1820b656-f378-4d3b-a9fe-85c534928720\",\n                \"name\": \"cr\",\n                \"hex_color\": \"fb923c\"\n            }\n        ],\n        \"versions\": [\n            {\n                \"account\": null,\n                \"content\": {\n                    \"body\": \"Base content for all accounts\",\n                    \"media\": [\n                        \"550e8400-e29b-41d4-a716-446655440000\"\n                    ]\n                },\n                \"is_original\": true\n            },\n            {\n                \"account\": {\n                    \"uuid\": \"bf0d77d0-71bf-4ced-9472-87ac4acb3f7e\",\n                    \"name\": \"Twitter Account 2\",\n                    \"username\": \"twitter_user_2\",\n                    \"provider\": \"twitter\"\n                },\n                \"content\": {\n                    \"body\": \"Custom content for Facebook account\",\n                    \"media\": []\n                },\n                \"is_original\": false\n            }\n        ],\n        \"created_at\": \"2026-01-12T13:16:25.926Z\",\n        \"updated_at\": \"2026-01-12T13:16:25.926Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Post",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"versions\": [\n    {\n      \"accountUuid\": \"\",\n      \"original\": true,\n      \"content\": [\n        {\n          \"body\": \"Updated base content for all accounts\",\n          \"media\": [\n            \"550e8400-e29b-41d4-a716-446655440000\"\n          ]\n        }\n      ]\n    },\n    {\n      \"accountUuid\": \"81e4d85c-e6d1-49ea-b842-52a3dff5827f\",\n      \"original\": false,\n      \"content\": [\n        {\n          \"body\": \"Updated custom content for Twitter account\",\n          \"media\": [\n            \"550e8400-e29b-41d4-a716-446655440000\",\n            \"660e8400-e29b-41d4-a716-446655440001\"\n          ]\n        }\n      ]\n    },\n    {\n      \"accountUuid\": \"0de15221-f956-46ea-a76b-ce729e8116c5\",\n      \"original\": false,\n      \"content\": [\n        {\n          \"body\": \"Updated custom content for Facebook account\",\n          \"media\": []\n        }\n      ]\n    }\n  ],\n  \"accountUuids\": [\n    \"81e4d85c-e6d1-49ea-b842-52a3dff5827f\",\n    \"0de15221-f956-46ea-a76b-ce729e8116c5\"\n  ],\n  \"tags\": [\n    \"b70e03da-23b0-478a-92e7-89d64ef35362\",\n    \"f6b90d39-c5e4-4773-a039-1193be921ba0\"\n  ],\n  \"date\": null,\n  \"time\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/{{project_uuid}}/posts/:post_uuid",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"{{project_uuid}}",
+								"posts",
+								":post_uuid"
+							],
+							"variable": [
+								{
+									"key": "post_uuid",
+									"value": "45c27f9b-051d-4de3-8aac-019c53c40b7f",
+									"description": "Post UUID"
+								}
+							]
+						},
+						"description": "Update an existing post. You can update accounts, content, media, tags, and scheduled time."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"versions\": [\n    {\n      \"accountUuid\": \"\",\n      \"original\": true,\n      \"content\": [\n        {\n          \"body\": \"Updated base content for all accounts\",\n          \"media\": [\n            \"550e8400-e29b-41d4-a716-446655440000\"\n          ]\n        }\n      ]\n    },\n    {\n      \"accountUuid\": \"81e4d85c-e6d1-49ea-b842-52a3dff5827f\",\n      \"original\": false,\n      \"content\": [\n        {\n          \"body\": \"Updated custom content for Twitter account\",\n          \"media\": [\n            \"550e8400-e29b-41d4-a716-446655440000\",\n            \"660e8400-e29b-41d4-a716-446655440001\"\n          ]\n        }\n      ]\n    },\n    {\n      \"accountUuid\": \"0de15221-f956-46ea-a76b-ce729e8116c5\",\n      \"original\": false,\n      \"content\": [\n        {\n          \"body\": \"Updated custom content for Facebook account\",\n          \"media\": []\n        }\n      ]\n    }\n  ],\n  \"accountUuids\": [\n    \"81e4d85c-e6d1-49ea-b842-52a3dff5827f\",\n    \"0de15221-f956-46ea-a76b-ce729e8116c5\"\n  ],\n  \"tags\": [\n    \"b70e03da-23b0-478a-92e7-89d64ef35362\",\n    \"f6b90d39-c5e4-4773-a039-1193be921ba0\"\n  ],\n  \"date\": null,\n  \"time\": null\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/{{project_uuid}}/posts/:post_uuid",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"{{project_uuid}}",
+										"posts",
+										":post_uuid"
+									],
+									"variable": [
+										{
+											"key": "post_uuid",
+											"value": "45c27f9b-051d-4de3-8aac-019c53c40b7f",
+											"description": "Post UUID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"555-3ep4jPZluwKCaq/n6Vi34S1KL7s\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "x-session-id=s%3A9q4rIMu7-4iLVuK2GODSyDhdBQNV-4L3.M8LqCQkWdWOXfrIrQrwtOu9v3WkbVsjCuAlKoG5FWfg; Path=/; Expires=Tue, 13 Jan 2026 13:33:45 GMT; HttpOnly; SameSite=Strict"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 13:33:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"uuid\": \"45c27f9b-051d-4de3-8aac-019c53c40b7f\",\n        \"status\": 0,\n        \"scheduled_at\": null,\n        \"published_at\": null,\n        \"accounts\": [\n            {\n                \"uuid\": \"0de15221-f956-46ea-a76b-ce729e8116c5\",\n                \"name\": \"Instagram Account 1\",\n                \"username\": \"instagram_user_1\",\n                \"provider\": \"instagram\"\n            },\n            {\n                \"uuid\": \"81e4d85c-e6d1-49ea-b842-52a3dff5827f\",\n                \"name\": \"Instagram Account 2\",\n                \"username\": \"instagram_user_2\",\n                \"provider\": \"instagram\"\n            }\n        ],\n        \"tags\": [\n            {\n                \"uuid\": \"b70e03da-23b0-478a-92e7-89d64ef35362\",\n                \"name\": \"john\",\n                \"hex_color\": \"e879f9\"\n            },\n            {\n                \"uuid\": \"f6b90d39-c5e4-4773-a039-1193be921ba0\",\n                \"name\": \"motivation\",\n                \"hex_color\": \"FF5733\"\n            }\n        ],\n        \"versions\": [\n            {\n                \"account\": {\n                    \"uuid\": \"0de15221-f956-46ea-a76b-ce729e8116c5\",\n                    \"name\": \"Instagram Account 1\",\n                    \"username\": \"instagram_user_1\",\n                    \"provider\": \"instagram\"\n                },\n                \"content\": {\n                    \"body\": \"Updated custom content for Facebook account\",\n                    \"media\": []\n                },\n                \"is_original\": false\n            },\n            {\n                \"account\": {\n                    \"uuid\": \"81e4d85c-e6d1-49ea-b842-52a3dff5827f\",\n                    \"name\": \"Instagram Account 2\",\n                    \"username\": \"instagram_user_2\",\n                    \"provider\": \"instagram\"\n                },\n                \"content\": {\n                    \"body\": \"Updated custom content for Twitter account\",\n                    \"media\": [\n                        \"550e8400-e29b-41d4-a716-446655440000\",\n                        \"660e8400-e29b-41d4-a716-446655440001\"\n                    ]\n                },\n                \"is_original\": false\n            },\n            {\n                \"account\": null,\n                \"content\": {\n                    \"body\": \"Updated base content for all accounts\",\n                    \"media\": [\n                        \"550e8400-e29b-41d4-a716-446655440000\"\n                    ]\n                },\n                \"is_original\": true\n            }\n        ],\n        \"created_at\": \"2025-12-30T02:12:04.665Z\",\n        \"updated_at\": \"2026-01-12T13:33:45.815Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Post",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/{{project_uuid}}/posts/:post_uuid",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"{{project_uuid}}",
+								"posts",
+								":post_uuid"
+							],
+							"variable": [
+								{
+									"key": "post_uuid",
+									"value": "c5438c50-e23c-4bf8-9cd1-85512b272e68",
+									"description": "Post UUID"
+								}
+							]
+						},
+						"description": "Permanently delete a post. This action cannot be undone."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v1/{{project_uuid}}/posts/:post_uuid",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"{{project_uuid}}",
+										"posts",
+										":post_uuid"
+									],
+									"variable": [
+										{
+											"key": "post_uuid",
+											"value": "c5438c50-e23c-4bf8-9cd1-85512b272e68",
+											"description": "Post UUID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "54"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"36-h1dHx+ryosXJ0pmTdUm5ZUHD+PA\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "x-session-id=s%3A9q4rIMu7-4iLVuK2GODSyDhdBQNV-4L3.M8LqCQkWdWOXfrIrQrwtOu9v3WkbVsjCuAlKoG5FWfg; Path=/; Expires=Tue, 13 Jan 2026 13:39:25 GMT; HttpOnly; SameSite=Strict"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 13:39:25 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Post deleted successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Multiple Posts",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"posts\": [\n    \"6c5184d7-950d-4f96-b618-9038489f727b\",\n    \"bf0d185a-4119-4909-b57d-2f6e928f780d\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/{{project_uuid}}/posts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"{{project_uuid}}",
+								"posts"
+							]
+						},
+						"description": "Delete multiple posts at once. Provide an array of post UUIDs in the request body."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"posts\": [\n    \"6c5184d7-950d-4f96-b618-9038489f727b\",\n    \"bf0d185a-4119-4909-b57d-2f6e928f780d\"\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/{{project_uuid}}/posts",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"{{project_uuid}}",
+										"posts"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "86"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"56-sQAJkghG/0EMNusNXjrQLc0l3cQ\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "x-session-id=s%3A9q4rIMu7-4iLVuK2GODSyDhdBQNV-4L3.M8LqCQkWdWOXfrIrQrwtOu9v3WkbVsjCuAlKoG5FWfg; Path=/; Expires=Tue, 13 Jan 2026 13:43:40 GMT; HttpOnly; SameSite=Strict"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 13:43:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"2 post(s) deleted successfully\",\n    \"data\": {\n        \"deleted_count\": 2\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Schedule Post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"scheduled_at\": \"2026-01-13T14:30:00Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/{{project_uuid}}/posts/:post_uuid/schedule",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"{{project_uuid}}",
+								"posts",
+								":post_uuid",
+								"schedule"
+							],
+							"variable": [
+								{
+									"key": "post_uuid",
+									"value": "214f1f35-d4d0-4e1e-8054-1ec1aba4dde9",
+									"description": "Post UUID"
+								}
+							]
+						},
+						"description": "Schedule a post to be published at a specific date and time. The scheduled time must be in the future and in ISO 8601 format."
+					},
+					"response": [
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"scheduled_at\": \"2026-01-13T14:30:00Z\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/{{project_uuid}}/posts/:post_uuid/schedule",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"{{project_uuid}}",
+										"posts",
+										":post_uuid",
+										"schedule"
+									],
+									"variable": [
+										{
+											"key": "post_uuid",
+											"value": "14f1f35-d4d0-4e1e-8054-1ec1aba4dde9",
+											"description": "Post UUID"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "64"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"40-gW9I8fIlnXWimIbJ6jyzwjrmhHE\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "x-session-id=s%3A9q4rIMu7-4iLVuK2GODSyDhdBQNV-4L3.M8LqCQkWdWOXfrIrQrwtOu9v3WkbVsjCuAlKoG5FWfg; Path=/; Expires=Tue, 13 Jan 2026 13:47:18 GMT; HttpOnly; SameSite=Strict"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 13:47:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"error\": \"Not Found\",\n    \"message\": \"Post not found\"\n}"
+						},
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"scheduled_at\": \"2026-01-13T14:30:00Z\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/{{project_uuid}}/posts/:post_uuid/schedule",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"{{project_uuid}}",
+										"posts",
+										":post_uuid",
+										"schedule"
+									],
+									"variable": [
+										{
+											"key": "post_uuid",
+											"value": "214f1f35-d4d0-4e1e-8054-1ec1aba4dde9",
+											"description": "Post UUID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "164"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a4-MhmjXwefB+cugi2LZcKKkXLfTro\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "x-session-id=s%3A9q4rIMu7-4iLVuK2GODSyDhdBQNV-4L3.M8LqCQkWdWOXfrIrQrwtOu9v3WkbVsjCuAlKoG5FWfg; Path=/; Expires=Tue, 13 Jan 2026 13:53:21 GMT; HttpOnly; SameSite=Strict"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 13:53:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Post scheduled successfully\",\n    \"data\": {\n        \"uuid\": \"214f1f35-d4d0-4e1e-8054-1ec1aba4dde9\",\n        \"status\": 1,\n        \"scheduled_at\": \"2026-01-13T14:30:00.000Z\"\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "Endpoints for managing social media posts."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000"
+		},
+		{
+			"key": "project_uuid",
+			"value": ""
+		},
+		{
+			"key": "access_token",
+			"value": ""
+		}
+	]
+}

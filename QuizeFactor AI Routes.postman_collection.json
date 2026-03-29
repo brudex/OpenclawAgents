@@ -1,0 +1,2357 @@
+{
+  "info": {
+    "_postman_id": "a2d57e7e-98cf-4683-9ca6-aae7a810309e",
+    "name": "QuizeFactor AI Routes",
+    "description": "Collection of AI-related endpoints for QuizeFactor",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "1501863"
+  },
+  "item": [
+    {
+      "name": "Languages",
+      "item": [
+        {
+          "name": "Get Active Languages",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/ai/languages",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "ai",
+                "languages"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Courses",
+      "item": [
+        {
+          "name": "Get All Courses",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/ai/courses",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "ai",
+                "courses"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get All Courses",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/ai/courses",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "ai",
+                    "courses"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Security-Policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"9ad-JNW2h4o4ORVIkdkxed3ZHY/1ueI\""
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "x-session-id=s%3AcTlX-haujGpKtFzaffvWWDGVnORA7G8-.eWPoH9iwDNML8iQHAQJ%2FawE5fQdDxCFyVwzdemoYmlg; Path=/; Expires=Sat, 14 Mar 2026 22:02:37 GMT; HttpOnly; SameSite=Strict"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Mar 2026 22:02:37 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"00\",\n    \"data\": {\n        \"courseCategories\": [\n            {\n                \"uuid\": \"e75a065e-6047-48a8-ac69-8c4155b67b63\",\n                \"name\": \"Cybersecurity\",\n                \"tagName\": \"cybersecurity\",\n                \"description\": \"Professional certifications in information security and cybersecurity\",\n                \"type\": \"technical\"\n            },\n            {\n                \"uuid\": \"ac0c9721-733f-4034-b0dd-d012e3b38772\",\n                \"name\": \"Cloud Computing\",\n                \"tagName\": \"cloud-computing\",\n                \"description\": \"Cloud platform certifications and cloud architecture expertise\",\n                \"type\": \"technical\"\n            },\n            {\n                \"uuid\": \"004f33cf-1f97-4921-b24d-6c8a196c5b47\",\n                \"name\": \"Data & AI\",\n                \"tagName\": \"data-&-ai\",\n                \"description\": \"Data & AI Certification Courses\",\n                \"type\": \"certification\"\n            }\n        ],\n        \"courses\": [\n            {\n                \"uuid\": \"2525e191-cc02-4d10-bda1-4c35f49f3ba6\",\n                \"title\": \"CompTIA Data+ – CompTIA\",\n                \"description\": \"CompTIA Data+ – CompTIA certification course\",\n                \"level\": \"intermediate\",\n                \"duration\": 40,\n                \"slug\": \"comptia-data-comptia\",\n                \"imageUrl\": null,\n                \"totalQuizzes\": 6,\n                \"categoryUuid\": \"004f33cf-1f97-4921-b24d-6c8a196c5b47\"\n            },\n            {\n                \"uuid\": \"afc012a0-f7b6-45b8-99e7-ca4474f352ad\",\n                \"title\": \"AWS Certified Solutions Architect – Associate – AWS\",\n                \"description\": \"AWS Certified Solutions Architect – Associate – AWS certification course\",\n                \"level\": \"intermediate\",\n                \"duration\": 40,\n                \"slug\": \"aws-certified-solutions-architect-associate-aws\",\n                \"imageUrl\": \"http://localhost:3010/images/courses/afc012a0-f7b6-45b8-99e7-ca4474f352ad.jpg\",\n                \"totalQuizzes\": 1,\n                \"categoryUuid\": \"ac0c9721-733f-4034-b0dd-d012e3b38772\"\n            },\n            {\n                \"uuid\": \"5ddd4b91-071a-4b07-9fb7-b460b2afa55b\",\n                \"title\": \"AWS Certified Solutions Architect\",\n                \"description\": \"Design and deploy scalable systems on AWS\",\n                \"level\": \"intermediate\",\n                \"duration\": 35,\n                \"slug\": \"aws-solutions-architect\",\n                \"imageUrl\": \"http://localhost:3010https://example.com/images/aws-sa.jpg\",\n                \"totalQuizzes\": 3,\n                \"categoryUuid\": \"ac0c9721-733f-4034-b0dd-d012e3b38772\"\n            },\n            {\n                \"uuid\": \"91aac294-83a5-4fd5-a024-cbf5e6f837ca\",\n                \"title\": \"azure-solutions-architect\",\n                \"description\": \"Course description\",\n                \"level\": \"advanced\",\n                \"duration\": 40,\n                \"slug\": \"azure-solutions-architect\",\n                \"imageUrl\": \"http://localhost:3010https://example.com/images/azure-sa.jpg\",\n                \"totalQuizzes\": 3,\n                \"categoryUuid\": \"ac0c9721-733f-4034-b0dd-d012e3b38772\"\n            },\n            {\n                \"uuid\": \"84c25494-8c19-4922-8c32-71f146dace9c\",\n                \"title\": \"Certified Information Systems Security Professional (CISSP)\",\n                \"description\": \"Advanced certification for information security professionals\",\n                \"level\": \"advanced\",\n                \"duration\": 27,\n                \"slug\": \"cissp-certification\",\n                \"imageUrl\": \"http://localhost:3010https://example.com/images/cissp.jpg\",\n                \"totalQuizzes\": 3,\n                \"categoryUuid\": \"e75a065e-6047-48a8-ac69-8c4155b67b63\"\n            }\n        ]\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Course by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/ai/course/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "ai",
+                "course",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "2525e191-cc02-4d10-bda1-4c35f49f3ba6",
+                  "description": "UUID of the course"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get Course by ID",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/ai/course/:id",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "ai",
+                    "course",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "2525e191-cc02-4d10-bda1-4c35f49f3ba6",
+                      "description": "UUID of the course"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Security-Policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"61b-LoEaoVhy0twQKQOGJGPbvXzpDUI\""
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "x-session-id=s%3AcTlX-haujGpKtFzaffvWWDGVnORA7G8-.eWPoH9iwDNML8iQHAQJ%2FawE5fQdDxCFyVwzdemoYmlg; Path=/; Expires=Sat, 14 Mar 2026 22:04:02 GMT; HttpOnly; SameSite=Strict"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Mar 2026 22:04:02 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"00\",\n    \"data\": {\n        \"uuid\": \"2525e191-cc02-4d10-bda1-4c35f49f3ba6\",\n        \"categoryUuid\": \"004f33cf-1f97-4921-b24d-6c8a196c5b47\",\n        \"level\": \"intermediate\",\n        \"duration\": 40,\n        \"slug\": \"comptia-data-comptia\",\n        \"imageUrl\": null,\n        \"isActive\": true,\n        \"totalQuizzes\": 6,\n        \"translations\": [\n            {\n                \"uuid\": \"75791046-d1d4-441a-a50d-e1ffa5e1f16f\",\n                \"courseUuid\": \"2525e191-cc02-4d10-bda1-4c35f49f3ba6\",\n                \"languageCode\": \"en\",\n                \"title\": \"CompTIA Data+ – CompTIA\",\n                \"description\": \"CompTIA Data+ – CompTIA certification course\"\n            }\n        ],\n        \"title\": \"CompTIA Data+ – CompTIA\",\n        \"description\": \"CompTIA Data+ – CompTIA certification course\",\n        \"category\": {\n            \"uuid\": \"004f33cf-1f97-4921-b24d-6c8a196c5b47\",\n            \"name\": \"Data & AI\",\n            \"tagName\": \"data-&-ai\",\n            \"description\": \"Data & AI Certification Courses\",\n            \"type\": \"certification\"\n        },\n        \"topics\": [\n            {\n                \"uuid\": \"0f80ac37-5b61-4e4d-9144-989c61ec207b\",\n                \"name\": \"Mobile Devices\",\n                \"description\": \"Mobile Devices topic\",\n                \"order\": 0\n            },\n            {\n                \"uuid\": \"27f49b03-a0b8-4b6e-be49-131991181660\",\n                \"name\": \"Networking\",\n                \"description\": \"Networking topic\",\n                \"order\": 0\n            },\n            {\n                \"uuid\": \"6a52b39f-65f2-4d17-808e-cdc27a3d77b5\",\n                \"name\": \"Hardware\",\n                \"description\": \"Hardware topic\",\n                \"order\": 0\n            },\n            {\n                \"uuid\": \"496831e8-9539-4ad9-b89c-47d28b9b83e4\",\n                \"name\": \"Virtualization and Cloud Computing\",\n                \"description\": \"Virtualization and Cloud Computing topic\",\n                \"order\": 0\n            },\n            {\n                \"uuid\": \"0ccd7ec9-5403-4d96-82ea-927681f5f9d7\",\n                \"name\": \"Hardware and Network Troubleshooting\",\n                \"description\": \"Hardware and Network Troubleshooting topic\",\n                \"order\": 0\n            },\n            {\n                \"uuid\": \"98dc981d-6db2-40b3-9282-85438d03b7d9\",\n                \"name\": \"Mock Exam: Core 1 (220-1101)\",\n                \"description\": \"Mock Exam: Core 1 (220-1101) topic\",\n                \"order\": 0\n            }\n        ]\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Course Quizzes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/ai/course/quizzes/:courseUuid",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "ai",
+                "course",
+                "quizzes",
+                ":courseUuid"
+              ],
+              "variable": [
+                {
+                  "key": "courseUuid",
+                  "value": "course-uuid",
+                  "description": "UUID of the course"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get Course Quizzes",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/ai/course/quizzes/:courseUuid",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "ai",
+                    "course",
+                    "quizzes",
+                    ":courseUuid"
+                  ],
+                  "variable": [
+                    {
+                      "key": "courseUuid",
+                      "value": "2525e191-cc02-4d10-bda1-4c35f49f3ba6",
+                      "description": "UUID of the course"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Security-Policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"74e-uwe3AesKU4r+43FOaOmgSk7YF9U\""
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "x-session-id=s%3AcTlX-haujGpKtFzaffvWWDGVnORA7G8-.eWPoH9iwDNML8iQHAQJ%2FawE5fQdDxCFyVwzdemoYmlg; Path=/; Expires=Sat, 14 Mar 2026 22:04:36 GMT; HttpOnly; SameSite=Strict"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Mar 2026 22:04:36 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"00\",\n    \"data\": [\n        {\n            \"uuid\": \"5989eb8f-af43-414a-b5f9-ecb5349a8957\",\n            \"title\": \"Hardware\",\n            \"description\": \"Hardware quiz\",\n            \"courseUuid\": \"2525e191-cc02-4d10-bda1-4c35f49f3ba6\",\n            \"topicUuid\": \"6a52b39f-65f2-4d17-808e-cdc27a3d77b5\",\n            \"totalQuestions\": 110,\n            \"maxScore\": 100,\n            \"passingScore\": 70,\n            \"order\": 0,\n            \"isCustom\": false\n        },\n        {\n            \"uuid\": \"11ed66af-10a0-4592-b4ee-e049bfa47240\",\n            \"title\": \"Virtualization and Cloud Computing\",\n            \"description\": \"Virtualization and Cloud Computing quiz\",\n            \"courseUuid\": \"2525e191-cc02-4d10-bda1-4c35f49f3ba6\",\n            \"topicUuid\": \"496831e8-9539-4ad9-b89c-47d28b9b83e4\",\n            \"totalQuestions\": 41,\n            \"maxScore\": 100,\n            \"passingScore\": 70,\n            \"order\": 0,\n            \"isCustom\": false\n        },\n        {\n            \"uuid\": \"890abb2b-cc83-4247-87f2-8f79d5f16419\",\n            \"title\": \"Hardware and Network Troubleshooting\",\n            \"description\": \"Hardware and Network Troubleshooting quiz\",\n            \"courseUuid\": \"2525e191-cc02-4d10-bda1-4c35f49f3ba6\",\n            \"topicUuid\": \"0ccd7ec9-5403-4d96-82ea-927681f5f9d7\",\n            \"totalQuestions\": 78,\n            \"maxScore\": 100,\n            \"passingScore\": 70,\n            \"order\": 0,\n            \"isCustom\": false\n        },\n        {\n            \"uuid\": \"a3efdc94-ab64-494d-9d5f-39ecd66e8bb7\",\n            \"title\": \"Mock Exam: Core 1 (220-1101)\",\n            \"description\": \"Mock Exam: Core 1 (220-1101) quiz\",\n            \"courseUuid\": \"2525e191-cc02-4d10-bda1-4c35f49f3ba6\",\n            \"topicUuid\": \"98dc981d-6db2-40b3-9282-85438d03b7d9\",\n            \"totalQuestions\": 50,\n            \"maxScore\": 100,\n            \"passingScore\": 70,\n            \"order\": 0,\n            \"isCustom\": false\n        },\n        {\n            \"uuid\": \"2eb40dc3-9f61-4d59-ad94-3aea19810d4a\",\n            \"title\": \"Mobile Devices\",\n            \"description\": \"Mobile Devices quiz\",\n            \"courseUuid\": \"2525e191-cc02-4d10-bda1-4c35f49f3ba6\",\n            \"topicUuid\": \"0f80ac37-5b61-4e4d-9144-989c61ec207b\",\n            \"totalQuestions\": 71,\n            \"maxScore\": 100,\n            \"passingScore\": 70,\n            \"order\": 0,\n            \"isCustom\": false\n        },\n        {\n            \"uuid\": \"1943ed2f-3374-499c-af25-10079379dbd3\",\n            \"title\": \"Networking\",\n            \"description\": \"Networking quiz\",\n            \"courseUuid\": \"2525e191-cc02-4d10-bda1-4c35f49f3ba6\",\n            \"topicUuid\": \"27f49b03-a0b8-4b6e-be49-131991181660\",\n            \"totalQuestions\": 100,\n            \"maxScore\": 100,\n            \"passingScore\": 70,\n            \"order\": 0,\n            \"isCustom\": false\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Course",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categoryUuid\": \"dc3850a3-0065-43ed-b399-9dea5e9afe7a\",\n  \"level\": \"beginner\",\n  \"duration\": 40,\n  \"imageUrl\": \"https://example.com/images/algebra-course.jpg\",\n  \"translations\": [\n    {\n      \"languageCode\": \"en\",\n      \"title\": \"Introduction to Algebra\",\n      \"description\": \"Learn variables, expressions, and basic equations.\"\n    },\n    {\n      \"languageCode\": \"fr\",\n      \"title\": \"Introduction à l'algèbre\",\n      \"description\": \"Variables, expressions et équations de base.\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/ai/create-course",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "ai",
+                "create-course"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Create Course",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryUuid\": \"dc3850a3-0065-43ed-b399-9dea5e9afe7a\",\n  \"level\": \"beginner\",\n  \"duration\": 40,\n  \"imageUrl\": \"https://example.com/images/algebra-course.jpg\",\n  \"translations\": [\n    {\n      \"languageCode\": \"en\",\n      \"title\": \"Introduction to Algebra\",\n      \"description\": \"Learn variables, expressions, and basic equations.\"\n    },\n    {\n      \"languageCode\": \"fr\",\n      \"title\": \"Introduction à l'algèbre\",\n      \"description\": \"Variables, expressions et équations de base.\"\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/ai/create-course",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "ai",
+                    "create-course"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Security-Policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"406-sKSKmBejGvubbftQdGNw6EECtkU\""
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "x-session-id=s%3AR07nAVjZ_QHkWQxoVol5MSbB6nUW0o6E.4LHns%2FVv1nzqDwWrZW2yYImCSFCTrDL1zFGu40skb4w; Path=/; Expires=Sat, 14 Mar 2026 22:38:21 GMT; HttpOnly; SameSite=Strict"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Mar 2026 22:38:21 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"00\",\n    \"data\": {\n        \"message\": \"Course created successfully\",\n        \"course\": {\n            \"id\": 128,\n            \"uuid\": \"0a737479-375c-4edc-a376-ae226af45da4\",\n            \"categoryUuid\": \"dc3850a3-0065-43ed-b399-9dea5e9afe7a\",\n            \"level\": \"beginner\",\n            \"duration\": 40,\n            \"slug\": null,\n            \"imageUrl\": \"https://example.com/images/algebra-course.jpg\",\n            \"isActive\": true,\n            \"totalQuizzes\": 0,\n            \"createdAt\": \"2026-03-13T22:38:21.210Z\",\n            \"updatedAt\": \"2026-03-13T22:38:21.210Z\",\n            \"translations\": [\n                {\n                    \"id\": 285,\n                    \"uuid\": \"897efb12-5d1b-49ef-8ffc-7e8848e31d23\",\n                    \"courseUuid\": \"0a737479-375c-4edc-a376-ae226af45da4\",\n                    \"languageCode\": \"en\",\n                    \"title\": \"Introduction to Algebra\",\n                    \"description\": \"Learn variables, expressions, and basic equations.\",\n                    \"createdAt\": \"2026-03-13T22:38:21.225Z\",\n                    \"updatedAt\": \"2026-03-13T22:38:21.225Z\"\n                },\n                {\n                    \"id\": 286,\n                    \"uuid\": \"bbd78183-0187-47a9-8c88-526754974455\",\n                    \"courseUuid\": \"0a737479-375c-4edc-a376-ae226af45da4\",\n                    \"languageCode\": \"fr\",\n                    \"title\": \"Introduction à l'algèbre\",\n                    \"description\": \"Variables, expressions et équations de base.\",\n                    \"createdAt\": \"2026-03-13T22:38:21.226Z\",\n                    \"updatedAt\": \"2026-03-13T22:38:21.226Z\"\n                }\n            ]\n        }\n    }\n}"
+            },
+            {
+              "name": "NotFound",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryUuid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n  \"level\": \"beginner\",\n  \"duration\": 40,\n  \"imageUrl\": \"https://example.com/images/algebra-course.jpg\",\n  \"translations\": [\n    {\n      \"languageCode\": \"en\",\n      \"title\": \"Introduction to Algebra\",\n      \"description\": \"Learn variables, expressions, and basic equations.\"\n    },\n    {\n      \"languageCode\": \"fr\",\n      \"title\": \"Introduction à l'algèbre\",\n      \"description\": \"Variables, expressions et équations de base.\"\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/ai/create-course",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "ai",
+                    "create-course"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Security-Policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "47"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2f-ZBWSJ3dEb1GuP0TtDJSofqGfV8c\""
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "x-session-id=s%3AR07nAVjZ_QHkWQxoVol5MSbB6nUW0o6E.4LHns%2FVv1nzqDwWrZW2yYImCSFCTrDL1zFGu40skb4w; Path=/; Expires=Sat, 14 Mar 2026 22:37:46 GMT; HttpOnly; SameSite=Strict"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Mar 2026 22:37:46 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"404\",\n    \"message\": \"Category not found\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Course",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"uuid\": \"course-uuid\",\n    \"level\": \"intermediate\",\n    \"duration\": 15,\n    \"imageUrl\": \"https://example.com/updated-course-image.jpg\",\n    \"translations\": [\n        {\n            \"languageCode\": \"en\",\n            \"title\": \"Advanced Algebra\",\n            \"description\": \"Advanced topics in algebra\"\n        },\n        {\n            \"languageCode\": \"fr\",\n            \"title\": \"Algèbre avancée\",\n            \"description\": \"Sujets avancés en algèbre\"\n        }\n    ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/ai/update-course",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "ai",
+                "update-course"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Course Categories",
+      "item": [
+        {
+          "name": "Get All Course Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/ai/course-categories",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "ai",
+                "course-categories"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get All Course Categories",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/ai/course-categories",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "ai",
+                    "course-categories"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Security-Policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"f0d-QBqZcc7RrvudHzkbXeerT/vyER8\""
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "x-session-id=s%3AcTlX-haujGpKtFzaffvWWDGVnORA7G8-.eWPoH9iwDNML8iQHAQJ%2FawE5fQdDxCFyVwzdemoYmlg; Path=/; Expires=Sat, 14 Mar 2026 22:05:06 GMT; HttpOnly; SameSite=Strict"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Mar 2026 22:05:06 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"00\",\n    \"data\": [\n        {\n            \"uuid\": \"e75a065e-6047-48a8-ac69-8c4155b67b63\",\n            \"name\": \"Cybersecurity\",\n            \"tagName\": \"cybersecurity\",\n            \"description\": \"Professional certifications in information security and cybersecurity\",\n            \"type\": \"technical\",\n            \"order\": 0\n        },\n        {\n            \"uuid\": \"ac0c9721-733f-4034-b0dd-d012e3b38772\",\n            \"name\": \"Cloud Computing\",\n            \"tagName\": \"cloud-computing\",\n            \"description\": \"Cloud platform certifications and cloud architecture expertise\",\n            \"type\": \"technical\",\n            \"order\": 0\n        },\n        {\n            \"uuid\": \"4d5aa523-9c39-4146-ae76-4ab2571916bd\",\n            \"name\": \"Networking & Infrastructure\",\n            \"tagName\": \"networking-infrastructure\",\n            \"description\": \"Network infrastructure and enterprise networking certifications\",\n            \"type\": \"technical\",\n            \"order\": 0\n        },\n        {\n            \"uuid\": \"d16ca560-5dfc-4d62-9945-4726042a417c\",\n            \"name\": \"DevOps & Automation\",\n            \"tagName\": \"devops-automation\",\n            \"description\": \"DevOps practices, automation, and continuous integration/deployment\",\n            \"type\": \"technical\",\n            \"order\": 0\n        },\n        {\n            \"uuid\": \"fdae0072-8d7a-4a7d-ae1f-249a5a358e8f\",\n            \"name\": \"Public Health & Administration\",\n            \"tagName\": \"public-health-&-admin\",\n            \"description\": \"Public Health & Admin Certification Courses\",\n            \"type\": \"certification\",\n            \"order\": 0\n        },\n        {\n            \"uuid\": \"004f33cf-1f97-4921-b24d-6c8a196c5b47\",\n            \"name\": \"Data & AI\",\n            \"tagName\": \"data-&-ai\",\n            \"description\": \"Data & AI Certification Courses\",\n            \"type\": \"certification\",\n            \"order\": 0\n        },\n        {\n            \"uuid\": \"87599d15-60ca-4b21-bb07-c79c1ba8404c\",\n            \"name\": \"Software Development & Programming\",\n            \"tagName\": \"software-development-&-programming\",\n            \"description\": \"Software Development & Programming Certification Courses\",\n            \"type\": \"certification\",\n            \"order\": 0\n        },\n        {\n            \"uuid\": \"3d047529-e191-46f0-92ae-3ae993b41b26\",\n            \"name\": \"Project Management & Agile\",\n            \"tagName\": \"project-management-&-agile\",\n            \"description\": \"Project Management & Agile certification courses\",\n            \"type\": \"certification\",\n            \"order\": 0\n        },\n        {\n            \"uuid\": \"4f9ba4a4-5fed-4d4c-933d-40434aee1dc8\",\n            \"name\": \"Finance & Accounting\",\n            \"tagName\": \"finance-&-accounting\",\n            \"description\": \"Finance & Accounting certification courses\",\n            \"type\": \"certification\",\n            \"order\": 0\n        },\n        {\n            \"uuid\": \"23785dbc-72ba-4d3f-8929-65a872aa2bc0\",\n            \"name\": \"Nursing & Advanced Practice\",\n            \"tagName\": \"nursing-&-advanced-practice\",\n            \"description\": \"Nursing & Advanced Practice certification courses\",\n            \"type\": \"certification\",\n            \"order\": 0\n        },\n        {\n            \"uuid\": \"5214f57a-e7e4-4ccd-8728-7672fd3f4150\",\n            \"name\": \"Physicians & Surgeons\",\n            \"tagName\": \"physicians-&-surgeons\",\n            \"description\": \"Physicians & Surgeons certification courses\",\n            \"type\": \"certification\",\n            \"order\": 0\n        },\n        {\n            \"uuid\": \"fdc6edbd-ddd3-4f93-a92d-12cacb4ddb91\",\n            \"name\": \"Allied Health & Technologists\",\n            \"tagName\": \"allied-health-&-technologists\",\n            \"description\": \"Allied Health & Technologists certification courses\",\n            \"type\": \"certification\",\n            \"order\": 0\n        },\n        {\n            \"uuid\": \"08661008-9bcc-40a7-a80a-27156c77e7d3\",\n            \"name\": \"Specialized & Emerging\",\n            \"tagName\": \"specialized-&-emerging\",\n            \"description\": \"Specialized & Emerging certification courses\",\n            \"type\": \"certification\",\n            \"order\": 0\n        },\n        {\n            \"uuid\": \"ad0f046d-4982-4a83-8939-4da720aad819\",\n            \"name\": \"Design & UX\",\n            \"tagName\": \"design-&-ux\",\n            \"description\": \"Design & UX certification courses\",\n            \"type\": \"certification\",\n            \"order\": 0\n        },\n        {\n            \"uuid\": \"62446b10-d2fc-423c-916c-cd1780fd9fdf\",\n            \"name\": \"Marketing & Business Tools\",\n            \"tagName\": \"marketing-&-business-tools\",\n            \"description\": \"Marketing & Business Tools certification courses\",\n            \"type\": \"certification\",\n            \"order\": 0\n        },\n        {\n            \"uuid\": \"59483d93-4d0a-48fb-8b27-50b7900acb3e\",\n            \"name\": \"Education & Assessment\",\n            \"tagName\": \"education-&-assessment\",\n            \"description\": \"Education & Assessment certification courses\",\n            \"type\": \"certification\",\n            \"order\": 0\n        },\n        {\n            \"uuid\": \"1352a895-c189-4b77-83e8-c56cae012f4c\",\n            \"name\": \"Language Proficiency\",\n            \"tagName\": \"language-proficiency\",\n            \"description\": \"Language Proficiency certification courses\",\n            \"type\": \"certification\",\n            \"order\": 0\n        },\n        {\n            \"uuid\": \"00ac32f7-887e-4bb2-8a4b-b2ed1e8f8a8c\",\n            \"name\": \"Emerging Tech & Specialized\",\n            \"tagName\": \"emerging-tech-&-specialized\",\n            \"description\": \"Emerging Tech & Specialized certification courses\",\n            \"type\": \"certification\",\n            \"order\": 0\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Category by UUID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/ai/course-category/:uuid",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "ai",
+                "course-category",
+                ":uuid"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": "category-uuid",
+                  "description": "UUID of the category"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get Category by UUID",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/ai/course-category/:uuid",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "ai",
+                    "course-category",
+                    ":uuid"
+                  ],
+                  "variable": [
+                    {
+                      "key": "uuid",
+                      "value": "1352a895-c189-4b77-83e8-c56cae012f4c",
+                      "description": "UUID of the category"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Security-Policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "539"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"21b-d10bGZORyGZvy2CuEruaGUkKX3U\""
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "x-session-id=s%3AcTlX-haujGpKtFzaffvWWDGVnORA7G8-.eWPoH9iwDNML8iQHAQJ%2FawE5fQdDxCFyVwzdemoYmlg; Path=/; Expires=Sat, 14 Mar 2026 22:06:23 GMT; HttpOnly; SameSite=Strict"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Mar 2026 22:06:23 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"00\",\n    \"data\": {\n        \"uuid\": \"1352a895-c189-4b77-83e8-c56cae012f4c\",\n        \"name\": \"Language Proficiency\",\n        \"tagName\": \"language-proficiency\",\n        \"description\": \"Language Proficiency certification courses\",\n        \"type\": \"certification\",\n        \"order\": 0,\n        \"translations\": [\n            {\n                \"id\": 46,\n                \"uuid\": \"18663f50-a9af-4627-86b8-067e74af8cce\",\n                \"categoryUuid\": \"1352a895-c189-4b77-83e8-c56cae012f4c\",\n                \"languageCode\": \"en\",\n                \"name\": \"Language Proficiency\",\n                \"description\": \"Language Proficiency certification courses\",\n                \"createdAt\": \"2025-06-21T20:11:17.913Z\",\n                \"updatedAt\": \"2025-06-21T20:11:17.913Z\"\n            }\n        ]\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Course Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"uuid\": \"category-uuid\",\n    \"name\": \"Updated Category Name\",\n    \"description\": \"Updated Category Description\",\n    \"type\": \"category-type\",\n    \"tagName\": \"updated-tag\",\n    \"order\": 1,\n    \"translations\": [\n        {\n            \"languageCode\": \"en\",\n            \"name\": \"Updated Category Name\",\n            \"description\": \"Updated Category Description\"\n        },\n        {\n            \"languageCode\": \"fr\",\n            \"name\": \"Nom de catégorie mis à jour\",\n            \"description\": \"Description de catégorie mise à jour\"\n        }\n    ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/ai/update-course-category",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "ai",
+                "update-course-category"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Course Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tagName\": \"math-basics\",\n  \"type\": \"subject\",\n  \"order\": 1,\n  \"translations\": [\n    {\n      \"languageCode\": \"en\",\n      \"name\": \"Mathematics Basics\",\n      \"description\": \"Introductory math topics and practice.\"\n    },\n    {\n      \"languageCode\": \"fr\",\n      \"name\": \"Bases des mathématiques\",\n      \"description\": \"Sujets et exercices de mathématiques pour débutants.\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/ai/create-course-category",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "ai",
+                "create-course-category"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Create Course Category",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tagName\": \"math-basics\",\n  \"type\": \"subject\",\n  \"order\": 1,\n  \"translations\": [\n    {\n      \"languageCode\": \"en\",\n      \"name\": \"Mathematics Basics\",\n      \"description\": \"Introductory math topics and practice.\"\n    },\n    {\n      \"languageCode\": \"fr\",\n      \"name\": \"Bases des mathématiques\",\n      \"description\": \"Sujets et exercices de mathématiques pour débutants.\"\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/ai/create-course-category",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "ai",
+                    "create-course-category"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Security-Policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "899"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"383-ycWMIC9bFoO4tAX/nuDWKGJAS78\""
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "x-session-id=s%3AR07nAVjZ_QHkWQxoVol5MSbB6nUW0o6E.4LHns%2FVv1nzqDwWrZW2yYImCSFCTrDL1zFGu40skb4w; Path=/; Expires=Sat, 14 Mar 2026 22:33:35 GMT; HttpOnly; SameSite=Strict"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Mar 2026 22:33:35 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"00\",\n    \"data\": {\n        \"message\": \"Category created successfully\",\n        \"category\": {\n            \"id\": 24,\n            \"uuid\": \"dc3850a3-0065-43ed-b399-9dea5e9afe7a\",\n            \"tagName\": \"math-basics\",\n            \"type\": \"subject\",\n            \"isActive\": true,\n            \"order\": 1,\n            \"createdAt\": \"2026-03-13T22:33:34.979Z\",\n            \"updatedAt\": \"2026-03-13T22:33:34.979Z\",\n            \"translations\": [\n                {\n                    \"id\": 75,\n                    \"uuid\": \"c8c90fa4-5558-4791-a4f1-0b8cd14db5da\",\n                    \"categoryUuid\": \"dc3850a3-0065-43ed-b399-9dea5e9afe7a\",\n                    \"languageCode\": \"en\",\n                    \"name\": \"Mathematics Basics\",\n                    \"description\": \"Introductory math topics and practice.\",\n                    \"createdAt\": \"2026-03-13T22:33:34.995Z\",\n                    \"updatedAt\": \"2026-03-13T22:33:34.995Z\"\n                },\n                {\n                    \"id\": 76,\n                    \"uuid\": \"58a82dc2-8456-4373-a282-887d34d7cd57\",\n                    \"categoryUuid\": \"dc3850a3-0065-43ed-b399-9dea5e9afe7a\",\n                    \"languageCode\": \"fr\",\n                    \"name\": \"Bases des mathématiques\",\n                    \"description\": \"Sujets et exercices de mathématiques pour débutants.\",\n                    \"createdAt\": \"2026-03-13T22:33:34.995Z\",\n                    \"updatedAt\": \"2026-03-13T22:33:34.995Z\"\n                }\n            ]\n        }\n    }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Quizzes",
+      "item": [
+        {
+          "name": "Get All Quizzes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/ai/quizzes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "ai",
+                "quizzes"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get All Quizzes",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/ai/quizzes",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "ai",
+                    "quizzes"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Security-Policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"220a-0MQIHInSO853frRFg+bsylsWGzY\""
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "x-session-id=s%3AcTlX-haujGpKtFzaffvWWDGVnORA7G8-.eWPoH9iwDNML8iQHAQJ%2FawE5fQdDxCFyVwzdemoYmlg; Path=/; Expires=Sat, 14 Mar 2026 22:07:19 GMT; HttpOnly; SameSite=Strict"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Mar 2026 22:07:19 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"00\",\n    \"data\": [\n        {\n            \"uuid\": \"a3efdc94-ab64-494d-9d5f-39ecd66e8bb7\",\n            \"title\": \"Mock Exam: Core 1 (220-1101)\",\n            \"description\": \"Mock Exam: Core 1 (220-1101) quiz\",\n            \"courseUuid\": \"2525e191-cc02-4d10-bda1-4c35f49f3ba6\",\n            \"topicUuid\": \"98dc981d-6db2-40b3-9282-85438d03b7d9\",\n            \"difficulty\": \"medium\",\n            \"timeLimit\": 50,\n            \"totalQuestions\": 50,\n            \"passingScore\": 70,\n            \"order\": 0,\n            \"course\": {\n                \"uuid\": \"2525e191-cc02-4d10-bda1-4c35f49f3ba6\",\n                \"title\": \"CompTIA Data+ – CompTIA\"\n            },\n            \"questionCount\": 50\n        },\n        {\n            \"uuid\": \"890abb2b-cc83-4247-87f2-8f79d5f16419\",\n            \"title\": \"Hardware and Network Troubleshooting\",\n            \"description\": \"Hardware and Network Troubleshooting quiz\",\n            \"courseUuid\": \"2525e191-cc02-4d10-bda1-4c35f49f3ba6\",\n            \"topicUuid\": \"0ccd7ec9-5403-4d96-82ea-927681f5f9d7\",\n            \"difficulty\": \"medium\",\n            \"timeLimit\": 78,\n            \"totalQuestions\": 78,\n            \"passingScore\": 70,\n            \"order\": 0,\n            \"course\": {\n                \"uuid\": \"2525e191-cc02-4d10-bda1-4c35f49f3ba6\",\n                \"title\": \"CompTIA Data+ – CompTIA\"\n            },\n            \"questionCount\": 78\n        },\n        {\n            \"uuid\": \"11ed66af-10a0-4592-b4ee-e049bfa47240\",\n            \"title\": \"Virtualization and Cloud Computing\",\n            \"description\": \"Virtualization and Cloud Computing quiz\",\n            \"courseUuid\": \"2525e191-cc02-4d10-bda1-4c35f49f3ba6\",\n            \"topicUuid\": \"496831e8-9539-4ad9-b89c-47d28b9b83e4\",\n            \"difficulty\": \"medium\",\n            \"timeLimit\": 41,\n            \"totalQuestions\": 41,\n            \"passingScore\": 70,\n            \"order\": 0,\n            \"course\": {\n                \"uuid\": \"2525e191-cc02-4d10-bda1-4c35f49f3ba6\",\n                \"title\": \"CompTIA Data+ – CompTIA\"\n            },\n            \"questionCount\": 41\n        },\n        {\n            \"uuid\": \"5989eb8f-af43-414a-b5f9-ecb5349a8957\",\n            \"title\": \"Hardware\",\n            \"description\": \"Hardware quiz\",\n            \"courseUuid\": \"2525e191-cc02-4d10-bda1-4c35f49f3ba6\",\n            \"topicUuid\": \"6a52b39f-65f2-4d17-808e-cdc27a3d77b5\",\n            \"difficulty\": \"medium\",\n            \"timeLimit\": 110,\n            \"totalQuestions\": 110,\n            \"passingScore\": 70,\n            \"order\": 0,\n            \"course\": {\n                \"uuid\": \"2525e191-cc02-4d10-bda1-4c35f49f3ba6\",\n                \"title\": \"CompTIA Data+ – CompTIA\"\n            },\n            \"questionCount\": 110\n        },\n        {\n            \"uuid\": \"1943ed2f-3374-499c-af25-10079379dbd3\",\n            \"title\": \"Networking\",\n            \"description\": \"Networking quiz\",\n            \"courseUuid\": \"2525e191-cc02-4d10-bda1-4c35f49f3ba6\",\n            \"topicUuid\": \"27f49b03-a0b8-4b6e-be49-131991181660\",\n            \"difficulty\": \"medium\",\n            \"timeLimit\": 100,\n            \"totalQuestions\": 100,\n            \"passingScore\": 70,\n            \"order\": 0,\n            \"course\": {\n                \"uuid\": \"2525e191-cc02-4d10-bda1-4c35f49f3ba6\",\n                \"title\": \"CompTIA Data+ – CompTIA\"\n            },\n            \"questionCount\": 100\n        },\n        {\n            \"uuid\": \"2eb40dc3-9f61-4d59-ad94-3aea19810d4a\",\n            \"title\": \"Mobile Devices\",\n            \"description\": \"Mobile Devices quiz\",\n            \"courseUuid\": \"2525e191-cc02-4d10-bda1-4c35f49f3ba6\",\n            \"topicUuid\": \"0f80ac37-5b61-4e4d-9144-989c61ec207b\",\n            \"difficulty\": \"medium\",\n            \"timeLimit\": 71,\n            \"totalQuestions\": 71,\n            \"passingScore\": 70,\n            \"order\": 0,\n            \"course\": {\n                \"uuid\": \"2525e191-cc02-4d10-bda1-4c35f49f3ba6\",\n                \"title\": \"CompTIA Data+ – CompTIA\"\n            },\n            \"questionCount\": 71\n        },\n        {\n            \"uuid\": \"05d99245-178c-4595-861c-69bee10ea781\",\n            \"title\": \"Solution Architect Questions\",\n            \"description\": \"Solution Architect Questions\",\n            \"courseUuid\": \"afc012a0-f7b6-45b8-99e7-ca4474f352ad\",\n            \"topicUuid\": \"7a9d8ff9-0e32-44c4-8262-4caf409f9acc\",\n            \"difficulty\": \"medium\",\n            \"timeLimit\": 30,\n            \"totalQuestions\": 0,\n            \"passingScore\": 70,\n            \"order\": 1,\n            \"course\": {\n                \"uuid\": \"afc012a0-f7b6-45b8-99e7-ca4474f352ad\",\n                \"title\": \"AWS Certified Solutions Architect – Associate – AWS\"\n            },\n            \"questionCount\": 0\n        },\n        {\n            \"uuid\": \"eaa46723-2fed-4b83-a333-037bb7609c11\",\n            \"title\": \"High Availability and Scalability Test\",\n            \"description\": \"Assessment of designing highly available and scalable systems on AWS\",\n            \"courseUuid\": \"5ddd4b91-071a-4b07-9fb7-b460b2afa55b\",\n            \"topicUuid\": \"258fc39b-00f7-4b00-9bbd-b0855584d5c4\",\n            \"difficulty\": \"intermediate\",\n            \"timeLimit\": 45,\n            \"totalQuestions\": 15,\n            \"passingScore\": 75,\n            \"order\": 3,\n            \"course\": {\n                \"uuid\": \"5ddd4b91-071a-4b07-9fb7-b460b2afa55b\",\n                \"title\": \"AWS Certified Solutions Architect\"\n            },\n            \"questionCount\": 0\n        },\n        {\n            \"uuid\": \"6ac88b00-e51d-4617-bce5-8dc0d2b50628\",\n            \"title\": \"Azure Architecture Fundamentals Assessment\",\n            \"description\": \"Test your knowledge of Azure core services and architectural principles\",\n            \"courseUuid\": \"91aac294-83a5-4fd5-a024-cbf5e6f837ca\",\n            \"topicUuid\": \"cd532fbf-a0d1-406f-ab90-cb3c86c0d599\",\n            \"difficulty\": \"advanced\",\n            \"timeLimit\": 45,\n            \"totalQuestions\": 15,\n            \"passingScore\": 80,\n            \"order\": 1,\n            \"course\": {\n                \"uuid\": \"91aac294-83a5-4fd5-a024-cbf5e6f837ca\",\n                \"title\": \"azure-solutions-architect\"\n            },\n            \"questionCount\": 0\n        },\n        {\n            \"uuid\": \"0af98843-7d29-41f6-b8c9-18b175a101ea\",\n            \"title\": \"Asset Security Evaluation\",\n            \"description\": \"Quiz on asset classification, ownership, and protection\",\n            \"courseUuid\": \"84c25494-8c19-4922-8c32-71f146dace9c\",\n            \"topicUuid\": \"4d4e788a-bb24-4e65-bc7a-09471037d8c1\",\n            \"difficulty\": \"advanced\",\n            \"timeLimit\": 40,\n            \"totalQuestions\": 12,\n            \"passingScore\": 80,\n            \"order\": 2,\n            \"course\": {\n                \"uuid\": \"84c25494-8c19-4922-8c32-71f146dace9c\",\n                \"title\": \"Certified Information Systems Security Professional (CISSP)\"\n            },\n            \"questionCount\": 1\n        },\n        {\n            \"uuid\": \"776daf2a-ab43-4384-b0e2-32a1da2490a9\",\n            \"title\": \"High Availability and Scalability Test\",\n            \"description\": \"Assessment of designing highly available and scalable systems on Azure\",\n            \"courseUuid\": \"91aac294-83a5-4fd5-a024-cbf5e6f837ca\",\n            \"topicUuid\": \"6a9fe7e0-a335-47ff-ad0e-e33c5acd759f\",\n            \"difficulty\": \"advanced\",\n            \"timeLimit\": 45,\n            \"totalQuestions\": 15,\n            \"passingScore\": 80,\n            \"order\": 3,\n            \"course\": {\n                \"uuid\": \"91aac294-83a5-4fd5-a024-cbf5e6f837ca\",\n                \"title\": \"azure-solutions-architect\"\n            },\n            \"questionCount\": 0\n        },\n        {\n            \"uuid\": \"722b7956-fdfa-4738-a143-c98d35c820b3\",\n            \"title\": \"Security and Risk Management Assessment\",\n            \"description\": \"Test your knowledge of security governance, compliance, and risk management\",\n            \"courseUuid\": \"84c25494-8c19-4922-8c32-71f146dace9c\",\n            \"topicUuid\": \"2763d1af-e3e5-47e9-8be4-a896a01d6329\",\n            \"difficulty\": \"advanced\",\n            \"timeLimit\": 47,\n            \"totalQuestions\": 4,\n            \"passingScore\": 4,\n            \"order\": 1,\n            \"course\": {\n                \"uuid\": \"84c25494-8c19-4922-8c32-71f146dace9c\",\n                \"title\": \"Certified Information Systems Security Professional (CISSP)\"\n            },\n            \"questionCount\": 3\n        },\n        {\n            \"uuid\": \"99fbae3d-2fd2-4168-93f7-ec05b4c2f050\",\n            \"title\": \"Azure Security and Compliance Evaluation\",\n            \"description\": \"Quiz on Azure security best practices and compliance requirements\",\n            \"courseUuid\": \"91aac294-83a5-4fd5-a024-cbf5e6f837ca\",\n            \"topicUuid\": \"416f108f-2ae8-4f97-a950-541cd191a5b6\",\n            \"difficulty\": \"advanced\",\n            \"timeLimit\": 40,\n            \"totalQuestions\": 12,\n            \"passingScore\": 80,\n            \"order\": 2,\n            \"course\": {\n                \"uuid\": \"91aac294-83a5-4fd5-a024-cbf5e6f837ca\",\n                \"title\": \"azure-solutions-architect\"\n            },\n            \"questionCount\": 0\n        },\n        {\n            \"uuid\": \"1f670c7b-aeed-4def-9505-3a7e03d84c6c\",\n            \"title\": \"Security Architecture and Engineering Test\",\n            \"description\": \"Assessment of security design principles and secure system components\",\n            \"courseUuid\": \"84c25494-8c19-4922-8c32-71f146dace9c\",\n            \"topicUuid\": \"2fa3c235-8f56-4753-aa8a-450e05bd03b3\",\n            \"difficulty\": \"advanced\",\n            \"timeLimit\": 45,\n            \"totalQuestions\": 15,\n            \"passingScore\": 80,\n            \"order\": 3,\n            \"course\": {\n                \"uuid\": \"84c25494-8c19-4922-8c32-71f146dace9c\",\n                \"title\": \"Certified Information Systems Security Professional (CISSP)\"\n            },\n            \"questionCount\": 0\n        },\n        {\n            \"uuid\": \"39de9b2a-55a3-4ec7-9177-b98d2a04f0ed\",\n            \"title\": \"Ethical Hacking Fundamentals Assessment\",\n            \"description\": \"Test your understanding of ethical hacking concepts and methodologies\",\n            \"courseUuid\": \"4d5732f2-3458-4db6-b7a7-956c2d80c5cf\",\n            \"topicUuid\": \"844c99b7-d73d-41da-b29d-f50e51ac066b\",\n            \"difficulty\": \"intermediate\",\n            \"timeLimit\": 35,\n            \"totalQuestions\": 12,\n            \"passingScore\": 75,\n            \"order\": 1,\n            \"course\": null,\n            \"questionCount\": 1\n        },\n        {\n            \"uuid\": \"ee08d303-c1c3-4ed1-afd7-4d59e1d6301d\",\n            \"title\": \"Footprinting and Reconnaissance Evaluation\",\n            \"description\": \"Quiz on information gathering and reconnaissance techniques\",\n            \"courseUuid\": \"4d5732f2-3458-4db6-b7a7-956c2d80c5cf\",\n            \"topicUuid\": \"323a9ed3-181c-417d-8c1d-8ac6902c634f\",\n            \"difficulty\": \"intermediate\",\n            \"timeLimit\": 30,\n            \"totalQuestions\": 10,\n            \"passingScore\": 75,\n            \"order\": 2,\n            \"course\": null,\n            \"questionCount\": 0\n        },\n        {\n            \"uuid\": \"ebfc2ace-169b-45e6-9484-2afbbeee666e\",\n            \"title\": \"Network Scanning Proficiency Test\",\n            \"description\": \"Assessment of network scanning methodologies and tools\",\n            \"courseUuid\": \"4d5732f2-3458-4db6-b7a7-956c2d80c5cf\",\n            \"topicUuid\": \"e4c4c0bf-cd5c-4af7-b79b-1741f48cf1e0\",\n            \"difficulty\": \"intermediate\",\n            \"timeLimit\": 35,\n            \"totalQuestions\": 12,\n            \"passingScore\": 75,\n            \"order\": 3,\n            \"course\": null,\n            \"questionCount\": 0\n        },\n        {\n            \"uuid\": \"b9962a69-530f-44c2-9a68-f7f01c47299c\",\n            \"title\": \"AWS Architecture Fundamentals Assessment\",\n            \"description\": \"Test your knowledge of AWS core services and architectural principles\",\n            \"courseUuid\": \"5ddd4b91-071a-4b07-9fb7-b460b2afa55b\",\n            \"topicUuid\": \"2657490e-b3aa-495c-84e2-2ca3a0242140\",\n            \"difficulty\": \"intermediate\",\n            \"timeLimit\": 40,\n            \"totalQuestions\": 15,\n            \"passingScore\": 75,\n            \"order\": 1,\n            \"course\": {\n                \"uuid\": \"5ddd4b91-071a-4b07-9fb7-b460b2afa55b\",\n                \"title\": \"AWS Certified Solutions Architect\"\n            },\n            \"questionCount\": 1\n        },\n        {\n            \"uuid\": \"16c18312-38e2-4ace-9798-02deb2807c89\",\n            \"title\": \"AWS Security and Compliance Evaluation\",\n            \"description\": \"Quiz on AWS security best practices and compliance requirements\",\n            \"courseUuid\": \"5ddd4b91-071a-4b07-9fb7-b460b2afa55b\",\n            \"topicUuid\": \"4bb85db4-0bb7-4a3c-892e-69c03a76a9d1\",\n            \"difficulty\": \"intermediate\",\n            \"timeLimit\": 35,\n            \"totalQuestions\": 12,\n            \"passingScore\": 75,\n            \"order\": 2,\n            \"course\": {\n                \"uuid\": \"5ddd4b91-071a-4b07-9fb7-b460b2afa55b\",\n                \"title\": \"AWS Certified Solutions Architect\"\n            },\n            \"questionCount\": 0\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Quiz by UUID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/ai/quiz/:uuid",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "ai",
+                "quiz",
+                ":uuid"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": "quiz-uuid",
+                  "description": "UUID of the quiz"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get Quiz by UUID",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/ai/quiz/:uuid",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "ai",
+                    "quiz",
+                    ":uuid"
+                  ],
+                  "variable": [
+                    {
+                      "key": "uuid",
+                      "value": "16c18312-38e2-4ace-9798-02deb2807c89",
+                      "description": "UUID of the quiz"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Security-Policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "776"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"308-TQZYtmEPWaHIJf2v5xquCeBngok\""
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "x-session-id=s%3AcTlX-haujGpKtFzaffvWWDGVnORA7G8-.eWPoH9iwDNML8iQHAQJ%2FawE5fQdDxCFyVwzdemoYmlg; Path=/; Expires=Sat, 14 Mar 2026 22:08:22 GMT; HttpOnly; SameSite=Strict"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Mar 2026 22:08:22 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"00\",\n    \"data\": {\n        \"uuid\": \"16c18312-38e2-4ace-9798-02deb2807c89\",\n        \"title\": \"AWS Security and Compliance Evaluation\",\n        \"description\": \"Quiz on AWS security best practices and compliance requirements\",\n        \"courseUuid\": \"5ddd4b91-071a-4b07-9fb7-b460b2afa55b\",\n        \"topicUuid\": \"4bb85db4-0bb7-4a3c-892e-69c03a76a9d1\",\n        \"difficulty\": \"intermediate\",\n        \"timeLimit\": 35,\n        \"isPremium\": true,\n        \"isActive\": true,\n        \"totalQuestions\": 12,\n        \"passingScore\": 75,\n        \"order\": 2,\n        \"translations\": [\n            {\n                \"id\": 43,\n                \"uuid\": \"ecb041dc-632b-4947-acba-e80500e2e029\",\n                \"quizUuid\": \"16c18312-38e2-4ace-9798-02deb2807c89\",\n                \"languageCode\": \"en\",\n                \"title\": \"AWS Security and Compliance Evaluation\",\n                \"description\": \"Quiz on AWS security best practices and compliance requirements\",\n                \"createdAt\": \"2025-05-31T11:31:06.746Z\",\n                \"updatedAt\": \"2025-05-31T11:31:06.746Z\"\n            }\n        ]\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Quiz Details by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/ai/quiz/details/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "ai",
+                "quiz",
+                "details",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "quiz-id",
+                  "description": "ID of the quiz"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get Quiz Details by ID",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/ai/quiz/details/:id",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "ai",
+                    "quiz",
+                    "details",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "16c18312-38e2-4ace-9798-02deb2807c89",
+                      "description": "ID of the quiz"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Security-Policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "682"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2aa-ZgC5uSTtPTMF4HAExgPMfeM+CKE\""
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "x-session-id=s%3AcTlX-haujGpKtFzaffvWWDGVnORA7G8-.eWPoH9iwDNML8iQHAQJ%2FawE5fQdDxCFyVwzdemoYmlg; Path=/; Expires=Sat, 14 Mar 2026 22:08:39 GMT; HttpOnly; SameSite=Strict"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Mar 2026 22:08:39 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"00\",\n    \"data\": {\n        \"uuid\": \"16c18312-38e2-4ace-9798-02deb2807c89\",\n        \"title\": \"AWS Security and Compliance Evaluation\",\n        \"description\": \"Quiz on AWS security best practices and compliance requirements\",\n        \"courseUuid\": \"5ddd4b91-071a-4b07-9fb7-b460b2afa55b\",\n        \"topicUuid\": \"4bb85db4-0bb7-4a3c-892e-69c03a76a9d1\",\n        \"difficulty\": \"intermediate\",\n        \"timeLimit\": 35,\n        \"isPremium\": true,\n        \"isActive\": true,\n        \"totalQuestions\": 0,\n        \"passingScore\": 75,\n        \"order\": 2,\n        \"course\": {\n            \"uuid\": \"5ddd4b91-071a-4b07-9fb7-b460b2afa55b\",\n            \"title\": \"AWS Certified Solutions Architect\"\n        },\n        \"questions\": []\n    },\n    \"messageCode\": \"05\",\n    \"message\": \"You’re taking this quiz as a guest. Guest access is limited to 30 questions per quiz. Log in to unlock more\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Quiz",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"uuid\": \"quiz-uuid\",\n    \"title\": \"Updated Quiz Title\",\n    \"description\": \"Updated Quiz Description\",\n    \"courseId\": \"course-uuid\",\n    \"difficulty\": \"medium\",\n    \"timeLimit\": 30,\n    \"passingScore\": 70,\n    \"isActive\": true,\n    \"translations\": [\n        {\n            \"languageCode\": \"en\",\n            \"title\": \"Updated Quiz Title\",\n            \"description\": \"Updated Quiz Description\"\n        },\n        {\n            \"languageCode\": \"fr\",\n            \"title\": \"Titre du quiz mis à jour\",\n            \"description\": \"Description du quiz mise à jour\"\n        }\n    ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/ai/update-quiz",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "ai",
+                "update-quiz"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Load Quizzes",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/ai/load-quizzes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "ai",
+                "load-quizzes"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Load Quizzes",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": " { \"courseUuid\": \"0a737479-375c-4edc-a376-ae226af45da4\", \n \"jsonData\" : [\n  {\n    \"topic\": \"Cloud concepts\",\n    \"quizTitle\": \"Cloud concepts\",\n    \"questions\": [\n      {\n        \"questionType\": \"single-choice\",\n        \"difficulty\": \"medium\",\n        \"points\": 1,\n        \"translations\": [\n          {\n            \"languageCode\": \"en\",\n            \"questionText\": \"Azure, Amazon Web Services, Google App Engine, and Force.com are\\nexamples of public clouds.\",\n            \"options\": {\n              \"option_1\": \"True\",\n              \"option_2\": \"False\"\n            },\n            \"correctAnswer\": [\n              \"option_1\"\n            ],\n            \"explanation\": \"This statement is true. Azure, Amazon Web Services (AWS), Google\\nApp Engine, and Force.com are all examples of public clouds. Public clouds\\nare cloud computing services that are accessible to the general public and\\nhosted by a third-party provider. They offer resources such as virtual\\nmachines, storage, and applications that can be accessed over the internet.\"\n          }\n        ]\n      },\n      {\n        \"questionType\": \"single-choice\",\n        \"difficulty\": \"medium\",\n        \"points\": 1,\n        \"translations\": [\n          {\n            \"languageCode\": \"en\",\n            \"questionText\": \"What term is used to describe a private datacenter that takes advantage of\\nthe unified resource model enabled by virtualization?\",\n            \"options\": {\n              \"option_1\": \"Public cloud\",\n              \"option_2\": \"Hybrid cloud\",\n              \"option_3\": \"Private cloud\",\n              \"option_4\": \"Community cloud\"\n            },\n            \"correctAnswer\": [\n              \"option_3\"\n            ],\n            \"explanation\": \"The term used to describe a private datacenter that takes advantage of the\\nunified resource model enabled by virtualization is a private cloud. A\\nprivate cloud is a cloud infrastructure that is used exclusively by a single\\norganization or company. It utilizes virtualization technology to provide a\\nflexible and scalable environment for hosting applications and services.\\nUnlike public clouds, which are accessible to the general public, private\\nclouds are dedicated to a specific organization's needs and are typically\\nhosted on-premises or in a datacenter controlled by the organization.\"\n          }\n        ]\n      }\n    ]\n  },\n  {\n    \"topic\": \"Cloud concepts\",\n    \"quizTitle\": \"Benefits of using cloud services\",\n    \"questions\": [\n      {\n        \"questionType\": \"multi-choice\",\n        \"difficulty\": \"medium\",\n        \"points\": 1,\n        \"translations\": [\n          {\n            \"languageCode\": \"en\",\n            \"questionText\": \"Which features does Azure provide to enhance the reliability of\\napplications? (Select all that apply)\",\n            \"options\": {\n              \"option_1\": \"Built-in data replication across availability zones and regions\",\n              \"option_2\": \"Placement of managed disks in different storage scale units\",\n              \"option_3\": \"Spreading virtual machines across fault domains\",\n              \"option_4\": \"Automatic transition between availability zones without interruption\"\n            },\n            \"correctAnswer\": [\n              \"option_1\",\n              \"option_2\",\n              \"option_3\",\n              \"option_4\"\n            ],\n            \"explanation\": \"Azure provides several features to enhance the reliability of applications:\\n\\na) Built-in data replication across availability zones and regions: Azure\\noffers built-in replication capabilities that allow data to be replicated\\nacross different availability zones within a region or even across regions.\\nThis helps ensure that data remains available and accessible even in the\\nevent of a failure in one zone or region.\\n\\nb) Placement of managed disks in different storage scale units: Azure\\nallows for the placement of managed disks in different storage scale units.\\nBy distributing the disks across different scale units, the risk of a single\\npoint of failure is reduced, enhancing the reliability of the application.\\n\\nc) Spreading virtual machines across fault domains: Azure enables the\\nspreading of virtual machines (VMs) across fault domains. Fault domains\\nare logical groupings of resources that are isolated from one another. By\\nspreading VMs across fault domains, the impact of a failure on a single\\ndomain is limited, ensuring the availability of applications.\\n\\nd) Automatic transition between availability zones without interruption:\\nAzure provides the capability for automatic transition between availability\\nzones without interruption. This means that if an outage occurs in one\\navailability zone, Azure can seamlessly transition the workload to another\\navailability zone without causing disruptions or interruptions.\\n\\nTherefore, the correct answers are a) Built-in data replication across\\navailability zones and regions, b) Placement of managed disks in different\\nstorage scale units, c) Spreading virtual machines across fault domains,\\nand d) Automatic transition between availability zones without\\ninterruption.\"\n          }\n        ]\n      },\n      {\n        \"questionType\": \"single-choice\",\n        \"difficulty\": \"medium\",\n        \"points\": 1,\n        \"translations\": [\n          {\n            \"languageCode\": \"en\",\n            \"questionText\": \"What should be considered when designing an application to be resilient?\",\n            \"options\": {\n              \"option_1\": \"Cost of downtime and investment in high availability\",\n              \"option_2\": \"Preventing any disruptions or failures in the entire region\",\n              \"option_3\": \"Minimizing network congestion and transient problems\",\n              \"option_4\": \"Root causes of failures and monitoring diagnostics\"\n            },\n            \"correctAnswer\": [\n              \"option_1\"\n            ],\n            \"explanation\": \"When designing an application to be resilient, several factors should be\\nconsidered.\\n\\na) Cost of downtime and investment in high availability: It is essential to\\nconsider the cost of downtime and determine the level of investment\\nrequired to achieve high availability. This involves analyzing the impact\\nof system failures, evaluating the potential financial losses during\\ndowntime, and making informed decisions on investing in redundancy,\\nfault tolerance, and disaster recovery mechanisms.\\n\\nb) Preventing any disruptions or failures in the entire region: While\\npreventing disruptions or failures in the entire region is desirable, it may\\nnot always be feasible or necessary for every application. Resilient\\napplication design focuses on minimizing the impact of failures on\\napplication availability and maintaining an acceptable level of service,\\nrather than completely eliminating all failures across the entire region.\\n\\nc) Minimizing network congestion and transient problems: Minimizing\\nnetwork congestion and addressing transient problems is a consideration\\nfor optimizing application performance and reliability, but it is not the sole\\naspect of designing for resiliency.\\n\\nd) Root causes of failures and monitoring diagnostics: Understanding and\\naddressing the root causes of failures is an important part of designing\\nresilient applications. Monitoring diagnostics and implementing proactive\\nmeasures to detect and mitigate potential failure points can enhance\\nresilience.\\n\\nConsidering all the options, the most critical factor to consider when\\ndesigning resilient applications is the cost of downtime and making\\nappropriate investments in high availability. Therefore, the correct answer\\nis a) Cost of downtime and investment in high availability.\"\n          }\n        ]\n      }\n    ]\n  }\n  ]\n\n }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/ai/load-quizzes",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "ai",
+                    "load-quizzes"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Security-Policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "135"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"87-p87Txi78sqi/q8C3VkP5jLCRNOA\""
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "x-session-id=s%3ARCu0ttPlJAwQ633gmj8qc5wpbuPYNfIY.3fyl1p8cBvsHgg31A41%2Fwd0IcRUjIv9vp09mn0Eun1E; Path=/; Expires=Sat, 14 Mar 2026 22:55:05 GMT; HttpOnly; SameSite=Strict"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Mar 2026 22:55:05 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"status\": \"00\",\n    \"message\": \"Quizzes loaded successfully\",\n    \"data\": {\n        \"topicsCreated\": 1,\n        \"quizzesCreated\": 2,\n        \"questionsImported\": 4,\n        \"errors\": []\n    }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Questions",
+      "item": [
+        {
+          "name": "Add Quiz Questions",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"quizUuid\": \"quiz-uuid\",\n    \"questions\": [\n        {\n            \"questionType\": \"single-choice\",\n            \"difficulty\": \"medium\",\n            \"points\": 1,\n            \"translations\": [\n                {\n                    \"languageCode\": \"en\",\n                    \"questionText\": \"What is 2x + 3 when x = 4?\",\n                    \"options\": {\n                        \"option_1\": \"7\",\n                        \"option_2\": \"11\",\n                        \"option_3\": \"14\",\n                        \"option_4\": \"8\",\n                        \"option_5\": \"9\"\n                    },\n                    \"correctAnswer\": \"option_2\",\n                    \"explanation\": \"Substitute x = 4 into 2x + 3: 2(4) + 3 = 8 + 3 = 11\"\n                },\n                {\n                    \"languageCode\": \"fr\",\n                    \"questionText\": \"Que vaut 2x + 3 quand x = 4 ?\",\n                    \"options\": {\n                        \"option_1\": \"7\",\n                        \"option_2\": \"11\",\n                        \"option_3\": \"14\",\n                        \"option_4\": \"8\",\n                        \"option_5\": \"9\"\n                    },\n                    \"correctAnswer\": \"option_2\",\n                    \"explanation\": \"Remplacez x = 4 dans 2x + 3 : 2(4) + 3 = 8 + 3 = 11\"\n                }\n            ]\n        }\n    ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/ai/add-quiz-questions",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "ai",
+                "add-quiz-questions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Quiz Questions",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"quizUuid\": \"quiz-uuid\",\n    \"questions\": [\n        {\n            \"uuid\": \"question-uuid\",\n            \"questionType\": \"single-choice\",\n            \"difficulty\": \"hard\",\n            \"points\": 2,\n            \"translations\": [\n                {\n                    \"languageCode\": \"en\",\n                    \"questionText\": \"What is 2x + 3 when x = 5?\",\n                    \"options\": {\n                        \"first\": \"10\",\n                        \"second\": \"13\",\n                        \"third\": \"15\",\n                        \"fourth\": \"12\",\n                        \"fifth\": \"14\"\n                    },\n                    \"correctAnswer\": \"second\",\n                    \"explanation\": \"Substitute x = 5 into 2x + 3: 2(5) + 3 = 10 + 3 = 13\"\n                },\n                {\n                    \"languageCode\": \"fr\",\n                    \"questionText\": \"Que vaut 2x + 3 quand x = 5 ?\",\n                    \"options\": {\n                        \"first\": \"10\",\n                        \"second\": \"13\",\n                        \"third\": \"15\",\n                        \"fourth\": \"12\",\n                        \"fifth\": \"14\"\n                    },\n                    \"correctAnswer\": \"second\",\n                    \"explanation\": \"Remplacez x = 5 dans 2x + 3 : 2(5) + 3 = 10 + 3 = 13\"\n                }\n            ]\n        }\n    ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/ai/update-quiz-questions",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "ai",
+                "update-quiz-questions"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Pending Quiz Uploads",
+      "item": [
+        {
+          "name": "Create Pending Quiz Upload",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"courseUuid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n  \"courseName\": \"Introduction to Algebra\",\n  \"filename\": \"algebra-quiz-01.xlsx\",\n  \"driveFileId\": \"1ABCdefGHIjkLmnOPqrsTuv\",\n  \"status\": \"pending\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/ai/pending-quiz-uploads",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "ai",
+                "pending-quiz-uploads"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Create Pending Quiz Upload",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"courseUuid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n  \"courseName\": \"Introduction to Algebra\",\n  \"filename\": \"algebra-quiz-01.xlsx\",\n  \"driveFileId\": \"1ABCdefGHIjkLmnOPqrsTuv\",\n  \"status\": \"pending\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/ai/pending-quiz-uploads",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "ai",
+                    "pending-quiz-uploads"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Security-Policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "352"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"160-74oVvMmBdfQ71rscd8yidrOsedY\""
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "x-session-id=s%3AheIa1UwT5r3CeVMZAd0NLDIkNyM5dlRF.1%2Bp0BATZrVoWGhTuQoe8FLLflINPpInmMx%2BWrEcDpZM; Path=/; Expires=Sat, 14 Mar 2026 22:19:02 GMT; HttpOnly; SameSite=Strict"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Mar 2026 22:19:02 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"00\",\n    \"data\": {\n        \"uuid\": \"b536fc55-c614-4db7-a0fa-a7cc6d927731\",\n        \"courseUuid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n        \"courseName\": \"Introduction to Algebra\",\n        \"filename\": \"algebra-quiz-01.xlsx\",\n        \"driveFileId\": \"1ABCdefGHIjkLmnOPqrsTuv\",\n        \"status\": \"pending\",\n        \"updatedAt\": \"2026-03-13T22:19:02.330Z\",\n        \"createdAt\": \"2026-03-13T22:19:02.330Z\",\n        \"errorMessage\": null\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Pending Quiz Uploads",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/ai/pending-quiz-uploads",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "ai",
+                "pending-quiz-uploads"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get Pending Quiz Uploads",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/ai/pending-quiz-uploads",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "ai",
+                    "pending-quiz-uploads"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Security-Policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "354"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"162-8kyOSKij/4lMHeMM6XF8bqjlBDY\""
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "x-session-id=s%3AheIa1UwT5r3CeVMZAd0NLDIkNyM5dlRF.1%2Bp0BATZrVoWGhTuQoe8FLLflINPpInmMx%2BWrEcDpZM; Path=/; Expires=Sat, 14 Mar 2026 22:19:28 GMT; HttpOnly; SameSite=Strict"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Mar 2026 22:19:28 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"00\",\n    \"data\": [\n        {\n            \"uuid\": \"b536fc55-c614-4db7-a0fa-a7cc6d927731\",\n            \"courseUuid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n            \"courseName\": \"Introduction to Algebra\",\n            \"filename\": \"algebra-quiz-01.xlsx\",\n            \"driveFileId\": \"1ABCdefGHIjkLmnOPqrsTuv\",\n            \"status\": \"pending\",\n            \"errorMessage\": null,\n            \"createdAt\": \"2026-03-13T22:19:02.330Z\",\n            \"updatedAt\": \"2026-03-13T22:19:02.330Z\"\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Pending Quiz Upload",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"status\": \"completed\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/ai/pending-quiz-uploads/:uuid",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "ai",
+                "pending-quiz-uploads",
+                ":uuid"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": "pending-upload-uuid",
+                  "description": "UUID of the pending quiz upload"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Update Pending Quiz Upload",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"status\": \"processed\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/ai/pending-quiz-uploads/:uuid",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "ai",
+                    "pending-quiz-uploads",
+                    ":uuid"
+                  ],
+                  "variable": [
+                    {
+                      "key": "uuid",
+                      "value": "b536fc55-c614-4db7-a0fa-a7cc6d927731",
+                      "description": "UUID of the pending quiz upload"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Security-Policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "354"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"162-aNhkvHiqHKVsSSdeqLMvP8ripOE\""
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "x-session-id=s%3AheIa1UwT5r3CeVMZAd0NLDIkNyM5dlRF.1%2Bp0BATZrVoWGhTuQoe8FLLflINPpInmMx%2BWrEcDpZM; Path=/; Expires=Sat, 14 Mar 2026 22:24:24 GMT; HttpOnly; SameSite=Strict"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Mar 2026 22:24:24 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"00\",\n    \"data\": {\n        \"uuid\": \"b536fc55-c614-4db7-a0fa-a7cc6d927731\",\n        \"courseUuid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n        \"courseName\": \"Introduction to Algebra\",\n        \"filename\": \"algebra-quiz-01.xlsx\",\n        \"driveFileId\": \"1ABCdefGHIjkLmnOPqrsTuv\",\n        \"status\": \"processed\",\n        \"errorMessage\": null,\n        \"createdAt\": \"2026-03-13T22:19:02.330Z\",\n        \"updatedAt\": \"2026-03-13T22:24:24.613Z\"\n    }\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ]
+}
