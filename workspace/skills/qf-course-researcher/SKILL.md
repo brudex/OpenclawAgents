@@ -1,7 +1,7 @@
 ---
 name: qf-course-researcher
 description: Researches trending certification courses on the web, compares them with existing QuizFactor courses using the AI routes collection, and generates a Notion report for missing or inactive courses. Use for daily discovery of high-demand certifications to add to QuizFactor.
-metadata: {"clawdbot":{"emoji":"🔎"}}
+metadata: {"clawdbot":{"emoji":"🔎"},"openclaw":{"emoji":"🔎"}}
 ---
 
 # qf-course-researcher
@@ -26,6 +26,9 @@ Discover **trending certification courses** (e.g. AWS, Azure, security, networki
 
 - **Web access**
   - The agent needs to be able to search the web (e.g. via a web search tool) for up-to-date certification trends.
+
+- **Shared reference**
+  - For a consolidated table of config paths, env vars, and curl patterns used across growth skills, see **`workspace/INTEGRATIONS.md`**.
 
 ## High-level Workflow
 

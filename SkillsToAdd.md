@@ -1,6 +1,10 @@
 
 # AI Sub-Agent Suite Requirements
 
+> **Implementation:** OpenClaw skills for this suite live under **`workspace/skills/<name>/SKILL.md`** in this repo. Sync the whole **`workspace/`** tree to the gateway host at **`~/.openclaw/workspace/`** so changes auto-reflect (see **`workspace/SKILLS_SYNC.md`**). Existing QuizFactor skills remain under **`workspace/skills/qf-*`**.
+>
+> **Host credentials (qf-style):** Recommended `~/.config/...` paths, env vars, example `curl`, and OpenClaw channel preference are in **`workspace/INTEGRATIONS.md`**. Each growth skill’s `SKILL.md` links there under **Credentials & API**.
+
 The platform should support a set of specialized **AI sub-agents**, each designed to automate a specific business or content workflow.
 Each agent should operate independently, while also being able to collaborate with other agents where necessary.
 

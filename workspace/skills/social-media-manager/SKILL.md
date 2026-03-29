@@ -1,0 +1,82 @@
+---
+name: social-media-manager
+description: End-to-end social orchestration—intake, calendar integration with social-content-planning, copy via social-caption-writer, engagement drafts via social-community-engagement, performance readouts via social-analytics, and trend injection via social-trend-monitor. Outputs dated bundles under workspace/drafts/social/ with explicit approval gates before any publish.
+metadata: {"clawdbot":{"emoji":"📱"},"openclaw":{"emoji":"📱"}}
+---
+
+# social-media-manager
+
+The **parent** social agent: owns **consistency** (voice, CTA ladder, disclosure) and **file-based handoffs** to sub-skills—mirroring how `qf-course-researcher` orchestrates web → API → Notion with explicit steps.
+
+## Prerequisites
+
+- Read `USER.md`, `SOUL.md`, `AGENTS.md` (group vs main session rules).
+- **Default output root:**
+  ```text
+  workspace/drafts/social/<YYYY-MM-DD>-<campaign-slug>/
+  ```
+- **Publish policy:** default **draft-only**; auto-post only if human has documented allowlist in workspace (e.g. `TOOLS.md` or `USER.md`).
+
+## Credentials & API (qf-style)
+
+- **Draft-only:** No secrets; all bundles under `workspace/drafts/social/...` as above.
+- **Live publish / analytics pull:** Prefer **OpenClaw channels** in `~/.openclaw/openclaw.json` when configured (Telegram, Discord, LinkedIn, etc.).
+- **Per-platform API keys** (Meta, Google Ads, TikTok Marketing, Reddit, LinkedIn): use **`workspace/INTEGRATIONS.md`** for recommended `~/.config/...` paths, env vars, and example `curl` lines. Sub-skills (`linkedin-article-writer`, `adverts-creator`, …) spell out which service each needs.
+
+## High-level Workflow
+
+1. **Intake (`00-intake.md`)**
+   - Capture: goals, KPIs, platforms, **blacklist topics**, **legal/compliance** (region, disclaimers), **deadlines**, asset links.
+
+2. **Trend pass (optional)**
+   - Invoke or simulate `social-trend-monitor` → save `trends-in.md` reference in folder.
+
+3. **Calendar (`calendar.md`)**
+   - Produce or merge output from `social-content-planning`:
+     - Columns: Date | Platform | Format | Topic slug | CTA type | Asset needs | Owner.
+
+4. **Per-slot production loop**
+   For each calendar row:
+   - **Brief** → `social-caption-writer` (save `captions/<date>-<platform>-<slug>.md`).
+   - **Visual** → `auto-image-generation` or `auto-video-generation` brief paths in `assets-needed.md`.
+   - **Bundle** → `posts/<id>/post-bundle.md`: hook, body, hashtags, suggested time, **disclosure line**, link placeholders.
+
+5. **Engagement queue**
+   - If community work requested: `social-community-engagement` outputs under `replies/`.
+
+6. **Analytics loop**
+   - When metrics provided: `social-analytics` → `analytics/<period>-summary.md`; feed **next calendar** adjustments.
+
+7. **Approval package (`APPROVAL.md`)**
+   - Table: Post ID | Platform | Preview link or file path | **Approved Y/N** | Publisher | **Go-live datetime** (empty until human fills).
+
+8. **Close-out message to user**
+   - List **exact paths** created; state **nothing was published** unless explicitly executed via approved channel tools.
+
+9. **Scheduling**
+   - **Weekly** campaigns: one folder per week slug.
+   - **Always-on:** date-prefix daily subfolders `day-YYYY-MM-DD/`.
+
+## Sub-skills (explicit contracts)
+
+| Skill | Delivers |
+|--------|-----------|
+| `social-content-planning` | `calendar.md` skeleton |
+| `social-caption-writer` | Raw copy per slot |
+| `social-community-engagement` | Reply drafts |
+| `social-analytics` | Readout markdown |
+| `social-trend-monitor` | Trend brief file |
+
+## Outputs (required per campaign folder)
+
+- `00-intake.md`, `calendar.md`, `APPROVAL.md`, `README-handoff.md`
+
+## Agent Checklist
+
+- [ ] Intake captured goals, platforms, compliance, deadlines.
+- [ ] Every post has a unique `post id` and file path.
+- [ ] Caption files exist for each scheduled slot (or explicit “defer” note).
+- [ ] Disclosure / AI-assisted / sponsored lines present when applicable.
+- [ ] `APPROVAL.md` present; human sign-off assumed empty until filled.
+- [ ] User told no live publish unless tools + approval satisfied.
+- [ ] Sub-skill outputs referenced by path, not vague “see above.”
