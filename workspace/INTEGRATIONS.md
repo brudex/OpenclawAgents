@@ -56,7 +56,16 @@ echo "/absolute/path/to/google-service-account.json" > ~/.config/openclaw/google
 printf '%s\n' '14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs' > ~/.config/openclaw/marketing_brief_drive_folder_id
 ```
 
-Use `files.list` with `q` including `'FOLDER_ID' in parents` and `trashed = false`, then export Docs / download binaries per [Drive API](https://developers.google.com/drive/api/guides/about-sdk) patterns. **`qf-record-pending-uploads`** documents the same credential style under `~/.config/quizfactor/` for **quiz** ingestion only — do **not** add this brief folder ID to `~/.config/quizfactor/drive_folder_ids`.
+4. Resolve config at runtime the same way as **`qf-record-pending-uploads`** `## Configuration` (read paths from files, not hard-coded):
+
+```bash
+MARKETING_BRIEF_FOLDER_ID=$(cat ~/.config/openclaw/marketing_brief_drive_folder_id)
+MARKETING_GOOGLE_CREDS_PATH=$(cat ~/.config/openclaw/google_drive_credentials)
+```
+
+If **`MARKETING_BRIEF_DRIVE_FOLDER_ID`** is set in the environment, use it **instead of** the file for the folder ID.
+
+Use `files.list` with `q` including `'${MARKETING_BRIEF_FOLDER_ID}' in parents` and `trashed = false`, then export Docs / download binaries per [Drive API](https://developers.google.com/drive/api/guides/about-sdk) patterns. **`qf-record-pending-uploads`** documents the same credential style under `~/.config/quizfactor/` for **quiz** ingestion only — do **not** add this brief folder ID to `~/.config/quizfactor/drive_folder_ids`.
 
 ## HypeEngine (Twitter/X + LinkedIn posts)
 

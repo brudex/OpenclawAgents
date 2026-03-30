@@ -10,15 +10,20 @@ Turn **business goals** into **market-facing clarity**: who we sell to, what we 
 
 ## Prerequisites
 
-- **Google Drive — project full brief (discovery source)**  
-  - Canonical **folder ID**: `14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs`  
-  - Folder URL: [Project brief (Google Drive)](https://drive.google.com/drive/folders/14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs)  
-  - Before drafting `00-brief.md`, **read everything authoritative in that folder** (Docs, PDFs, markdown exports): treat it as the **source-of-truth project brief**. Use Drive API `files.list` with parent = this folder ID and export/download text as needed.  
-  - **Host config** (see **`INTEGRATIONS.md`**): `~/.config/openclaw/google_drive_credentials` (path to service account JSON) and `~/.config/openclaw/marketing_brief_drive_folder_id` (single line; default below). Same credential and API patterns as **`qf-record-pending-uploads`** — that skill is for **QuizFactor quiz files** and uses `~/.config/quizfactor/drive_folder_ids`; **do not** put this marketing brief folder ID into QuizFactor’s quiz watch list.  
-  - Default one-liner for `marketing_brief_drive_folder_id` on this workspace:  
+- **Google Drive — project full brief (discovery source)**
+  - Google Cloud project with the Drive API enabled.
+  - Service account or OAuth credentials with **read access** to the brief folder.
+  - Canonical **folder ID** (this workspace): `14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs` — [Project brief (Google Drive)](https://drive.google.com/drive/folders/14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs).
+  - Before drafting `00-brief.md`, **read everything authoritative in that folder** (Docs, PDFs, markdown exports): **source-of-truth project brief**. Use Drive API `files.list` with parent = folder ID and export/download text as needed.
+  - Same credential and API patterns as **`qf-record-pending-uploads`**; that skill uses `~/.config/quizfactor/drive_folder_ids` for **quiz** files — **do not** put this marketing brief folder ID there.
+  - Recommended config paths:
     ```bash
+    mkdir -p ~/.config/openclaw
+    echo "/absolute/path/to/google-service-account.json" > ~/.config/openclaw/google_drive_credentials
+    # Single line: marketing project brief folder ID (default for this workspace below).
     printf '%s\n' '14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs' > ~/.config/openclaw/marketing_brief_drive_folder_id
     ```
+
 - Inputs from human: **product** or initiative name, **goal** (awareness, leads, activation, retention), **geo**, **budget band** (optional), **constraints** (compliance, taboo claims) — **after** reconciling with the Drive brief (resolve conflicts by asking the human).
 - Read **`USER.md`**, **`SOUL.md`** for brand voice and claims policy.
 - Optional: `auto-research-agent` **`report.md`** path for category/competitor context.
@@ -27,16 +32,31 @@ Turn **business goals** into **market-facing clarity**: who we sell to, what we 
   workspace/drafts/marketing/<YYYY-MM-DD>-<campaign-or-initiative-slug>/
   ```
 
+## Configuration
+
+Always derive config from files rather than hard-coding:
+
+```bash
+MARKETING_BRIEF_FOLDER_ID=$(cat ~/.config/openclaw/marketing_brief_drive_folder_id)
+MARKETING_GOOGLE_CREDS_PATH=$(cat ~/.config/openclaw/google_drive_credentials)
+```
+
+If the environment variable **`MARKETING_BRIEF_DRIVE_FOLDER_ID`** is set, use it **instead of** the file value for the folder ID (see **`INTEGRATIONS.md`**).
+
+The agent may use either Google client libraries (Python/Node) or raw HTTP with OAuth2, but must honor **`MARKETING_GOOGLE_CREDS_PATH`** (path to the JSON key file) and the resolved brief folder ID.
+
+Share the brief folder with the service account’s **client email** (Viewer is enough).
+
 ## Credentials & API (qf-style)
 
 - **Draft-only:** No keys; all artifacts under `workspace/drafts/marketing/...`.
-- **Drive brief (recommended):** Resolve folder ID with `MARKETING_BRIEF_DRIVE_FOLDER_ID` env override **or** `cat ~/.config/openclaw/marketing_brief_drive_folder_id`; credentials path from `cat ~/.config/openclaw/google_drive_credentials`. Share the Drive folder with the service account’s **client email** (Viewer or Reader is enough).
 - **Optional:** Sync summaries to **Notion** via **`notion`** skill; paid ad **live** execution via **`adverts-creator`** + **`INTEGRATIONS.md`**; social calendar via **`social-media-manager`**.
 
 ## High-level Workflow
 
 1. **Ingest Drive brief**
-   - List non-trashed files in the configured brief folder; read Google Docs (export as plain text or markdown), PDFs, and other brief assets. Summarize constraints and goals you will carry into `00-brief.md`.
+   - Load **`MARKETING_BRIEF_FOLDER_ID`** (after applying the env override rule in **Configuration**) and **`MARKETING_GOOGLE_CREDS_PATH`**.
+   - List non-trashed files in that folder (`files.list`, parent = folder ID); read Google Docs (export as plain text or markdown), PDFs, and other brief assets. Summarize constraints and goals you will carry into `00-brief.md`.
 
 2. **Brief lock (`00-brief.md`)**
    - Goal, primary **CTA**, timeline, **success metrics** (e.g. signups, trials, MQLs), non-goals — aligned to the Drive brief + human inputs.
@@ -86,7 +106,7 @@ Turn **business goals** into **market-facing clarity**: who we sell to, what we 
 
 ## Agent Checklist
 
-- [ ] **Drive brief folder** read (or explicitly skipped only if no credentials and human supplied full brief in chat).
+- [ ] Read marketing Drive config from `~/.config/openclaw/*` (or env override for folder ID); **Drive brief folder** ingested (or explicitly skipped only if no credentials and human supplied full brief in chat).
 - [ ] ICP and positioning are **specific** (not “everyone” / “best platform”).
 - [ ] Claims match evidence or are framed as opinion; no fabricated stats.
 - [ ] Channel plan names **handoff skills** and file paths.
