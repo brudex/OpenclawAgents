@@ -1,6 +1,6 @@
 ---
 name: auto-video-generation
-description: End-to-end video planning—concept, timestamped beat sheet, shot list, VO script, captions outline, platform specs (TikTok/Reels/Shorts/long-form), and handoff packages for editors or Remotion/ffmpeg pipelines. Does not claim a rendered file unless a render tool actually ran.
+description: End-to-end video planning—concept, beat sheet, shot list, VO script, captions, platform specs—and optional rendered clips via Gemini Veo API when GEMINI_API_KEY is set; otherwise Remotion/ffmpeg handoff only.
 metadata: {"clawdbot":{"emoji":"🎬"},"openclaw":{"emoji":"🎬"}}
 ---
 
@@ -34,7 +34,8 @@ Produce **production-ready planning artifacts** for video: not just a script, bu
 ## Credentials & API (qf-style)
 
 - **Planning-only:** No API keys; beat sheets and scripts under `workspace/drafts/video/...`.
-- **Render / TTS / hosted generation:** Same host env pattern as **`auto-image-generation`** (`OPENAI_API_KEY`, `FAL_KEY`, etc. per **`workspace/INTEGRATIONS.md`**). Voice/music: use **`eleven-labs-music`** skill scripts when the human has configured ElevenLabs keys on the server (see that skill’s README); do not assume trending-platform audio rights.
+- **Rendered video (default: Gemini Veo):** Use **`GEMINI_API_KEY`** / **`~/.config/gemini/api_key`** with the **async** video flow: start generation → **poll** the long-running operation → **download** the file into `workspace/drafts/video/<run>/` (e.g. `veo-output.mp4`). Request body includes **prompt** (merge beat sheet + VO cues into one cinematic description), **`aspectRatio`** (`"9:16"` for vertical shorts, `"16:9"` for landscape), and **`resolution`** if supported. Exact endpoint and field names evolve — follow [Gemini video / Veo docs](https://ai.google.dev/gemini-api/docs/video) and **`workspace/INTEGRATIONS.md`**.
+- **Fallback:** **Remotion + ffmpeg** or **`eleven-labs-music`** for audio-only beds when Veo is not used or not enabled; do not assume licensed trending TikTok audio unless rights confirmed.
 
 ## High-level Workflow
 
@@ -112,5 +113,5 @@ Recommended:
 - [ ] All factual claims in VO either generic or tied to provided research with citation note in `README-handoff.md`.
 - [ ] Audio/legal section addresses trending-sound risk.
 - [ ] Folder created under `drafts/video/<date>-<slug>/` with all required files.
-- [ ] User told exactly which path to open and that **rendered video is out of scope** unless a render tool was invoked.
+- [ ] User told exactly which path to open; **rendered MP4** only if **Gemini Veo** (or Remotion/ffmpeg) was actually invoked and file saved under the draft folder.
 - [ ] If `video-generator/` patterns apply, reference `video-generator/references/composition-patterns.md` where useful (do not duplicate entire doc).

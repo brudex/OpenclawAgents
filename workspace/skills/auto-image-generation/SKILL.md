@@ -1,6 +1,6 @@
 ---
 name: auto-image-generation
-description: Full creative briefs for static assets—social, ads, thumbnails, blog heroes—with aspect ratio matrix, layered prompts, negative prompts, brand constraints, A/B variant grid, and optional safe-zone diagram notes for designers or image_generate tools.
+description: Full creative briefs for static assets—social, ads, thumbnails, blog heroes—with aspect ratio matrix, layered prompts, negative prompts, brand constraints, A/B variant grid, and optional safe-zone notes; live pixels via Gemini API (native image or Imagen) when GEMINI_API_KEY is set.
 metadata: {"clawdbot":{"emoji":"🖼️"},"openclaw":{"emoji":"🖼️"}}
 ---
 
@@ -16,20 +16,15 @@ Deliver **designer-ready** image specs: not a single vague prompt, but **placeme
   workspace/drafts/images/<YYYY-MM-DD>-<slug>/
   ```
 - **Brief:** use case (feed post, story, Meta ad 1:1, display 1200×628, YT thumbnail), **must-win message**, **legal** (no competitor logos, no fake badges).
-- **Tools:** `image_generate` or external API when enabled; otherwise output **briefs only** and state that in README.
+- **Tools:** When generating **real files**, use **Gemini API** (this workspace’s default). OpenClaw **`image_generate`** may wrap the same API if configured. Otherwise output **briefs only** and state that in README.
 
 ## Credentials & API (qf-style)
 
 - **Briefs-only:** No keys; deliver prompts and `README` under `workspace/drafts/images/...`.
-- **Render / API:** Set provider keys on the gateway host — typically `OPENAI_API_KEY`, `FAL_KEY`, and/or `GEMINI_API_KEY` in **`~/.openclaw/.env`** (see **`workspace/INTEGRATIONS.md`**). Example OpenAI Images-style call (adjust model and endpoint per current docs):
-
-  ```bash
-  export OPENAI_API_KEY=$(cat ~/.config/openai/api_key)   # or .env only
-  curl -sS https://api.openai.com/v1/images/generations \
-    -H "Authorization: Bearer $OPENAI_API_KEY" \
-    -H "Content-Type: application/json" \
-    -d '{"model":"gpt-image-1","prompt":"…","n":1,"size":"1024x1024"}'
-  ```
+- **Render (default: Gemini):** Store **`GEMINI_API_KEY`** in **`~/.openclaw/.env`** or **`~/.config/gemini/api_key`**. Send **`x-goog-api-key`** (not Bearer) to `generativelanguage.googleapis.com` — see **`workspace/INTEGRATIONS.md`**.
+- **Native image model (`generateContent`):** Map `prompt-master.txt` + aspect ratio from `brief.json` / matrix into `generationConfig.imageConfig.aspectRatio` (`"1:1"`, `"16:9"`, `"9:16"`, etc.—use values supported by the model you choose). Parse the response for **inline image bytes** (base64) and write **`generated-1.png`** (or `.jpg` per MIME) under the same draft folder. **Model IDs change** — pick the current image-capable model from [Gemini image generation docs](https://ai.google.dev/gemini-api/docs/image-generation).
+- **Imagen (`predict`):** Optional batch-style generation via e.g. `imagen-4.0-generate-001:predict` with `instances[].prompt` and `parameters.sampleCount` if your project uses Imagen instead of native image output.
+- **Negatives / brand:** Fold `negative-prompt.txt` into the **user text prompt** (Gemini image prompts are text-first); keep `text-overlay.md` as post-edit guidance if the API cannot place text reliably.
 
 ## High-level Workflow
 
@@ -71,7 +66,10 @@ Deliver **designer-ready** image specs: not a single vague prompt, but **placeme
 9. **Optional `brief.json`**
    - Keys: `aspect_ratio`, `width`, `height`, `prompt`, `negative_prompt`, `variants[]`.
 
-10. **Scheduling**
+10. **Optional pixel pass (`gemini-render.md`)**
+    - If keys exist: document model id, request timestamp, output filenames, and any **safety filter** or refusal in `gemini-render.md` next to the images.
+
+11. **Scheduling**
     - Campaign assets: date-prefix folders; **retain** previous days for audit.
 
 ## Outputs (required)
@@ -85,5 +83,5 @@ Deliver **designer-ready** image specs: not a single vague prompt, but **placeme
 - [ ] Negative prompt covers legal/safety brand items.
 - [ ] A/B table present when use case is ads or declared test.
 - [ ] No invented awards, rankings, or “official” marks.
-- [ ] User told folder path; clarified whether pixels were generated or brief-only.
+- [ ] User told folder path; clarified **Gemini** pixels vs **brief-only** (no `GEMINI_API_KEY`).
 - [ ] If chaining to `adverts-creator`, list which variant maps to which ad headline in README.

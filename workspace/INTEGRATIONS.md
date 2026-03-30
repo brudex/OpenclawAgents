@@ -17,6 +17,7 @@ Suggested layout (create on server):
 ~/.config/hype-engine/api_key         # HypeEngine / Mixpost — Bearer token
 ~/.config/hype-engine/project_uuid
 ~/.config/hype-engine/base_url
+~/.config/gemini/api_key          # Google AI Studio / Gemini API key (image + Veo video)
 ```
 
 Environment variables (alternative to files — set in `~/.openclaw/.env` or systemd):
@@ -31,7 +32,8 @@ Environment variables (alternative to files — set in `~/.openclaw/.env` or sys
 | `META_ACCESS_TOKEN` | Meta Marketing API |
 | `GOOGLE_ADS_DEVELOPER_TOKEN`, `GOOGLE_ADS_*` | Google Ads |
 | `TIKTOK_ACCESS_TOKEN` | TikTok Marketing / Content API when eligible |
-| `OPENAI_API_KEY`, `FAL_KEY`, `GEMINI_API_KEY` | Image/video generation tools |
+| `GEMINI_API_KEY` | **Primary** for **`auto-image-generation`** and **`auto-video-generation`** (Gemini native image / Imagen + **Veo** video) |
+| `OPENAI_API_KEY`, `FAL_KEY` | Optional fallbacks if you add other tools later |
 
 ## HypeEngine (Twitter/X + LinkedIn posts)
 
@@ -40,6 +42,73 @@ This workspace routes **approved** **Twitter/X** and **LinkedIn feed** publishin
 ## OpenClaw channels (preferred when available)
 
 If **`~/.openclaw/openclaw.json`** defines **Telegram, Discord**, etc., use **channel tools** where the team uses them. For **X + LinkedIn feed**, default to **`hype-engine`** unless **`USER.md` / `TOOLS.md`** says otherwise. For direct LinkedIn API without HypeEngine, use **`~/.config/linkedin/`** or env vars in this doc.
+
+## Gemini — image (generateContent)
+
+Use an **image-capable** model id from the current [image generation](https://ai.google.dev/gemini-api/docs/image-generation) documentation. Auth header is **`x-goog-api-key`**, not `Authorization: Bearer`.
+
+```bash
+GEMINI_API_KEY=$(cat ~/.config/gemini/api_key)
+# Replace MODEL_ID with a supported image model from the docs (examples: gemini-2.5-flash-image, gemini-3.1-flash-image-preview, …)
+MODEL_ID="gemini-2.5-flash-image"
+
+curl -sS -X POST \
+  "https://generativelanguage.googleapis.com/v1beta/models/${MODEL_ID}:generateContent" \
+  -H "x-goog-api-key: ${GEMINI_API_KEY}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "contents": [{
+      "parts": [{"text": "YOUR_PROMPT_FROM_prompt-master.txt"}]
+    }],
+    "generationConfig": {
+      "imageConfig": { "aspectRatio": "1:1" }
+    }
+  }'
+```
+
+Decode **`inlineData`** / base64 image parts from the JSON response into a file under `workspace/drafts/images/<run>/`.
+
+### Imagen (optional `predict`)
+
+```bash
+curl -sS -X POST \
+  "https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict" \
+  -H "x-goog-api-key: ${GEMINI_API_KEY}" \
+  -H "Content-Type: application/json" \
+  -d '{"instances":[{"prompt":"…"}],"parameters":{"sampleCount":1}}'
+```
+
+## Gemini — video (Veo, async)
+
+Video generation is **long-running**. Start the operation, **poll** until `done`, then **download** the file. Endpoint and JSON shape are updated periodically — verify against [video / Veo](https://ai.google.dev/gemini-api/docs/video).
+
+Illustrative flow (requires `jq`; adjust paths to match current API responses):
+
+```bash
+GEMINI_API_KEY=$(cat ~/.config/gemini/api_key)
+BASE_URL="https://generativelanguage.googleapis.com/v1beta"
+
+operation_name=$(curl -s "${BASE_URL}/models/veo-3.1-generate-preview:predictLongRunning" \
+  -H "x-goog-api-key: ${GEMINI_API_KEY}" \
+  -H "Content-Type: application/json" \
+  -X POST \
+  -d '{
+    "instances": [{ "prompt": "YOUR_CINEMATIC_PROMPT_FROM_beat-sheet.md" }],
+    "parameters": { "aspectRatio": "9:16" }
+  }' | jq -r .name)
+
+while true; do
+  status=$(curl -s -H "x-goog-api-key: ${GEMINI_API_KEY}" "${BASE_URL}/${operation_name}")
+  if [ "$(echo "$status" | jq .done)" = "true" ]; then
+    video_uri=$(echo "$status" | jq -r '.response.generateVideoResponse.generatedSamples[0].video.uri // empty')
+    [ -n "$video_uri" ] && curl -sL -o veo-output.mp4 -H "x-goog-api-key: ${GEMINI_API_KEY}" "$video_uri"
+    break
+  fi
+  sleep 10
+done
+```
+
+Save outputs under **`workspace/drafts/video/<run>/`** and record model + operation id in **`veo-render.md`**.
 
 ## Example: QuizFactor (with Bearer)
 
