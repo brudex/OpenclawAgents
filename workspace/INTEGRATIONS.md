@@ -18,6 +18,8 @@ Suggested layout (create on server):
 ~/.config/hype-engine/project_uuid
 ~/.config/hype-engine/base_url
 ~/.config/gemini/api_key          # Google AI Studio / Gemini API key (image + Veo video)
+~/.config/openclaw/google_drive_credentials   # Path to service account JSON (marketer-agent: project brief folder)
+~/.config/openclaw/marketing_brief_drive_folder_id   # Single line: Google Drive folder ID for full project brief
 ```
 
 Environment variables (alternative to files — set in `~/.openclaw/.env` or systemd):
@@ -34,6 +36,27 @@ Environment variables (alternative to files — set in `~/.openclaw/.env` or sys
 | `TIKTOK_ACCESS_TOKEN` | TikTok Marketing / Content API when eligible |
 | `GEMINI_API_KEY` | **Primary** for **`auto-image-generation`** and **`auto-video-generation`** (Gemini native image / Imagen + **Veo** video) |
 | `OPENAI_API_KEY`, `FAL_KEY` | Optional fallbacks if you add other tools later |
+| `MARKETING_BRIEF_DRIVE_FOLDER_ID` | Override marketing brief folder (else read `~/.config/openclaw/marketing_brief_drive_folder_id`) |
+
+## Google Drive — marketing project brief (`marketer-agent`)
+
+The **full project brief** for marketing work lives in a shared Drive folder. **`marketer-agent`** should list and read files there (same Drive API usage as **`qf-record-pending-uploads`**, but **separate** config paths so quiz-import folders are not mixed with the brief folder).
+
+**Canonical folder for this workspace:** `14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs` — [open in Drive](https://drive.google.com/drive/folders/14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs).
+
+On the OpenClaw host:
+
+1. Enable **Google Drive API** on a Google Cloud project; create a **service account** and download JSON.
+2. **Share** the brief folder with the service account’s client email (e.g. `something@project.iam.gserviceaccount.com`) with at least **Viewer**.
+3. Write config (adjust JSON path):
+
+```bash
+mkdir -p ~/.config/openclaw
+echo "/absolute/path/to/google-service-account.json" > ~/.config/openclaw/google_drive_credentials
+printf '%s\n' '14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs' > ~/.config/openclaw/marketing_brief_drive_folder_id
+```
+
+Use `files.list` with `q` including `'FOLDER_ID' in parents` and `trashed = false`, then export Docs / download binaries per [Drive API](https://developers.google.com/drive/api/guides/about-sdk) patterns. **`qf-record-pending-uploads`** documents the same credential style under `~/.config/quizfactor/` for **quiz** ingestion only — do **not** add this brief folder ID to `~/.config/quizfactor/drive_folder_ids`.
 
 ## HypeEngine (Twitter/X + LinkedIn posts)
 

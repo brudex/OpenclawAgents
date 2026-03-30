@@ -15,6 +15,7 @@ This skill focuses on **discovery and classification only** – it does **not** 
 - **Google Drive**
   - Google Cloud project with the Drive API enabled.
   - Service account or OAuth credentials with **read access** to the target folder.
+  - **Not for marketing briefs:** The **`marketer-agent`** skill watches a **different** folder for the **full project brief** via `~/.config/openclaw/marketing_brief_drive_folder_id` (see **`INTEGRATIONS.md`**). Keep **quiz** folder IDs only in `drive_folder_ids` below — do not add the marketing brief folder here or pending-upload logic may treat brief PDFs/Docs as quiz sources.
   - Recommended config paths:
     ```bash
     mkdir -p ~/.config/quizfactor

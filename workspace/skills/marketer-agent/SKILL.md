@@ -10,7 +10,16 @@ Turn **business goals** into **market-facing clarity**: who we sell to, what we 
 
 ## Prerequisites
 
-- Inputs from human: **product** or initiative name, **goal** (awareness, leads, activation, retention), **geo**, **budget band** (optional), **constraints** (compliance, taboo claims).
+- **Google Drive — project full brief (discovery source)**  
+  - Canonical **folder ID**: `14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs`  
+  - Folder URL: [Project brief (Google Drive)](https://drive.google.com/drive/folders/14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs)  
+  - Before drafting `00-brief.md`, **read everything authoritative in that folder** (Docs, PDFs, markdown exports): treat it as the **source-of-truth project brief**. Use Drive API `files.list` with parent = this folder ID and export/download text as needed.  
+  - **Host config** (see **`INTEGRATIONS.md`**): `~/.config/openclaw/google_drive_credentials` (path to service account JSON) and `~/.config/openclaw/marketing_brief_drive_folder_id` (single line; default below). Same credential and API patterns as **`qf-record-pending-uploads`** — that skill is for **QuizFactor quiz files** and uses `~/.config/quizfactor/drive_folder_ids`; **do not** put this marketing brief folder ID into QuizFactor’s quiz watch list.  
+  - Default one-liner for `marketing_brief_drive_folder_id` on this workspace:  
+    ```bash
+    printf '%s\n' '14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs' > ~/.config/openclaw/marketing_brief_drive_folder_id
+    ```
+- Inputs from human: **product** or initiative name, **goal** (awareness, leads, activation, retention), **geo**, **budget band** (optional), **constraints** (compliance, taboo claims) — **after** reconciling with the Drive brief (resolve conflicts by asking the human).
 - Read **`USER.md`**, **`SOUL.md`** for brand voice and claims policy.
 - Optional: `auto-research-agent` **`report.md`** path for category/competitor context.
 - Output root:
@@ -21,38 +30,42 @@ Turn **business goals** into **market-facing clarity**: who we sell to, what we 
 ## Credentials & API (qf-style)
 
 - **Draft-only:** No keys; all artifacts under `workspace/drafts/marketing/...`.
+- **Drive brief (recommended):** Resolve folder ID with `MARKETING_BRIEF_DRIVE_FOLDER_ID` env override **or** `cat ~/.config/openclaw/marketing_brief_drive_folder_id`; credentials path from `cat ~/.config/openclaw/google_drive_credentials`. Share the Drive folder with the service account’s **client email** (Viewer or Reader is enough).
 - **Optional:** Sync summaries to **Notion** via **`notion`** skill; paid ad **live** execution via **`adverts-creator`** + **`INTEGRATIONS.md`**; social calendar via **`social-media-manager`**.
 
 ## High-level Workflow
 
-1. **Brief lock (`00-brief.md`)**
-   - Goal, primary **CTA**, timeline, **success metrics** (e.g. signups, trials, MQLs), non-goals.
+1. **Ingest Drive brief**
+   - List non-trashed files in the configured brief folder; read Google Docs (export as plain text or markdown), PDFs, and other brief assets. Summarize constraints and goals you will carry into `00-brief.md`.
 
-2. **ICP (`01-icp.md`)**
+2. **Brief lock (`00-brief.md`)**
+   - Goal, primary **CTA**, timeline, **success metrics** (e.g. signups, trials, MQLs), non-goals — aligned to the Drive brief + human inputs.
+
+3. **ICP (`01-icp.md`)**
    - Segments, **jobs-to-be-done**, pains, objections, buying triggers; **anti-ICP** (who not to target).
 
-3. **Positioning (`02-positioning.md`)**
+4. **Positioning (`02-positioning.md`)**
    - Category, **differentiation** (vs status quo + 1–2 named competitor archetypes if research provided), **one-line positioning**, proof types needed (data, logos, demos).
 
-4. **Messaging pillars (`03-messaging-pillars.md`)**
+5. **Messaging pillars (`03-messaging-pillars.md`)**
    - 3–4 pillars: **headline**, proof point, example use in copy; **words to use / avoid** per `USER.md`.
 
-5. **Offer & funnel (`04-offer-funnel.md`)**
+6. **Offer & funnel (`04-offer-funnel.md`)**
    - Offer stack (lead magnet, trial, demo), **funnel stages**, suggested next asset per stage; alignment with product **if** `product-manager` outputs exist.
 
-6. **Campaign concept (`05-campaign-concept.md`)**
+7. **Campaign concept (`05-campaign-concept.md`)**
    - Named campaign angle, **hero hook**, 2–3 supporting angles, **creative guardrails** (legal, brand).
 
-7. **Channel plan (`06-channel-plan.md`)**
+8. **Channel plan (`06-channel-plan.md`)**
    - Table: Channel | Role (reach / nurture / convert) | Format | Cadence suggestion | **Handoff skill** (e.g. `linkedin-article-writer`, `social-media-manager`, `adverts-creator`, `tiktok-video-ads-creator`).
 
-8. **Creative & copy briefs (`briefs/`)**
+9. **Creative & copy briefs (`briefs/`)**
    - One file per major deliverable type: `linkedin-thought-leadership-brief.md`, `social-week-brief.md`, `paid-ads-brief.md` — each with objective, audience, **must-say**, **never-say**, CTA, **approval gate** note.
 
-9. **Measurement (`07-metrics.md`)**
+10. **Measurement (`07-metrics.md`)**
    - North star + **leading indicators**; UTM / campaign naming convention; what to report weekly.
 
-10. **Handoff index (`README-handoff.md`)**
+11. **Handoff index (`README-handoff.md`)**
     - Ordered list: which skill to run next, **input paths** from this folder, expected **output paths** under `workspace/drafts/...`.
 
 ## Coordination (explicit)
@@ -73,6 +86,7 @@ Turn **business goals** into **market-facing clarity**: who we sell to, what we 
 
 ## Agent Checklist
 
+- [ ] **Drive brief folder** read (or explicitly skipped only if no credentials and human supplied full brief in chat).
 - [ ] ICP and positioning are **specific** (not “everyone” / “best platform”).
 - [ ] Claims match evidence or are framed as opinion; no fabricated stats.
 - [ ] Channel plan names **handoff skills** and file paths.
