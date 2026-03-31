@@ -18,8 +18,9 @@ Suggested layout (create on server):
 ~/.config/hype-engine/project_uuid
 ~/.config/hype-engine/base_url
 ~/.config/gemini/api_key          # Google AI Studio / Gemini API key (image + Veo video)
-~/.config/openclaw/google_drive_credentials   # Path to service account JSON (marketer-agent: project brief folder)
-~/.config/openclaw/marketing_brief_drive_folder_id   # Single line: Google Drive folder ID for full project brief
+~/.config/quizfactor/google_drive_credentials   # Path to service account JSON (qf-* skills; marketer-agent optional if host Google/Drive already connected)
+~/.config/marketer/drive_folder_id   # Single line: marketer-agent — Google Drive folder ID for full project brief (not quiz imports)
+~/.config/openclaw/marketing_brief_drive_folder_id   # Legacy fallback if marketer/drive_folder_id is missing
 ```
 
 Environment variables (alternative to files — set in `~/.openclaw/.env` or systemd):
@@ -36,36 +37,42 @@ Environment variables (alternative to files — set in `~/.openclaw/.env` or sys
 | `TIKTOK_ACCESS_TOKEN` | TikTok Marketing / Content API when eligible |
 | `GEMINI_API_KEY` | **Primary** for **`auto-image-generation`** and **`auto-video-generation`** (Gemini native image / Imagen + **Veo** video) |
 | `OPENAI_API_KEY`, `FAL_KEY` | Optional fallbacks if you add other tools later |
-| `MARKETING_BRIEF_DRIVE_FOLDER_ID` | Override marketing brief folder (else read `~/.config/openclaw/marketing_brief_drive_folder_id`) |
+| `MARKETING_BRIEF_DRIVE_FOLDER_ID` | Override marketing brief folder (else `~/.config/marketer/drive_folder_id`, else legacy `~/.config/openclaw/marketing_brief_drive_folder_id`) |
 
 ## Google Drive — marketing project brief (`marketer-agent`)
 
-The **full project brief** for marketing work lives in a shared Drive folder. **`marketer-agent`** should list and read files there (same Drive API usage as **`qf-record-pending-uploads`**, but **separate** config paths so quiz-import folders are not mixed with the brief folder).
+The **full project brief** for marketing work lives in a shared Drive folder. **`marketer-agent`** should list and read files there (same Drive API patterns as **`qf-record-pending-uploads`** when using a service account, but **separate** folder-ID config so quiz-import folders are not mixed with the brief folder).
 
 **Canonical folder for this workspace:** `14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs` — [open in Drive](https://drive.google.com/drive/folders/14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs).
 
-On the OpenClaw host:
+### When OpenClaw already has Google / Drive connected
+
+If the **host** (OpenClaw UI, linked Google account, or Drive-capable tools/MCP) already provides authenticated Drive access, **`marketer-agent`** should **use that** to read the brief folder. You still need a resolvable **folder ID** (`~/.config/marketer/drive_folder_id`, env **`MARKETING_BRIEF_DRIVE_FOLDER_ID`**, or legacy openclaw file). You do **not** need to create **`~/.config/quizfactor/google_drive_credentials`** for marketer-agent in that setup (that file remains important for **`qf-record-pending-uploads`** on headless/service-account setups).
+
+**Operator note:** If your server team confirms **Google is already logged in / integrated**, treat Drive auth for marketer-agent as **handled by the host**. Agents should **not** insist on a separate service-account JSON for marketing brief ingest; add **`google_drive_credentials`** only when you rely on a key file for QuizFactor or other automation without user Google.
+
+### Service-account setup (headless or no host Google integration)
 
 1. Enable **Google Drive API** on a Google Cloud project; create a **service account** and download JSON.
 2. **Share** the brief folder with the service account’s client email (e.g. `something@project.iam.gserviceaccount.com`) with at least **Viewer**.
-3. Write config (adjust JSON path):
+3. Write config (adjust JSON path). **Reuse** `~/.config/quizfactor/google_drive_credentials` if you already set it for **`qf-record-pending-uploads`**; add the marketer brief folder ID under **`~/.config/marketer/`**:
 
 ```bash
-mkdir -p ~/.config/openclaw
-echo "/absolute/path/to/google-service-account.json" > ~/.config/openclaw/google_drive_credentials
-printf '%s\n' '14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs' > ~/.config/openclaw/marketing_brief_drive_folder_id
+mkdir -p ~/.config/quizfactor ~/.config/marketer
+echo "/absolute/path/to/google-service-account.json" > ~/.config/quizfactor/google_drive_credentials
+printf '%s\n' '14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs' > ~/.config/marketer/drive_folder_id
 ```
 
-4. Resolve config at runtime the same way as **`qf-record-pending-uploads`** `## Configuration` (read paths from files, not hard-coded):
+**Folder ID** resolution: env **`MARKETING_BRIEF_DRIVE_FOLDER_ID`** if set; else **`~/.config/marketer/drive_folder_id`**; else legacy **`~/.config/openclaw/marketing_brief_drive_folder_id`**.
+
+When using a service account:
 
 ```bash
-MARKETING_BRIEF_FOLDER_ID=$(cat ~/.config/openclaw/marketing_brief_drive_folder_id)
-MARKETING_GOOGLE_CREDS_PATH=$(cat ~/.config/openclaw/google_drive_credentials)
+QF_GOOGLE_CREDS_PATH=$(cat ~/.config/quizfactor/google_drive_credentials)
+MARKETING_BRIEF_FOLDER_ID=$(cat ~/.config/marketer/drive_folder_id)
 ```
 
-If **`MARKETING_BRIEF_DRIVE_FOLDER_ID`** is set in the environment, use it **instead of** the file for the folder ID.
-
-Use `files.list` with `q` including `'${MARKETING_BRIEF_FOLDER_ID}' in parents` and `trashed = false`, then export Docs / download binaries per [Drive API](https://developers.google.com/drive/api/guides/about-sdk) patterns. **`qf-record-pending-uploads`** documents the same credential style under `~/.config/quizfactor/` for **quiz** ingestion only — do **not** add this brief folder ID to `~/.config/quizfactor/drive_folder_ids`.
+Use `files.list` with `q` including `'${MARKETING_BRIEF_FOLDER_ID}' in parents` and `trashed = false`, then export Docs / download binaries per [Drive API](https://developers.google.com/drive/api/guides/about-sdk) patterns. **`qf-record-pending-uploads`** uses **`~/.config/quizfactor/drive_folder_ids`** for **quiz** ingestion only — do **not** add this brief folder ID there.
 
 ## HypeEngine (Twitter/X + LinkedIn posts)
 

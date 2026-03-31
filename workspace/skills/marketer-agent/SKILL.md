@@ -11,17 +11,17 @@ Turn **business goals** into **market-facing clarity**: who we sell to, what we 
 ## Prerequisites
 
 - **Google Drive — project full brief (discovery source)**
-  - Google Cloud project with the Drive API enabled.
-  - Service account or OAuth credentials with **read access** to the brief folder.
   - Canonical **folder ID** (this workspace): `14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs` — [Project brief (Google Drive)](https://drive.google.com/drive/folders/14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs).
-  - Before drafting `00-brief.md`, **read everything authoritative in that folder** (Docs, PDFs, markdown exports): **source-of-truth project brief**. Use Drive API `files.list` with parent = folder ID and export/download text as needed.
-  - Same credential and API patterns as **`qf-record-pending-uploads`**; that skill uses `~/.config/quizfactor/drive_folder_ids` for **quiz** files — **do not** put this marketing brief folder ID there.
-  - Recommended config paths:
+  - Before drafting `00-brief.md`, **read everything authoritative in that folder** (Docs, PDFs, markdown exports): **source-of-truth project brief**. Use Drive API `files.list` with parent = folder ID and export/download text as needed, **or** the host’s built-in Google/Drive integration if already connected.
+  - **Host policy (operator expectation):** On many OpenClaw hosts, **Google is already logged in or integrated** at the platform level. In that case **do not** tell the user to add a service-account JSON or **`~/.config/quizfactor/google_drive_credentials`** for marketer-agent — **connect / use Google through the host** (OpenClaw Google integration, Drive-capable tools, MCP, `gcloud`/user ADC, or whatever the runtime exposes). That file is only for **headless service-account** flows (e.g. alongside **`qf-record-pending-uploads`**).
+  - **Auth — prefer the host’s Google integration:** If **OpenClaw** (or the runtime) already has **Google / Drive signed in** or exposes Drive via **tools / MCP / `TOOLS.md`**, use that to read the brief folder. **Do not** refuse to use Drive solely because **`~/.config/quizfactor/google_drive_credentials`** is missing — that file is for **service-account** flows (shared with **`qf-record-pending-uploads`** on headless hosts), not the only option for marketer-agent.
+  - **Service-account fallback (optional):** When no host Google integration is available, use **`~/.config/quizfactor/google_drive_credentials`** → path to JSON key, same as **`qf-record-pending-uploads`** **Configuration** (`QF_GOOGLE_CREDS_PATH`). Share the brief folder with that service account’s **`client_email`** (Viewer).
+  - **Brief folder ID:** primary file **`~/.config/marketer/drive_folder_id`** (single line). **Do not** put that ID in **`~/.config/quizfactor/drive_folder_ids`** (quiz watch list). Legacy: **`~/.config/openclaw/marketing_brief_drive_folder_id`** if the marketer file is absent.
+  - Recommended paths when using **service account** (skip `google_drive_credentials` if the host Google integration already covers Drive):
     ```bash
-    mkdir -p ~/.config/openclaw
-    echo "/absolute/path/to/google-service-account.json" > ~/.config/openclaw/google_drive_credentials
-    # Single line: marketing project brief folder ID (default for this workspace below).
-    printf '%s\n' '14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs' > ~/.config/openclaw/marketing_brief_drive_folder_id
+    mkdir -p ~/.config/quizfactor ~/.config/marketer
+    echo "/absolute/path/to/google-service-account.json" > ~/.config/quizfactor/google_drive_credentials
+    printf '%s\n' '14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs' > ~/.config/marketer/drive_folder_id
     ```
 
 - Inputs from human: **product** or initiative name, **goal** (awareness, leads, activation, retention), **geo**, **budget band** (optional), **constraints** (compliance, taboo claims) — **after** reconciling with the Drive brief (resolve conflicts by asking the human).
@@ -34,18 +34,52 @@ Turn **business goals** into **market-facing clarity**: who we sell to, what we 
 
 ## Configuration
 
-Always derive config from files rather than hard-coding:
+**Authoritative brief-folder file:** **`~/.config/marketer/drive_folder_id`**. Do **not** instruct humans to move or symlink this ID solely into **`~/.config/openclaw/marketing_brief_drive_folder_id`** — that openclaw path is **legacy fallback** when the marketer file is absent. If **`~/.config/marketer/drive_folder_id`** exists and is readable, this skill is correctly configured for the folder ID.
+
+Always derive config from files rather than hard-coding.
+
+**Brief folder ID — resolution order (first match wins):**
+
+1. Environment variable **`MARKETING_BRIEF_DRIVE_FOLDER_ID`** if set.
+2. **`~/.config/marketer/drive_folder_id`** (trim whitespace / newlines).
+3. Legacy: **`~/.config/openclaw/marketing_brief_drive_folder_id`** if the marketer file does not exist.
+
+**Drive authentication — use the first option that works:**
+
+1. **Host Google / Drive already connected** (OpenClaw integration, Drive-capable tool, user OAuth on the host): read the brief folder **without** requiring `~/.config/quizfactor/google_drive_credentials`. **Do not** lead with “credentials file missing at `quizfactor/google_drive_credentials`” — try the integrated Google path first; only mention the JSON pointer if that path fails or does not exist.
+2. **Service account file:** if `~/.config/quizfactor/google_drive_credentials` exists and points to a readable JSON key:
+   ```bash
+   QF_GOOGLE_CREDS_PATH=$(cat ~/.config/quizfactor/google_drive_credentials)
+   ```
+   Same resolution as **`qf-record-pending-uploads`** `## Configuration`.
+
+**Brief folder ID** (always resolve for Drive ingest):
 
 ```bash
-MARKETING_BRIEF_FOLDER_ID=$(cat ~/.config/openclaw/marketing_brief_drive_folder_id)
-MARKETING_GOOGLE_CREDS_PATH=$(cat ~/.config/openclaw/google_drive_credentials)
+MARKETING_BRIEF_FOLDER_ID=$(cat ~/.config/marketer/drive_folder_id)
 ```
 
-If the environment variable **`MARKETING_BRIEF_DRIVE_FOLDER_ID`** is set, use it **instead of** the file value for the folder ID (see **`INTEGRATIONS.md`**).
+If you still use the legacy path only, replace that line with `cat ~/.config/openclaw/marketing_brief_drive_folder_id`, or create **`~/.config/marketer/drive_folder_id`**.
 
-The agent may use either Google client libraries (Python/Node) or raw HTTP with OAuth2, but must honor **`MARKETING_GOOGLE_CREDS_PATH`** (path to the JSON key file) and the resolved brief folder ID.
+Env / folder-ID precedence: see **`INTEGRATIONS.md`**. Use Google client libraries or raw HTTP with OAuth2 **when** using a service account; otherwise use whatever credential path the host integration supplies.
 
-Share the brief folder with the service account’s **client email** (Viewer is enough).
+**Folder access:** With user Google, the signed-in account must open the brief folder; with a service account, share the folder with its **`client_email`** (Viewer is enough).
+
+## Brief gate (mandatory — do not “fly blind”)
+
+Before **any** GTM outputs (`00-brief.md`, channel plan, campaign concepts, ad briefs), you must have a **real product or initiative brief** from at least one of:
+
+1. **Google Drive** — Host Google/Drive integration **or** service account via **`~/.config/quizfactor/google_drive_credentials`**, plus a resolvable brief folder ID (**`MARKETING_BRIEF_DRIVE_FOLDER_ID`** env, **`~/.config/marketer/drive_folder_id`**, or legacy **`~/.config/openclaw/marketing_brief_drive_folder_id`**); folder ingested per step 1 below.
+2. **Human in chat** — they paste or clearly state: what is being sold, for whom, goal, and constraints (enough to write `00-brief.md` without guessing).
+3. **Workspace file** — e.g. `product-brief.md`, `docs/brief.md`, or a path the human points to; read it fully before drafting.
+
+**If none of the above is available:**
+
+- **Stop.** Do **not** write the required output pack, do **not** invent a placeholder product, and do **not** produce campaigns about **this skill**, OpenClaw, “the marketer agent,” or generic “how to use agents” unless the user **explicitly** asked for that.
+- Reply briefly with **one** concrete next step: use the host’s Google/Drive connection if available **or** paste the brief here **or** add a file under the workspace **or** add service-account paths from **Prerequisites** when no host Google integration exists.
+- Do not offer a long menu of equivalent options unless the user asked how to connect Drive; default suggestion: **paste the brief** (fastest).
+
+**If Drive cannot be read** (no host Google integration **and** missing/unreadable service-account pointer or JSON): treat Drive as **unavailable** and use chat or workspace brief only — still obey the gate above.
 
 ## Credentials & API (qf-style)
 
@@ -54,9 +88,9 @@ Share the brief folder with the service account’s **client email** (Viewer is 
 
 ## High-level Workflow
 
-1. **Ingest Drive brief**
-   - Load **`MARKETING_BRIEF_FOLDER_ID`** (after applying the env override rule in **Configuration**) and **`MARKETING_GOOGLE_CREDS_PATH`**.
-   - List non-trashed files in that folder (`files.list`, parent = folder ID); read Google Docs (export as plain text or markdown), PDFs, and other brief assets. Summarize constraints and goals you will carry into `00-brief.md`.
+1. **Ingest brief (Drive and/or fallback)**
+   - Satisfy **Brief gate** first. If Drive is reachable: resolve **`MARKETING_BRIEF_FOLDER_ID`** (after env override), then list/read the folder using **host Google/Drive** **or** **`QF_GOOGLE_CREDS_PATH`** (service account) per **Configuration**.
+   - If Drive is unavailable, use the human’s pasted brief and/or the agreed workspace file only — then proceed; if still no brief, **stop** per **Brief gate** (do not fabricate GTM).
 
 2. **Brief lock (`00-brief.md`)**
    - Goal, primary **CTA**, timeline, **success metrics** (e.g. signups, trials, MQLs), non-goals — aligned to the Drive brief + human inputs.
@@ -106,7 +140,8 @@ Share the brief folder with the service account’s **client email** (Viewer is 
 
 ## Agent Checklist
 
-- [ ] Read marketing Drive config from `~/.config/openclaw/*` (or env override for folder ID); **Drive brief folder** ingested (or explicitly skipped only if no credentials and human supplied full brief in chat).
+- [ ] **Brief gate passed:** real product/initiative identified from Drive **or** chat **or** workspace file — not an invented or meta campaign about the skill unless explicitly requested.
+- [ ] **Drive:** used host Google integration **or** `QF_GOOGLE_CREDS_PATH` when present; brief folder ID per **Configuration** precedence; **Drive brief folder** ingested when auth + folder ID work, otherwise skipped with a documented fallback source.
 - [ ] ICP and positioning are **specific** (not “everyone” / “best platform”).
 - [ ] Claims match evidence or are framed as opinion; no fabricated stats.
 - [ ] Channel plan names **handoff skills** and file paths.

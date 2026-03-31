@@ -14,16 +14,14 @@ This skill focuses on **discovery and classification only** – it does **not** 
 
 - **Google Drive**
   - Google Cloud project with the Drive API enabled.
-  - Service account or OAuth credentials with **read access** to the target folder.
-  - **Not for marketing briefs:** The **`marketer-agent`** skill watches a **different** folder for the **full project brief** via `~/.config/openclaw/marketing_brief_drive_folder_id` (see **`INTEGRATIONS.md`**). Keep **quiz** folder IDs only in `drive_folder_ids` below — do not add the marketing brief folder here or pending-upload logic may treat brief PDFs/Docs as quiz sources.
+  - Service account or OAuth credentials with **read access** to each **quiz** folder you list in `drive_folder_ids`.
+  - **Same Google key file as `marketer-agent`:** service account JSON path is **`~/.config/quizfactor/google_drive_credentials`** (see **Configuration** — `QF_GOOGLE_CREDS_PATH`). **`marketer-agent`** uses that file too; it keeps the **GTM brief** folder ID in **`~/.config/marketer/drive_folder_id`** (legacy: **`~/.config/openclaw/marketing_brief_drive_folder_id`** — see **`INTEGRATIONS.md`**). **Do not** put the marketing brief folder ID in `drive_folder_ids` — pending-upload logic would treat brief PDFs/Docs as quiz sources.
   - Recommended config paths:
     ```bash
-    mkdir -p ~/.config/quizfactor
+    mkdir -p ~/.config/quizfactor ~/.config/marketer
+    # Shared with marketer-agent / qf-process-pending-uploads:
     echo "/absolute/path/to/google-service-account.json" > ~/.config/quizfactor/google_drive_credentials
-    # Provide Google Drive folder IDs one per line:
-    #   GOOGLE_DRIVE_FOLDER_ID_1
-    #   GOOGLE_DRIVE_FOLDER_ID_2
-    # (Do not use JSON array syntax.)
+    # Quiz import folders only — one Google Drive folder ID per line (do not use JSON array syntax):
     printf '%s\n' 'GOOGLE_DRIVE_FOLDER_ID_1' 'GOOGLE_DRIVE_FOLDER_ID_2' > ~/.config/quizfactor/drive_folder_ids
     ```
 
