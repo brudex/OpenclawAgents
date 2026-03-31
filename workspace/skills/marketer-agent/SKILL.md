@@ -10,18 +10,19 @@ Turn **business goals** into **market-facing clarity**: who we sell to, what we 
 
 ## Prerequisites
 
-- **Google Drive — project full brief (discovery source)**
-  - Canonical **folder ID** (this workspace): `14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs` — [Project brief (Google Drive)](https://drive.google.com/drive/folders/14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs).
-  - Before drafting `00-brief.md`, **read everything authoritative in that folder** (Docs, PDFs, markdown exports): **source-of-truth project brief**. Use Drive API `files.list` with parent = folder ID and export/download text as needed, **or** the host’s built-in Google/Drive integration if already connected.
+- **Google Drive — product information (discovery source)**
+  - **Product / brief folder ID** lives in **`~/.config/quizfactor/product-info-drive`**: a **single line** containing the Google Drive **folder ID** for authoritative **product information** (Docs, PDFs, exports). Trim whitespace after reading.
+  - Before drafting `00-brief.md`, **read everything authoritative in that folder** (Docs, PDFs, markdown exports): **source-of-truth product brief**. Ingest the same way as **`qf-record-pending-uploads`** lists files: Drive API **`files.list`** with `q` = parent = that folder ID and `trashed = false`, then export/download text per file; **or** the host’s built-in Google/Drive integration if already connected.
+  - **Cross-reference — `qf-record-pending-uploads`:** That skill uses **`~/.config/quizfactor/google_drive_credentials`** (service account path) and **`~/.config/quizfactor/drive_folder_ids`** (one quiz folder ID per line). **Marketer-agent** uses the **same** credentials file when using a service account, but **must** read the **product** folder from **`product-info-drive`**, **not** from `drive_folder_ids` (those are quiz-import folders only).
   - **Host policy (operator expectation):** On many OpenClaw hosts, **Google is already logged in or integrated** at the platform level. In that case **do not** tell the user to add a service-account JSON or **`~/.config/quizfactor/google_drive_credentials`** for marketer-agent — **connect / use Google through the host** (OpenClaw Google integration, Drive-capable tools, MCP, `gcloud`/user ADC, or whatever the runtime exposes). That file is only for **headless service-account** flows (e.g. alongside **`qf-record-pending-uploads`**).
-  - **Auth — prefer the host’s Google integration:** If **OpenClaw** (or the runtime) already has **Google / Drive signed in** or exposes Drive via **tools / MCP / `TOOLS.md`**, use that to read the brief folder. **Do not** refuse to use Drive solely because **`~/.config/quizfactor/google_drive_credentials`** is missing — that file is for **service-account** flows (shared with **`qf-record-pending-uploads`** on headless hosts), not the only option for marketer-agent.
-  - **Service-account fallback (optional):** When no host Google integration is available, use **`~/.config/quizfactor/google_drive_credentials`** → path to JSON key, same as **`qf-record-pending-uploads`** **Configuration** (`QF_GOOGLE_CREDS_PATH`). Share the brief folder with that service account’s **`client_email`** (Viewer).
-  - **Brief folder ID:** primary file **`~/.config/marketer/drive_folder_id`** (single line). **Do not** put that ID in **`~/.config/quizfactor/drive_folder_ids`** (quiz watch list). Legacy: **`~/.config/openclaw/marketing_brief_drive_folder_id`** if the marketer file is absent.
+  - **Auth — prefer the host’s Google integration:** If **OpenClaw** (or the runtime) already has **Google / Drive signed in** or exposes Drive via **tools / MCP / `TOOLS.md`**, use that to read the product folder. **Do not** refuse to use Drive solely because **`~/.config/quizfactor/google_drive_credentials`** is missing — that file is for **service-account** flows (shared with **`qf-record-pending-uploads`** on headless hosts), not the only option for marketer-agent.
+  - **Service-account fallback (optional):** When no host Google integration is available, use **`~/.config/quizfactor/google_drive_credentials`** → path to JSON key, same as **`qf-record-pending-uploads`** **Configuration** (`QF_GOOGLE_CREDS_PATH`). Share the **product-info** folder with that service account’s **`client_email`** (Viewer).
+  - **Fallback folder IDs** (if **`product-info-drive`** is missing): **`~/.config/marketer/drive_folder_id`** (single line), then legacy **`~/.config/openclaw/marketing_brief_drive_folder_id`**. **Do not** put marketer brief IDs in **`~/.config/quizfactor/drive_folder_ids`** (that file is only for **`qf-record-pending-uploads`** quiz watch folders).
   - Recommended paths when using **service account** (skip `google_drive_credentials` if the host Google integration already covers Drive):
     ```bash
     mkdir -p ~/.config/quizfactor ~/.config/marketer
     echo "/absolute/path/to/google-service-account.json" > ~/.config/quizfactor/google_drive_credentials
-    printf '%s\n' '14DI9fDOoU52vvyKu4HRm-Ot57_p8uiRs' > ~/.config/marketer/drive_folder_id
+    echo 'YOUR_GOOGLE_DRIVE_FOLDER_ID_FOR_PRODUCT_INFO' > ~/.config/quizfactor/product-info-drive
     ```
 
 - Inputs from human: **product** or initiative name, **goal** (awareness, leads, activation, retention), **geo**, **budget band** (optional), **constraints** (compliance, taboo claims) — **after** reconciling with the Drive brief (resolve conflicts by asking the human).
@@ -34,15 +35,16 @@ Turn **business goals** into **market-facing clarity**: who we sell to, what we 
 
 ## Configuration
 
-**Authoritative brief-folder file:** **`~/.config/marketer/drive_folder_id`**. Do **not** instruct humans to move or symlink this ID solely into **`~/.config/openclaw/marketing_brief_drive_folder_id`** — that openclaw path is **legacy fallback** when the marketer file is absent. If **`~/.config/marketer/drive_folder_id`** exists and is readable, this skill is correctly configured for the folder ID.
+**Primary product / brief folder ID:** **`~/.config/quizfactor/product-info-drive`** (single line = Google Drive folder ID). Fallbacks exist for older setups; see resolution order below.
 
 Always derive config from files rather than hard-coding.
 
-**Brief folder ID — resolution order (first match wins):**
+**Product / brief folder ID — resolution order (first match wins):**
 
 1. Environment variable **`MARKETING_BRIEF_DRIVE_FOLDER_ID`** if set.
-2. **`~/.config/marketer/drive_folder_id`** (trim whitespace / newlines).
-3. Legacy: **`~/.config/openclaw/marketing_brief_drive_folder_id`** if the marketer file does not exist.
+2. **`~/.config/quizfactor/product-info-drive`** (trim whitespace / newlines) — **preferred** for product information.
+3. **`~/.config/marketer/drive_folder_id`** (trim whitespace / newlines).
+4. Legacy: **`~/.config/openclaw/marketing_brief_drive_folder_id`** if the above are absent.
 
 **Drive authentication — use the first option that works:**
 
@@ -53,13 +55,15 @@ Always derive config from files rather than hard-coding.
    ```
    Same resolution as **`qf-record-pending-uploads`** `## Configuration`.
 
-**Brief folder ID** (always resolve for Drive ingest):
+**Product / brief folder ID** (resolve for Drive ingest — apply env override first in code):
 
 ```bash
-MARKETING_BRIEF_FOLDER_ID=$(cat ~/.config/marketer/drive_folder_id)
+# After checking MARKETING_BRIEF_DRIVE_FOLDER_ID:
+MARKETING_BRIEF_FOLDER_ID=$(cat ~/.config/quizfactor/product-info-drive)
+# If missing, fall back to ~/.config/marketer/drive_folder_id, then legacy openclaw path.
 ```
 
-If you still use the legacy path only, replace that line with `cat ~/.config/openclaw/marketing_brief_drive_folder_id`, or create **`~/.config/marketer/drive_folder_id`**.
+Same **`QF_GOOGLE_CREDS_PATH`** pattern as **`qf-record-pending-uploads`** when using a service account (see that skill’s **Configuration**).
 
 Env / folder-ID precedence: see **`INTEGRATIONS.md`**. Use Google client libraries or raw HTTP with OAuth2 **when** using a service account; otherwise use whatever credential path the host integration supplies.
 
@@ -69,7 +73,7 @@ Env / folder-ID precedence: see **`INTEGRATIONS.md`**. Use Google client librari
 
 Before **any** GTM outputs (`00-brief.md`, channel plan, campaign concepts, ad briefs), you must have a **real product or initiative brief** from at least one of:
 
-1. **Google Drive** — Host Google/Drive integration **or** service account via **`~/.config/quizfactor/google_drive_credentials`**, plus a resolvable brief folder ID (**`MARKETING_BRIEF_DRIVE_FOLDER_ID`** env, **`~/.config/marketer/drive_folder_id`**, or legacy **`~/.config/openclaw/marketing_brief_drive_folder_id`**); folder ingested per step 1 below.
+1. **Google Drive** — Host Google/Drive integration **or** service account via **`~/.config/quizfactor/google_drive_credentials`**, plus a resolvable product/brief folder ID (**`MARKETING_BRIEF_DRIVE_FOLDER_ID`** env, **`~/.config/quizfactor/product-info-drive`**, then **`~/.config/marketer/drive_folder_id`**, or legacy **`~/.config/openclaw/marketing_brief_drive_folder_id`**); folder ingested per workflow step 1 below (same listing pattern as **`qf-record-pending-uploads`**, different config file).
 2. **Human in chat** — they paste or clearly state: what is being sold, for whom, goal, and constraints (enough to write `00-brief.md` without guessing).
 3. **Workspace file** — e.g. `product-brief.md`, `docs/brief.md`, or a path the human points to; read it fully before drafting.
 
@@ -84,12 +88,13 @@ Before **any** GTM outputs (`00-brief.md`, channel plan, campaign concepts, ad b
 ## Credentials & API (qf-style)
 
 - **Draft-only:** No keys; all artifacts under `workspace/drafts/marketing/...`.
+- **QuizFactor / Drive alignment:** Product content is read from the folder ID in **`~/.config/quizfactor/product-info-drive`**. **`qf-record-pending-uploads`** uses **`drive_folder_ids`** and **`google_drive_credentials`** — same credential file, **different** folder config; do not confuse the two.
 - **Optional:** Sync summaries to **Notion** via **`notion`** skill; paid ad **live** execution via **`adverts-creator`** + **`INTEGRATIONS.md`**; social calendar via **`social-media-manager`**.
 
 ## High-level Workflow
 
 1. **Ingest brief (Drive and/or fallback)**
-   - Satisfy **Brief gate** first. If Drive is reachable: resolve **`MARKETING_BRIEF_FOLDER_ID`** (after env override), then list/read the folder using **host Google/Drive** **or** **`QF_GOOGLE_CREDS_PATH`** (service account) per **Configuration**.
+   - Satisfy **Brief gate** first. If Drive is reachable: resolve **`MARKETING_BRIEF_FOLDER_ID`** from **Configuration** (env → **`product-info-drive`** → marketer → legacy), then list/read the folder using **host Google/Drive** **or** **`QF_GOOGLE_CREDS_PATH`** (service account), mirroring **`qf-record-pending-uploads`** Drive listing (`files.list`, parent = folder ID).
    - If Drive is unavailable, use the human’s pasted brief and/or the agreed workspace file only — then proceed; if still no brief, **stop** per **Brief gate** (do not fabricate GTM).
 
 2. **Brief lock (`00-brief.md`)**
@@ -141,7 +146,7 @@ Before **any** GTM outputs (`00-brief.md`, channel plan, campaign concepts, ad b
 ## Agent Checklist
 
 - [ ] **Brief gate passed:** real product/initiative identified from Drive **or** chat **or** workspace file — not an invented or meta campaign about the skill unless explicitly requested.
-- [ ] **Drive:** used host Google integration **or** `QF_GOOGLE_CREDS_PATH` when present; brief folder ID per **Configuration** precedence; **Drive brief folder** ingested when auth + folder ID work, otherwise skipped with a documented fallback source.
+- [ ] **Drive:** used host Google integration **or** `QF_GOOGLE_CREDS_PATH` when present; product folder ID from **`~/.config/quizfactor/product-info-drive`** (or fallback per **Configuration**); **not** from **`drive_folder_ids`**; **Drive product folder** ingested when auth + folder ID work, otherwise skipped with a documented fallback source.
 - [ ] ICP and positioning are **specific** (not “everyone” / “best platform”).
 - [ ] Claims match evidence or are framed as opinion; no fabricated stats.
 - [ ] Channel plan names **handoff skills** and file paths.
