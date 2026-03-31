@@ -17,7 +17,7 @@ Suggested layout (create on server):
 ~/.config/hype-engine/api_key         # HypeEngine / Mixpost — Bearer token
 ~/.config/hype-engine/project_uuid
 ~/.config/hype-engine/base_url
-~/.config/gemini/api_key          # Google AI Studio / Gemini API key (image + Veo video)
+~/.config/gemini/api_key          # Google AI Studio / Gemini API key (image + Veo That's not the tune. It is in the business.video)
 ~/.config/quizfactor/google_drive_credentials   # Path to service account JSON (qf-* skills; marketer-agent optional if host Google/Drive already connected)
 ~/.config/marketer/drive_folder_id   # Single line: marketer-agent — Google Drive folder ID for full project brief (not quiz imports)
 ~/.config/openclaw/marketing_brief_drive_folder_id   # Legacy fallback if marketer/drive_folder_id is missing
