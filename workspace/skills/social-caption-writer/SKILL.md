@@ -1,21 +1,47 @@
 ---
 name: social-caption-writer
-description: Platform-native captions with hook variants, character-limit tables, hashtag policy, first-line preview notes, and optional thread numbering for X—writes to workspace/drafts/social/captions/ for social-media-manager to merge into post bundles.
+description: Optional polish pass—hooks, hashtag variants, thread layout—from existing post-body.md or teaser.md; default pipeline skips this when x-post-writer/social-content-writer already ship publish-ready copy.
 metadata: {"clawdbot":{"emoji":"✍️"},"openclaw":{"emoji":"✍️"}}
 ---
 
 # social-caption-writer
 
-**Copy-only** execution: given a **brief**, output **multiple hook options** and **final caption blocks** per platform rules—as detailed as `qf-course-researcher` is on matching heuristics (explicit rules, not vibes).
+**Optional** skill. **`x-post-writer`**, **`social-content-writer`**, and **`linkedin-article-writer`** (`teaser.md`) are expected to deliver **publish-ready** text (including hashtags) so **`social-media-manager`** can bundle **without** this step.
+
+Use **`social-caption-writer`** when the human wants **extra hook variants**, **hashtag refresh**, **thread re-split**, or **platform-specific polish** on top of an existing draft.
+
+**Copy-only** execution: you **do not invent the post from a one-line calendar row alone** when a full draft already exists. Prefer **post body in → caption package out**. Same rigor as `qf-course-researcher` (explicit rules, character math, not vibes).
+
+## Pipeline position (when used)
+
+1. **`marketer-agent`** → … → **`calendar.md`**.  
+2. **`x-post-writer`** / **`social-content-writer`** / **`linkedin-article-writer`** → **`post-body.md`** or **`teaser.md`**.  
+3. ***(Optional)* `social-caption-writer`** → `captions/*.md`.  
+4. **`social-media-manager`** → `post-bundle.md`, **`APPROVAL.md`**, **`hype-engine`**.
+
+When the human says “captions for the April calendar” **without** opting into this skill, prefer **re-running the content writer** to refresh in-file copy instead.
+
+If step 2 is skipped, you may still run from a **full brief** (see below)—but when batching, **first confirm** each slot has a **`post-body.md`**, **`teaser.md`**, or equivalent; if missing, **stop that row** with a defer note instead of hallucinating the post.
 
 ## Prerequisites
 
-- Brief includes: `topic_id` or slug, **platform** (enum: instagram, twitter_x, facebook, tiktok_caption, linkedin_feed, youtube_community), **tone**, **CTA**, **link policy**, **banned phrases**.
-- Read `USER.md` for brand.
-- Output:
+- **Primary input:** path to **existing post text** — e.g. `workspace/drafts/social/<campaign>/posts/<post-id>/post-body.md`, or `workspace/drafts/linkedin/<date>-<slug>/teaser.md` / excerpt from `article.md` linked from the calendar row.  
+- **Secondary:** the matching **`calendar.md`** row (date, platform, slug, CTA type, asset flags).  
+- **Fallback brief** (only when no draft exists): `topic_id` or slug, **platform** (enum: instagram, twitter_x, facebook, tiktok_caption, linkedin_feed, youtube_community), **tone**, **CTA**, **link policy**, **banned phrases** — and note in the output that the post body is still **TODO** for the feed writer.  
+- Read `USER.md` for brand.  
+- Output (per slot, under the **same campaign folder** as `calendar.md` unless the human specifies otherwise):
   ```text
-  workspace/drafts/social/captions/<YYYY-MM-DD>-<topic>-<platform>.md
+  workspace/drafts/social/<campaign>/captions/<YYYY-MM-DD>-<topic>-<platform>.md
   ```
+
+## Batch mode (e.g. one month / April)
+
+1. Open the campaign folder (e.g. `workspace/drafts/social/2026-04-01-acme-launch/`).  
+2. Read **`calendar.md`**; for **each row** in the target month (e.g. April = dates `2026-04-*`):  
+   - Resolve **`post-id`** or file path from a **Post file** / **Draft path** column if present, else `posts/<date>-<slug>/post-body.md`.  
+   - If the post file exists → write one caption `.md` as below.  
+   - If missing → append a row to `captions/DEFERRED.md` with date, slug, reason.  
+3. Summarize counts: written vs deferred.
 
 ## Credentials & API (qf-style)
 
@@ -61,9 +87,11 @@ metadata: {"clawdbot":{"emoji":"✍️"},"openclaw":{"emoji":"✍️"}}
 
 ## Agent Checklist
 
+- [ ] **Upstream:** caption reflects an existing **post body** or **`teaser.md`**, or output flags **TODO** for the feed writer.
+- [ ] Batch runs: **DEFERRED.md** updated for slots with no draft file.
 - [ ] Constraint table present for chosen platform.
 - [ ] 3 hooks + one selected path clear (or manager picks).
 - [ ] Character estimates for X threads.
 - [ ] Hashtags vetted for relevance and spam risk.
 - [ ] Compliance lines when applicable.
-- [ ] No unverifiable claims; stats only if brief provided source.
+- [ ] No unverifiable claims; stats only if brief or post body provided source.

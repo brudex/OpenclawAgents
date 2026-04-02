@@ -35,8 +35,10 @@ Produces **calendar artifacts** that are **executable** by downstream agents (no
 4. **Build master table (`calendar.md`)**
    - Columns:
 
-     | Slot date | Platform | Pillar | Format | Topic slug | Hook theme | CTA id | Asset type | Depends on |
+     | Slot date | Local time | Platform | Pillar | Format | Topic slug | Hook theme | CTA id | Asset type | Depends on | Post id | Draft path |
 
+   - **Post id:** stable id for `social-media-manager` folder `posts/<post-id>/`.  
+   - **Draft path:** where **`social-content-writer`** / **`x-post-writer`** saves **`post-body.md`**, or link to **`linkedin-article-writer`** (`teaser.md` / `article.md`); leave **TBD** until written. Optional **`social-caption-writer`** reads the same paths only if the human requests a polish pass.  
    - **Conflict check:** two heavy asks (e.g. full video) not same day unless resourced.
 
 5. **Asset dependency rollup (`assets-needed.md`)**
@@ -46,7 +48,7 @@ Produces **calendar artifacts** that are **executable** by downstream agents (no
    - Sensitive dates (elections, tragedies), competitor launches, **quiet periods**.
 
 7. **Handoff**
-   - `README.md` in planning folder: how `social-media-manager` consumes `calendar.md`.
+   - `README.md` in planning folder: how `social-media-manager` consumes `calendar.md` and routes rows to **`linkedin-article-writer`** (articles), **`x-post-writer`** (X), or **`social-content-writer`** (short/multi-platform)—**not** a separate caption step by default.
 
 8. **Scheduling**
    - Version calendar filename when **replanning** same campaign: `calendar-<YYYY-MM-DD>-v2.md`.

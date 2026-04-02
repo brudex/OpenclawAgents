@@ -47,6 +47,7 @@ metadata: {"clawdbot":{"emoji":"🧩"},"openclaw":{"emoji":"🧩"}}
    - `chain-trend-tiktok.md` — `social-trend-monitor` → `tiktok-video-ads-creator`
    - `chain-image-ads.md` — `auto-image-generation` → `adverts-creator`
    - `chain-li-social.md` — `linkedin-article-writer` → `social-media-manager`
+   - `chain-social-feed-full.md` — `marketer-agent` → `social-media-manager` (calendar) → post bodies (`linkedin-article-writer` / `x-post-writer` / `social-content-writer` / `agency-marketing`) → *optional* `social-caption-writer` → `hype-engine` (after approval). Concrete file: **`chain-templates/social-feed-pipeline.md`**.
    - `chain-video-tiktok.md` — `auto-video-generation` → `tiktok-video-ads-creator`
    - **QuizFactor:** reference existing `qf-*` instead of duplicating.
 

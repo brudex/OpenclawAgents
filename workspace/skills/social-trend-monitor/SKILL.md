@@ -8,6 +8,12 @@ metadata: {"clawdbot":{"emoji":"📡"},"openclaw":{"emoji":"📡"}}
 
 **Trend intelligence** as a **standalone dated report**, parallel to how `qf-course-researcher` produces a **dated** research page—each run is **self-contained** and citable.
 
+## Scope boundary (do not duplicate course research)
+
+- **`qf-course-researcher`** / QuizFactor course work = **category, curriculum, competitor courses**, evidence for product decisions.  
+- **`social-trend-monitor`** = **what is surfacing on social platforms now** — trending **hashtags**, **topics**, **formats**, **memes**, breakout sounds (short-video), and **conversation spikes** on X, Instagram, TikTok, LinkedIn, etc., scoped to the human’s **niche + geo**.  
+- Goal: give **`social-media-manager`** and creatives **tags and angles to ride the feed**, not to redo deep course-market research.
+
 ## Prerequisites
 
 - Web search / news tools when available; else **INFERENCE-ONLY** banner at top.
@@ -45,6 +51,7 @@ metadata: {"clawdbot":{"emoji":"📡"},"openclaw":{"emoji":"📡"}}
 
 6. **Handoff**
    - “Consume by: `social-media-manager` (calendar), `tiktok-video-ads-creator` (hooks).”
+   - **Before `hype-engine` publish:** `social-media-manager` may copy **0–2 vetted** hashtags/topics from this file into **X** and **LinkedIn feed** payloads only (see that skill’s *Trending hashtags* section).
 
 7. **Scheduling**
    - **Daily** slug `daily-<niche>`; do not overwrite—new date file each run.
