@@ -24,6 +24,7 @@ metadata: {"clawdbot":{"emoji":"📝"},"openclaw":{"emoji":"📝"}}
 ## Credentials & API (qf-style)
 
 - **Draft-only.** Reddit/Facebook live actions only after human approval and **`INTEGRATIONS.md`** / channel config. X/LinkedIn feed: **`hype-engine`** via **`social-media-manager`**.
+- **Google Drive:** When the social campaign uses **`drive-handoff.md`**, the parent **`social-media-manager`** may export this skill’s **`post-body.md`** to a shared Doc for **employees** to paste live—same folder pattern as **`INTEGRATIONS.md`** (*social posting handoff*).
 
 ## Reference voices (optional, read—not copy fake stats)
 
@@ -51,7 +52,7 @@ metadata: {"clawdbot":{"emoji":"📝"},"openclaw":{"emoji":"📝"}}
    ```
 
 3. **Reddit:** title + body if the slot is a post; note subreddit rules placeholder if unknown.
-4. **Handoff:** **`social-media-manager`** merges into **`post-bundle.md`**. **`social-caption-writer`** is **optional**—only if the human wants a second pass.
+4. **Handoff:** update the campaign **`pipeline-state.md`** (set **`post_bodies`** progress); **`social-media-manager`** merges into **`post-bundle.md`**. **`social-caption-writer`** is **optional**—only if the human wants a second pass.
 
 ## Relationship to **social-community-engagement**
 

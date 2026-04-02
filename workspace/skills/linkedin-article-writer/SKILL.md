@@ -26,7 +26,7 @@ metadata: {"clawdbot":{"emoji":"💼"},"openclaw":{"emoji":"💼"}}
 ## Credentials & API (qf-style)
 
 - **Draft-only:** No credentials; write `article.md`, `teaser.md`, etc. under the path above.
-- **Long-form article publish:** The **article** itself is usually published through **LinkedIn’s article composer** or a documented LinkedIn UGC/article API—not through the same HypeEngine **feed post** path. **`hype-engine`** is for the **feed** (e.g. **`teaser.md`** that points readers to the article). If the human uses **Google Drive/Docs**, add **`publish-handoff.md`**: path or link to the Doc, who publishes, and cadence (e.g. **one article every ~2 days**).
+- **Long-form article publish:** The **article** itself is usually published through **LinkedIn’s article composer** or a documented LinkedIn UGC/article API—not through the same HypeEngine **feed post** path. **`hype-engine`** is for the **feed** (e.g. **`teaser.md`**). If the team uses **Google Drive**, add **`publish-handoff.md`**: link to the Doc under **`04-articles/`** (see **`workspace/INTEGRATIONS.md`** → *Google Drive — social posting handoff*), **who publishes**, cadence (e.g. **every ~2 days**). Employees open the Doc, post the article in LinkedIn, and can log status in the campaign **`drive-handoff.md`**.
 - **Live LinkedIn feed teaser:** After approval, publish **`teaser.md`** via **`hype-engine`** (LinkedIn account UUID, Posts API), same as **`social-media-manager`** for **`linkedin_feed`**.
 - **Fallback:** **OpenClaw LinkedIn channel** if documented in **`TOOLS.md`**, or **`INTEGRATIONS.md`** when HypeEngine is unavailable and humans allow it.
 

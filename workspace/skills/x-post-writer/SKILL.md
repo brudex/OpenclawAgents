@@ -18,7 +18,7 @@ Each file must be **ready to paste or ship** after approval: **main text + hasht
 
 ## Credentials & API (qf-style)
 
-- **Draft-only.** Live post: **`social-media-manager`** → **`hype-engine`** after **`APPROVAL.md`**.
+- **Draft-only.** Live post: **`social-media-manager`** → **`hype-engine`** after **`APPROVAL.md`**, **or** employees copy from a shared **Google Doc** listed in **`drive-handoff.md`** (see **`INTEGRATIONS.md`** — social posting folder).
 
 ## High-level Workflow
 

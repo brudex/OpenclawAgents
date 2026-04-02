@@ -17,10 +17,11 @@ Suggested layout (create on server):
 ~/.config/hype-engine/api_key         # HypeEngine / Mixpost — Bearer token
 ~/.config/hype-engine/project_uuid
 ~/.config/hype-engine/base_url
-~/.config/gemini/api_key          # Google AI Studio / Gemini API key (image + Veo That's not the tune. It is in the business.video)
+~/.config/gemini/api_key          # Google AI Studio / Gemini API key (image + Veo video when configured)
 ~/.config/quizfactor/google_drive_credentials   # Path to service account JSON (qf-* skills; marketer-agent optional if host Google/Drive already connected)
 ~/.config/marketer/drive_folder_id   # Single line: marketer-agent — Google Drive folder ID for full project brief (not quiz imports)
 ~/.config/openclaw/marketing_brief_drive_folder_id   # Legacy fallback if marketer/drive_folder_id is missing
+~/.config/social/drive_folder_id   # Optional: shared Drive folder for social exports / employee posting handoff (see below)
 ```
 
 Environment variables (alternative to files — set in `~/.openclaw/.env` or systemd):
@@ -38,6 +39,36 @@ Environment variables (alternative to files — set in `~/.openclaw/.env` or sys
 | `GEMINI_API_KEY` | **Primary** for **`auto-image-generation`** and **`auto-video-generation`** (Gemini native image / Imagen + **Veo** video) |
 | `OPENAI_API_KEY`, `FAL_KEY` | Optional fallbacks if you add other tools later |
 | `MARKETING_BRIEF_DRIVE_FOLDER_ID` | Override marketing brief folder (else `~/.config/marketer/drive_folder_id`, else legacy `~/.config/openclaw/marketing_brief_drive_folder_id`) |
+| `SOCIAL_POSTING_DRIVE_FOLDER_ID` | Override social handoff folder (else `~/.config/social/drive_folder_id`) |
+
+## Google Drive — social posting handoff (employees)
+
+Use a **shared Drive folder** so the team can **read** source material and **grab** finished copy (or you **push** exports there) while **`hype-engine`** remains optional for auto-post.
+
+**Config (pick one):**
+
+- **`~/.config/social/drive_folder_id`** — single line, folder ID.
+- Env **`SOCIAL_POSTING_DRIVE_FOLDER_ID`** overrides the file.
+
+**Share** the folder with:
+
+- The **OpenClaw** Google account (or service account **`client_email`**) for upload/list.
+- **Employees** who post (Editor or Commenter as you prefer).
+
+**Suggested Drive layout (create manually or via agent + `gws-*` tools):**
+
+| Area | Purpose |
+|------|---------|
+| `01-briefs/` | Mirrors or links to marketer inputs; optional extra voice notes from leadership |
+| `02-calendar/` | Exported **`calendar.md`** or a Sheet the team trusts as schedule source |
+| `03-ready-to-post/` | One **Google Doc per slot** (date + AM/PM + platform): final body, hashtags, disclosure, asset link — employees copy-paste into LinkedIn/X **or** ops uses **`hype-engine`** from the same text |
+| `04-articles/` | **`linkedin-article-writer`** exports: full article Doc + **`publish-handoff.md`** link row |
+
+**Auth:** Same patterns as **marketing brief** — prefer **host Google / OpenClaw-linked Google**; else service account JSON at **`~/.config/quizfactor/google_drive_credentials`** with the social folder shared to that account.
+
+**OpenClaw skills (optional upload):** If installed, **`gws-drive-upload`**, **`gws-docs-write`**, and related packages from **`openclaw-setup.md`** can create/update Docs from `workspace/drafts/social/...`. Skills only **describe** the workflow; the host must expose those tools.
+
+**Skills that reference this flow:** **`social-media-manager`**, **`linkedin-article-writer`**, **`marketer-agent`** (upstream read).
 
 ## Google Drive — marketing project brief (`marketer-agent`)
 

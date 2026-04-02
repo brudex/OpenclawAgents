@@ -14,13 +14,16 @@ The **parent** social agent: owns **consistency** (voice, CTA ladder, disclosure
 2. **Approve:** Fill **`APPROVAL.md`** with **Approved Y/N** and **go-live datetime** matching each row’s **Local time** (e.g. morning `09:00`, evening `18:00`).
 3. **Cron (twice daily):** OpenClaw **Cron jobs** (Gateway menu / `openclaw cron`) run **two** recurring jobs (AM + PM). Each run **only** selects the next due, **already-written** slot and publishes via **`hype-engine`**—it does **not** invent new topics.
 4. **Trends:** Before each publish run, optionally refresh or read **`social-trend-monitor`** and merge **0–2 vetted** trending hashtags into **X** and **LinkedIn feed** copy (see below).
-5. **LinkedIn articles:** Handled by **`linkedin-article-writer`** on a **separate cadence** (~every 2 days); long-form body is **saved** (workspace + optional **Google Drive** per **`publish-handoff.md`**). **HypeEngine** publishes **`teaser.md`** to the **feed**; **article** publishing via API is **TBD**—human or Drive workflow until LinkedIn article automation is explored.
+5. **LinkedIn articles:** Handled by **`linkedin-article-writer`** on a **separate cadence** (~every 2 days); long-form body is **saved** (workspace + optional **Google Drive** `04-articles/` per **`INTEGRATIONS.md`**). **HypeEngine** publishes **`teaser.md`** to the **feed**; **article** body → **employees** via Drive + LinkedIn UI until API support is explored.
 
 **OpenClaw:** [Cron documentation](https://docs.openclaw.ai/automation/cron-jobs) · jobs persist in **`~/.openclaw/cron/jobs.json`**. Finish skill setup first, then add cron so execution does not depend on manual chat triggers.
 
 ## Prerequisites
 
 - Read `USER.md`, `SOUL.md`, `AGENTS.md` (group vs main session rules).
+- **Google Drive (optional — employee posting):** If **`~/.config/social/drive_folder_id`** or **`SOCIAL_POSTING_DRIVE_FOLDER_ID`** is set (see **`workspace/INTEGRATIONS.md`** → *Google Drive — social posting handoff*), then:
+  - **Read:** At **intake**, pull any team files the folder allows (guidelines, spreadsheet calendar, approved edits) and summarize into **`00-intake.md`** with Drive paths.
+  - **Save:** After **`post-bundle.md`** is ready for humans, **export** copy to **`03-ready-to-post/`** as Google Docs (host **`gws-docs-write`** / **`gws-drive-upload`** or manual upload) and add links to **`drive-handoff.md`** in the campaign folder so **employees** can post without hunting the repo. Auto-publish via **`hype-engine`** can still run in parallel when **`APPROVAL.md`** says so.
 - **Default output root:**
   ```text
   workspace/drafts/social/<YYYY-MM-DD>-<campaign-slug>/
@@ -131,7 +134,7 @@ workspace/drafts/social/<campaign>/pipeline-state.md
 
 - Whoever finishes a phase **updates** `pipeline-state.md`: set **Status** to `complete`, set **Last updated** (ISO date) in a line under the table, and optionally add **`NEXT_PROMPT`** for the operator (one sentence: what to invoke next).
 - **Immediate focus when the calendar already exists:** set step 2 → `complete`; run step 3 until all slots have publish-ready **`post-body.md`** or **`teaser.md`**; then step 4 (bundles)—**skip** caption writer unless requested.
-- **Host automation:** use **OpenClaw cron** (Gateway scheduler) so jobs persist across restarts. Official docs: [Scheduled tasks (cron)](https://docs.openclaw.ai/automation/cron-jobs). Jobs are stored at **`~/.openclaw/cron/jobs.json`**.
+- **Host automation:** use **OpenClaw cron** (Gateway scheduler) so jobs persist across restarts. Official docs: [Scheduled tasks (cron)](https://docs.openclaw.ai/automation/cron-jobs). Jobs are stored at **`~/.openclaw/cron/jobs.json`**. For **what counts as “auto handoff”** (cron vs webhooks vs custom sessions), see **`multi-agent-orchestrator`** → **Automatic handoffs — what OpenClaw can (and cannot) do**.
 - **CLI examples (isolated session = full agent turn with your prompt):**
 
 ```bash
@@ -167,6 +170,7 @@ openclaw cron list
 
 - `00-intake.md`, `calendar.md`, `APPROVAL.md`, `README-handoff.md`
 - **`pipeline-state.md`** — required when running the marketer→publish chain (so the next session knows what to do).
+- Optional: **`drive-handoff.md`** — table: Post ID | Platform | Local time | **Google Doc link** (employee copy-paste) | HypeEngine status (if any).
 
 ## Agent Checklist
 
@@ -181,3 +185,4 @@ openclaw cron list
 - [ ] Sub-skill outputs referenced by path, not vague “see above.”
 - [ ] If using trends: **`Trend source:`** line in bundles; hashtags brand-safe and sparse.
 - [ ] Cron (if used): user has **`openclaw cron list`** and Gateway running; timezone matches **Local time** on calendar.
+- [ ] If **`social/drive_folder_id`** (or env) is set: **`drive-handoff.md`** updated with Doc links for employee posting **or** note “HypeEngine-only, no Drive export.”

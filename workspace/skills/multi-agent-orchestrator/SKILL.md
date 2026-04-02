@@ -8,6 +8,26 @@ metadata: {"clawdbot":{"emoji":"🧩"},"openclaw":{"emoji":"🧩"}}
 
 **Meta-orchestration** for **SkillsToAdd.md** chains: explicit **DAG**, **files in / files out**, **gates**—same clarity as `qf-course-researcher` step list (web → API → Notion rows).
 
+**Execution note:** Skills are **not** auto-invoked by the filesystem. “Wiring” = **shared paths** (`README-handoff.md`, `calendar.md`, `pipeline-state.md`, `APPROVAL.md`) + **you** (or **OpenClaw cron**) running the next skill. The canonical social DAG lives in **`chain-templates/social-feed-pipeline.md`**; **`social-media-manager`** lists the same order in **`pipeline-state.md`**.
+
+## Automatic handoffs — what OpenClaw can (and cannot) do
+
+| Mechanism | What it does | Feels like “auto handoff”? |
+|-----------|----------------|----------------------------|
+| **Built-in skill chaining** | None. Finishing `marketer-agent` does **not** enqueue `social-media-manager`. | No |
+| **Cron** (`openclaw cron add`) | Gateway wakes on a schedule and runs an **isolated** or **main** session with your **`--message`**. That message can say: *read `pipeline-state.md`, run the next incomplete step, update the file.* | **Yes** — if you encode “next step” in the prompt |
+| **Webhooks** (`hooks` in config) | `POST /hooks/agent` or `/hooks/wake` starts a turn (e.g. CI or n8n after a file lands in Drive). | **Yes** — event-driven |
+| **Custom session** (`--session session:social-pipeline`) | Same session id across recurring cron runs so the agent **remembers** prior RUNLOG / pipeline state (within retention). | **Yes** — for multi-day chains |
+| **One giant cron message** | “Do steps 3→4→5 in one turn.” | Possible but **fragile** (timeouts, gates, token limits); prefer **one step per job** or explicit checklist in one message |
+
+**Practical pattern for your social pipeline**
+
+1. **Cron job A (e.g. weekly):** `--message` = *Open `workspace/drafts/social/<campaign>/pipeline-state.md`. If `calendar` is incomplete, run social-media-manager + social-content-planning; else if `post_bodies` incomplete, run writers for missing rows; append RUNLOG.*  
+2. **Cron job B + C (AM/PM):** *Only* publish approved rows via **`hype-engine`** (already in **`social-media-manager`** examples).  
+3. Keep **`APPROVAL.md`** as the **human gate** so cron does not post without approved rows.
+
+**Docs:** [Scheduled tasks (cron)](https://docs.openclaw.ai/automation/cron-jobs) · [Webhooks](https://docs.openclaw.ai/automation/cron-jobs#webhooks) (same page) · `openclaw cron list` / `openclaw cron add --help`
+
 ## Prerequisites
 
 - Human: **goal**, **deadline**, **risk tolerance** (can any step auto-execute?).
@@ -61,7 +81,7 @@ metadata: {"clawdbot":{"emoji":"🧩"},"openclaw":{"emoji":"🧩"}}
    - User: start at `steps/01-...` and follow order; **stop at gates**.
 
 8. **Scheduling**
-   - **Cron-style** note in charter if daily/weekly (human configures OpenClaw cron).
+   - **Cron-style** note in charter if daily/weekly — use **`openclaw cron add`** (see **Automatic handoffs** above), not a fictional built-in chain.
 
 ## Outputs (required)
 
