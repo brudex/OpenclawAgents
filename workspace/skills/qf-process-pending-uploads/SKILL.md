@@ -31,7 +31,7 @@ This skill assumes `qf-record-pending-uploads` has already created pending rows 
 1. **Fetch pending uploads**
    - Call:
      ```bash
-     curl -X GET "$QF_BASE_URL/api/ai/pending-quiz-uploads"
+     curl -X GET "$QF_BASE_URL/api/ai/pending-quiz-uploads?limit=20"
      ```
    - Filter by `status = "pending"` if the API does not support a query param, or use `?status=pending` if it does.
    - Each row has: `uuid`, `courseUuid`, `courseName`, `filename`, `driveFileId`, `status`, `errorMessage`, `createdAt`, `updatedAt`.
