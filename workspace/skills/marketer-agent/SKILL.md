@@ -1,6 +1,6 @@
 ---
 name: marketer-agent
-description: Marketing strategy and GTM—ICP, positioning, messaging pillars, offer and funnel map, campaign briefs, channel plan, and handoff paths to social-media-manager, adverts-creator, and linkedin-article-writer; dated packs under workspace/drafts/marketing/.
+description: Marketing strategy and GTM—ICP, positioning, channel plan, briefs; handoffs to social-media-manager, social-content-writer, x-post-writer, linkedin-article-writer (articles), adverts-creator; dated packs under workspace/drafts/marketing/.
 metadata: {"clawdbot":{"emoji":"📈"},"openclaw":{"emoji":"📈"}}
 ---
 
@@ -89,7 +89,7 @@ Before **any** GTM outputs (`00-brief.md`, channel plan, campaign concepts, ad b
 
 - **Draft-only:** No keys; all artifacts under `workspace/drafts/marketing/...`.
 - **QuizFactor / Drive alignment:** Product content is read from the folder ID in **`~/.config/quizfactor/product-info-drive`**. **`qf-record-pending-uploads`** uses **`drive_folder_ids`** and **`google_drive_credentials`** — same credential file, **different** folder config; do not confuse the two.
-- **Optional:** Sync summaries to **Notion** via **`notion`** skill; paid ad **live** execution via **`adverts-creator`** + **`INTEGRATIONS.md`**; social calendar via **`social-media-manager`**.
+- **Optional:** Sync summaries to **Notion** via **`notion`** skill; paid ad **live** execution via **`adverts-creator`** + **`INTEGRATIONS.md`**; social calendar via **`social-media-manager`**. **Google Drive:** product brief ingest per **Prerequisites**; optional **social posting** folder for employees is documented in **`INTEGRATIONS.md`** (`social/drive_folder_id` / `SOCIAL_POSTING_DRIVE_FOLDER_ID`) and used by **`social-media-manager`** for read/save handoffs.
 
 ## High-level Workflow
 
@@ -126,6 +126,8 @@ Before **any** GTM outputs (`00-brief.md`, channel plan, campaign concepts, ad b
 
 11. **Handoff index (`README-handoff.md`)**
     - Ordered list: which skill to run next, **input paths** from this folder, expected **output paths** under `workspace/drafts/...`.
+    - **Recommended social execution chain** (document explicitly when social is in scope):  
+      `social-media-manager` (intake + **`social-content-planning`** → **`calendar.md`**) → **per-slot writers** (**`linkedin-article-writer`** for **articles only**; **`x-post-writer`** for X; **`social-content-writer`** for short LinkedIn feed + Reddit + other platforms; optional **`agency-marketing`**) → publish-ready **`post-body.md`** / **`teaser.md`** → **optional** **`social-caption-writer`** → bundles + **`APPROVAL.md`** → **`hype-engine`**. Track **`pipeline-state.md`** in the campaign folder.
 
 ## Coordination (explicit)
 
@@ -134,7 +136,9 @@ Before **any** GTM outputs (`00-brief.md`, channel plan, campaign concepts, ad b
 | `social-media-manager` | `06-channel-plan.md`, `briefs/social-week-brief.md` |
 | `social-content-planning` | Pillars + calendar hints from channel plan |
 | `adverts-creator` | `briefs/paid-ads-brief.md`, offer + UTM from `04` / `07` |
-| `linkedin-article-writer` | `briefs/linkedin-thought-leadership-brief.md` |
+| `linkedin-article-writer` | `briefs/linkedin-thought-leadership-brief.md` (long **articles** only) |
+| `social-content-writer` | Short feed / multi-platform slots from `briefs/social-week-brief.md` + `calendar.md` |
+| `x-post-writer` | X-only slots from `calendar.md` |
 | `agency-marketing` | Deep persona execution (e.g. SEO, TikTok specialist) using `references/` after strategy is set |
 | `auto-research-agent` | Optional upstream; marketer consumes `report.md` |
 

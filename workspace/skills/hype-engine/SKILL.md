@@ -13,10 +13,16 @@ Use the HypeEngine API v1 to manage social media **accounts**, upload **media**,
 
 For this workspace, **live** posts to **Twitter/X** and **LinkedIn** (feed / teaser-style updates) go through **HypeEngine** when `~/.config/hype-engine/` is configured—not direct Twitter or LinkedIn Marketing API calls from other skills.
 
-- **Upstream:** `social-media-manager`, `social-caption-writer`, and `linkedin-article-writer` produce markdown under `workspace/drafts/...` and `APPROVAL.md` (or human approval in chat).
+- **Upstream (typical order):** `linkedin-article-writer` (**articles** + `teaser.md`) **or** `x-post-writer` / `social-content-writer` (`post-body.md`) → **`social-media-manager`** **`post-bundle.md`** + **`APPROVAL.md`** — optional **`social-caption-writer`** polish — then this skill ships to X/LinkedIn (or human approval in chat).
 - **This skill:** Resolve **account UUIDs** via the Accounts API (X and LinkedIn rows), map caption/teaser HTML into the Posts API `content[].body`, attach **media UUIDs** if needed, then **create** a draft, **schedule**, or **publish** per human instruction.
 - **Threads (X):** If the draft is a multi-tweet thread, either post as HypeEngine supports multi-part content for that account, or post tweet 1 and reply-chain per product behavior—document which you used in the run summary.
 - If HypeEngine is **down or unconfigured**, stop and say so; do not silently fall back to another API unless **`USER.md` / `TOOLS.md`** explicitly allows OpenClaw channels or raw LinkedIn for that agent.
+
+## LinkedIn: feed post vs long-form **article**
+
+- **In scope here (Posts API):** short **LinkedIn feed updates**—including **`teaser.md`**-style copy that **links to** or promotes an article, carousels, and normal feed posts. This matches how Mixpost-style schedulers usually work.
+- **Out of scope here:** publishing a full LinkedIn **Article** (the native long-form editor). That flow is often **separate** from a single scheduled “post”; this skill does **not** promise LinkedIn Article API support unless your HypeEngine build documents it explicitly.
+- **Practical handoff:** **`linkedin-article-writer`** keeps **`article.md`**. Use **HypeEngine** for the **feed teaser**; publish the **article** via **LinkedIn’s article UI**, or hand off a **Google Doc/Drive** export for a human—document in the campaign **`README-handoff.md`**.
 
 ## Setup
 
