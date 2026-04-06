@@ -1,6 +1,6 @@
 ---
 name: social-media-manager
-description: Social calendar (~2-week batches), AM/PM slots, optional trend hashtags before hype-engine publish; LinkedIn/X feed via HypeEngine; articles hand off to human/Drive. OpenClaw cron examples in skill body.
+description: Social calendar (~2-week batches), AM/PM slots, optional trend hashtags; push approved LinkedIn+Twitter via HypeEngine; Google Drive only for LinkedIn article intern handoff (04-articles). OpenClaw cron examples in skill body.
 metadata: {"clawdbot":{"emoji":"📱"},"openclaw":{"emoji":"📱"}}
 ---
 
@@ -8,22 +8,32 @@ metadata: {"clawdbot":{"emoji":"📱"},"openclaw":{"emoji":"📱"}}
 
 The **parent** social agent: owns **consistency** (voice, CTA ladder, disclosure) and **file-based handoffs** to sub-skills—mirroring how `qf-course-researcher` orchestrates web → API → Notion with explicit steps.
 
+## Posting model (this workspace)
+
+**HypeEngine is already connected** to **LinkedIn** and **Twitter/X**. For approved **feed** slots (`linkedin_feed`, `twitter_x`), the operator’s job is to **push** the bundled copy through **`hype-engine`** (Accounts + Posts API)—not to re-onboard those accounts each run.
+
+**Pipeline order (how teams use it):**
+
+1. **First — this skill + HypeEngine:** calendar → writers → bundles → **`APPROVAL.md`** → publish **short-form / feed** posts to LinkedIn and Twitter via HypeEngine.
+2. **Last — LinkedIn articles:** **`linkedin-article-writer`** produces **`article.md`** + **`teaser.md`**. The **long-form article** is posted by **interns** (LinkedIn article composer and/or **Google Drive** handoff per **`INTEGRATIONS.md`** / **`publish-handoff.md`**). HypeEngine still publishes the **`teaser.md`** to the **feed** when that row is approved—same feed path as other LinkedIn feed posts—not the article body.
+
 ## Operator summary (canonical playbook)
 
 1. **Batch write (~2 weeks):** Using **`calendar.md`**, **`x-post-writer`** and **`social-content-writer`** (LinkedIn **feed** slots) generate **all** scheduled posts **in advance** under the campaign folder—no “write at publish time” unless the human overrides.
 2. **Approve:** Fill **`APPROVAL.md`** with **Approved Y/N** and **go-live datetime** matching each row’s **Local time** (e.g. morning `09:00`, evening `18:00`).
 3. **Cron (twice daily):** OpenClaw **Cron jobs** (Gateway menu / `openclaw cron`) run **two** recurring jobs (AM + PM). Each run **only** selects the next due, **already-written** slot and publishes via **`hype-engine`**—it does **not** invent new topics.
 4. **Trends:** Before each publish run, optionally refresh or read **`social-trend-monitor`** and merge **0–2 vetted** trending hashtags into **X** and **LinkedIn feed** copy (see below).
-5. **LinkedIn articles:** Handled by **`linkedin-article-writer`** on a **separate cadence** (~every 2 days); long-form body is **saved** (workspace + optional **Google Drive** `04-articles/` per **`INTEGRATIONS.md`**). **HypeEngine** publishes **`teaser.md`** to the **feed**; **article** body → **employees** via Drive + LinkedIn UI until API support is explored.
+5. **LinkedIn articles (last in the chain):** **`linkedin-article-writer`** on a **separate cadence** (~every 2 days). **Interns** post the **article** body (LinkedIn UI + optional Drive `04-articles/` per **`INTEGRATIONS.md`**). **HypeEngine** publishes **`teaser.md`** to the **LinkedIn feed** when approved—same connected account as other feed posts; it does **not** replace intern posting of the long-form article.
 
 **OpenClaw:** [Cron documentation](https://docs.openclaw.ai/automation/cron-jobs) · jobs persist in **`~/.openclaw/cron/jobs.json`**. Finish skill setup first, then add cron so execution does not depend on manual chat triggers.
 
 ## Prerequisites
 
 - Read `USER.md`, `SOUL.md`, `AGENTS.md` (group vs main session rules).
-- **Google Drive (optional — employee posting):** If **`~/.config/social/drive_folder_id`** or **`SOCIAL_POSTING_DRIVE_FOLDER_ID`** is set (see **`workspace/INTEGRATIONS.md`** → *Google Drive — social posting handoff*), then:
-  - **Read:** At **intake**, pull any team files the folder allows (guidelines, spreadsheet calendar, approved edits) and summarize into **`00-intake.md`** with Drive paths.
-  - **Save:** After **`post-bundle.md`** is ready for humans, **export** copy to **`03-ready-to-post/`** as Google Docs (host **`gws-docs-write`** / **`gws-drive-upload`** or manual upload) and add links to **`drive-handoff.md`** in the campaign folder so **employees** can post without hunting the repo. Auto-publish via **`hype-engine`** can still run in parallel when **`APPROVAL.md`** says so.
+- **Google Drive (optional — articles + intake refs only):** If **`~/.config/social/drive_folder_id`** or **`SOCIAL_POSTING_DRIVE_FOLDER_ID`** is set (see **`workspace/INTEGRATIONS.md`** → *Google Drive — LinkedIn articles only*), then:
+  - **Read:** At **intake**, you may pull **reference** files the team placed there (guidelines, notes) and summarize into **`00-intake.md`** with Drive paths.
+  - **Do not** use this folder as the default export for **Twitter/LinkedIn feed** posts—those are **pushed** via **`hype-engine`** from **`post-bundle.md`** after approval.
+  - **Articles:** **`linkedin-article-writer`** may export long-form copy to **`04-articles/`** for **interns**; link in **`publish-handoff.md`** / **`README-handoff.md`**. Routine social slots are **not** mirrored to Drive as “ready-to-post” Docs.
 - **Default output root:**
   ```text
   workspace/drafts/social/<YYYY-MM-DD>-<campaign-slug>/
@@ -46,7 +56,7 @@ The **parent** social agent: owns **consistency** (voice, CTA ladder, disclosure
 ## Credentials & API (qf-style)
 
 - **Draft-only:** No secrets; all bundles under `workspace/drafts/social/...` as above.
-- **Twitter/X + LinkedIn (live post):** When publishing approved slots for **`twitter_x`** or **`linkedin_feed`**, use the **`hype-engine`** skill: Accounts API → Posts API with the correct account UUIDs (`~/.config/hype-engine/*`). Do not use raw LinkedIn or X API from this workflow unless HypeEngine is unavailable and **`TOOLS.md` / `USER.md`** explicitly allows a fallback.
+- **Twitter/X + LinkedIn feed (live post):** HypeEngine is **already connected** for these channels. When **`APPROVAL.md`** allows it, use **`hype-engine`**: Accounts API → Posts API with the correct account UUIDs (`~/.config/hype-engine/*`) to **push** the approved bundle—no assumption that OAuth setup happens inside this skill. Do not use raw LinkedIn or X API from this workflow unless HypeEngine is unavailable and **`TOOLS.md` / `USER.md`** explicitly allows a fallback.
 - **Other live publish / analytics:** **OpenClaw channels** in `~/.openclaw/openclaw.json` when configured (Telegram, Discord, etc.) where the team uses them.
 - **Per-platform API keys** (Meta, Google Ads, TikTok Marketing, Reddit, direct LinkedIn if fallback): use **`workspace/INTEGRATIONS.md`**. Sub-skills (`adverts-creator`, …) spell out which service each needs.
 
@@ -86,7 +96,7 @@ The **parent** social agent: owns **consistency** (voice, CTA ladder, disclosure
 
 8. **Live publish (X + LinkedIn feed only, after approval)**
    - For rows where Platform is **twitter_x** or **linkedin_feed** and **Approved Y/N** is yes: run **`hype-engine`** — list accounts, map UUIDs, create draft/scheduled/published post per `APPROVAL.md` datetime (AM/PM slots). If **trend hashtags** are enabled, merge vetted tags from **`social-trend-monitor`** output into the HTML body **before** the API call. Log HypeEngine **post UUID** (or id returned by API) back into `APPROVAL.md` or `publish-log.md`.
-   - **LinkedIn long-form articles** are **not** assumed to publish through HypeEngine; see **`hype-engine`** → *LinkedIn: feed post vs long-form article*.
+   - **LinkedIn long-form articles:** **not** published as the article via HypeEngine—**interns** post **`article.md`** (Drive / LinkedIn composer). HypeEngine only handles the **`teaser.md`** **feed** promo when that calendar row is approved. See **`hype-engine`** → *LinkedIn: feed post vs long-form article*.
    - Other platforms: unchanged (drafts only, or channels/APIs per `INTEGRATIONS.md` / `TOOLS.md`).
 
 9. **Close-out message to user**
@@ -170,7 +180,7 @@ openclaw cron list
 
 - `00-intake.md`, `calendar.md`, `APPROVAL.md`, `README-handoff.md`
 - **`pipeline-state.md`** — required when running the marketer→publish chain (so the next session knows what to do).
-- Optional: **`drive-handoff.md`** — table: Post ID | Platform | Local time | **Google Doc link** (employee copy-paste) | HypeEngine status (if any).
+- Optional: **`publish-handoff.md`** / article links only — long-form **LinkedIn articles** handed to interns via Drive (`04-articles/`); feed posts do not require a Drive row.
 
 ## Agent Checklist
 
@@ -185,4 +195,4 @@ openclaw cron list
 - [ ] Sub-skill outputs referenced by path, not vague “see above.”
 - [ ] If using trends: **`Trend source:`** line in bundles; hashtags brand-safe and sparse.
 - [ ] Cron (if used): user has **`openclaw cron list`** and Gateway running; timezone matches **Local time** on calendar.
-- [ ] If **`social/drive_folder_id`** (or env) is set: **`drive-handoff.md`** updated with Doc links for employee posting **or** note “HypeEngine-only, no Drive export.”
+- [ ] If **`social/drive_folder_id`** (or env) is set: used for **article** handoff (`04-articles/`) per **`INTEGRATIONS.md`**, **not** for exporting every feed **`post-bundle`** to Drive.

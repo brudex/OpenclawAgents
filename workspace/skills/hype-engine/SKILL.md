@@ -11,7 +11,7 @@ Use the HypeEngine API v1 to manage social media **accounts**, upload **media**,
 
 ## Twitter/X and LinkedIn: use this skill to post
 
-For this workspace, **live** posts to **Twitter/X** and **LinkedIn** (feed / teaser-style updates) go through **HypeEngine** when `~/.config/hype-engine/` is configured—not direct Twitter or LinkedIn Marketing API calls from other skills.
+For this workspace, **live** posts to **Twitter/X** and **LinkedIn** (feed / teaser-style updates) go through **HypeEngine** when `~/.config/hype-engine/` is configured—not direct Twitter or LinkedIn Marketing API calls from other skills. **Accounts are already connected**; the operator’s job on publish is to **push** approved content through the Posts API, not to re-do OAuth each run.
 
 - **Upstream (typical order):** `linkedin-article-writer` (**articles** + `teaser.md`) **or** `x-post-writer` / `social-content-writer` (`post-body.md`) → **`social-media-manager`** **`post-bundle.md`** + **`APPROVAL.md`** — optional **`social-caption-writer`** polish — then this skill ships to X/LinkedIn (or human approval in chat).
 - **This skill:** Resolve **account UUIDs** via the Accounts API (X and LinkedIn rows), map caption/teaser HTML into the Posts API `content[].body`, attach **media UUIDs** if needed, then **create** a draft, **schedule**, or **publish** per human instruction.
@@ -211,9 +211,10 @@ curl -X PUT "$HYPE_BASE_URL/api/v1/$HYPE_PROJECT_UUID/posts/$POST_UUID" \
 
 ## Typical social posting workflow
 
+- **Assume connected accounts**: In this workspace, LinkedIn + Twitter are **already linked** in HypeEngine—list UUIDs when needed, then **push** approved posts; no per-run OAuth narrative.
 - **Discover accounts**: Call the Accounts API to list available social accounts and grab their UUIDs. **Filter** to the **Twitter/X** and **LinkedIn** accounts you need before building `accountUuids`.
 - **Find or upload media**: Use the Media API to either list existing media or upload new images/videos and capture their UUIDs.
 - **Pick / create tags**: Use the Tags API to find tag UUIDs to attach to the post.
 - **Create or update posts**: Use the Posts API examples above to draft, schedule, or update posts across multiple accounts, attaching media and tags as needed.
-- **Pair with workspace drafts**: Read approved copy from `workspace/drafts/social/.../post-bundle.md` or captions files, and `workspace/drafts/linkedin/.../teaser.md` for LinkedIn teasers; convert line breaks to `<p>` / `<br>` as required by your HypeEngine payload format.
+- **Pair with workspace drafts**: Read approved copy from `workspace/drafts/social/.../post-bundle.md` or captions files, and `workspace/drafts/linkedin/.../teaser.md` for LinkedIn teasers; convert line breaks to `<p>` / `<br>` as required by your HypeEngine payload format. **Do not** pull routine feed posts from Google Drive—Drive is for **LinkedIn article** handoff only (`INTEGRATIONS.md`).
 

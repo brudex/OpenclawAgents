@@ -57,6 +57,7 @@ flowchart LR
 
 - **Inputs:** approved rows in **`APPROVAL.md`**.
 - **Then:** `publish` → `complete`.
+- **Note:** HypeEngine is **already connected** to **LinkedIn + Twitter**—**push** approved **`twitter_x`** / **`linkedin_feed`** bundles (including **`teaser.md`** for article promo rows). **LinkedIn long-form `article.md`** is **not** posted via HypeEngine; **interns** publish the article (UI / optional Drive **`04-articles/`** per **`INTEGRATIONS.md`**). **Google Drive is for articles, not routine feed posts.**
 
 ## Operator one-liner
 

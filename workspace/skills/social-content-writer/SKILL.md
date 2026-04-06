@@ -23,8 +23,7 @@ metadata: {"clawdbot":{"emoji":"📝"},"openclaw":{"emoji":"📝"}}
 
 ## Credentials & API (qf-style)
 
-- **Draft-only.** Reddit/Facebook live actions only after human approval and **`INTEGRATIONS.md`** / channel config. X/LinkedIn feed: **`hype-engine`** via **`social-media-manager`**.
-- **Google Drive:** When the social campaign uses **`drive-handoff.md`**, the parent **`social-media-manager`** may export this skill’s **`post-body.md`** to a shared Doc for **employees** to paste live—same folder pattern as **`INTEGRATIONS.md`** (*social posting handoff*).
+- **Draft-only.** Reddit/Facebook live actions only after human approval and **`INTEGRATIONS.md`** / channel config. X/LinkedIn feed: **`hype-engine`** via **`social-media-manager`** (push after approval). **Google Drive** is **not** the handoff path for these short posts—see **`INTEGRATIONS.md`** (*LinkedIn articles only*).
 
 ## Reference voices (optional, read—not copy fake stats)
 

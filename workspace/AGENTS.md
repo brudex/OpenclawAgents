@@ -2,6 +2,26 @@
 
 This folder is home. Treat it that way.
 
+## Workspace agent roster (skills under `skills/`)
+
+**Goal:** a multi-agent OpenClaw workspace where each capability has a clear skill and handoff path.
+
+| Agent / capability | Primary skill(s) | Notes |
+|--------------------|------------------|--------|
+| **Social Media Management** (first in the posting stack) | `social-media-manager` | **LinkedIn feed + Twitter/X** via **`hype-engine`** (already connected). After **`APPROVAL.md`**, the job is to **push** approved bundles—not to re-onboard accounts each run. Supporting: `social-content-planning`, `social-content-writer`, `x-post-writer`, optional `social-caption-writer`, `social-trend-monitor`, `agency-marketing` personas, `marketer-agent` upstream. |
+| **Product Manager** | `product-manager-agent` | PRDs, scope, delivery handoffs. |
+| **Auto Research** | `auto-research-agent`, `qf-course-researcher` | Deep / Karpathy-style research for **courses**, categories, and evidence-backed answers; QuizFactor-aligned flows where relevant. |
+| **Auto Video Generation** | `auto-video-generation` | Beat sheets, prompts; pairs with `tiktok-video-ads-creator` when needed. |
+| **Auto Image Generation** | `auto-image-generation` | Assets for social/ads. |
+| **Reddit trend follower & poster** | `reddit-trend-poster` | Trend-aware Reddit execution (drafts vs live per `INTEGRATIONS.md` / approval). |
+| **Ads creator** | `adverts-creator` | Paid social / ad packages after strategy. |
+| **TikTok video & ads** | `tiktok-video-ads-creator` | Hooks, retention map, organic + ads copy; optional input from `auto-video-generation`. |
+| **LinkedIn Article Writer & Poster** (last / separate lane) | `linkedin-article-writer` | Long-form **`article.md`** + **`teaser.md`**. **Interns** publish the **article** (LinkedIn article UI ± **Google Drive** `04-articles/` per **`INTEGRATIONS.md`**). **`teaser.md`** is a **feed** post: after approval, **`social-media-manager`** pushes it through **HypeEngine** like other LinkedIn feed rows. |
+
+**Google Drive in this workspace:** use Drive to hand off **articles** to interns (`04-articles/`), **not** as the default save path for routine LinkedIn/Twitter feed posts (those ship from the repo through HypeEngine).
+
+**Orchestration:** `multi-agent-orchestrator` documents DAGs, gates, and cron/webhook patterns; skills do not auto-chain unless you wire schedules or prompts.
+
 ## First Run
 
 If `BOOTSTRAP.md` exists, that's your birth certificate. Follow it, figure out who you are, then delete it. You won't need it again.

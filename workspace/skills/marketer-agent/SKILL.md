@@ -89,7 +89,7 @@ Before **any** GTM outputs (`00-brief.md`, channel plan, campaign concepts, ad b
 
 - **Draft-only:** No keys; all artifacts under `workspace/drafts/marketing/...`.
 - **QuizFactor / Drive alignment:** Product content is read from the folder ID in **`~/.config/quizfactor/product-info-drive`**. **`qf-record-pending-uploads`** uses **`drive_folder_ids`** and **`google_drive_credentials`** — same credential file, **different** folder config; do not confuse the two.
-- **Optional:** Sync summaries to **Notion** via **`notion`** skill; paid ad **live** execution via **`adverts-creator`** + **`INTEGRATIONS.md`**; social calendar via **`social-media-manager`**. **Google Drive:** product brief ingest per **Prerequisites**; optional **social posting** folder for employees is documented in **`INTEGRATIONS.md`** (`social/drive_folder_id` / `SOCIAL_POSTING_DRIVE_FOLDER_ID`) and used by **`social-media-manager`** for read/save handoffs.
+- **Optional:** Sync summaries to **Notion** via **`notion`** skill; paid ad **live** execution via **`adverts-creator`** + **`INTEGRATIONS.md`**; social calendar via **`social-media-manager`**. **Google Drive:** product brief ingest per **Prerequisites**; optional **`social/drive_folder_id`** (see **`INTEGRATIONS.md`**) is for **LinkedIn article** handoff to interns (`04-articles/`), **not** for exporting routine Twitter/LinkedIn feed posts (those use **`hype-engine`**).
 
 ## High-level Workflow
 

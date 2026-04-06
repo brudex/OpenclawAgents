@@ -21,7 +21,7 @@ Suggested layout (create on server):
 ~/.config/quizfactor/google_drive_credentials   # Path to service account JSON (qf-* skills; marketer-agent optional if host Google/Drive already connected)
 ~/.config/marketer/drive_folder_id   # Single line: marketer-agent — Google Drive folder ID for full project brief (not quiz imports)
 ~/.config/openclaw/marketing_brief_drive_folder_id   # Legacy fallback if marketer/drive_folder_id is missing
-~/.config/social/drive_folder_id   # Optional: shared Drive folder for social exports / employee posting handoff (see below)
+~/.config/social/drive_folder_id   # Optional: shared Drive folder for LinkedIn *article* handoff to interns — not for routine feed posts (see below)
 ```
 
 Environment variables (alternative to files — set in `~/.openclaw/.env` or systemd):
@@ -39,36 +39,40 @@ Environment variables (alternative to files — set in `~/.openclaw/.env` or sys
 | `GEMINI_API_KEY` | **Primary** for **`auto-image-generation`** and **`auto-video-generation`** (Gemini native image / Imagen + **Veo** video) |
 | `OPENAI_API_KEY`, `FAL_KEY` | Optional fallbacks if you add other tools later |
 | `MARKETING_BRIEF_DRIVE_FOLDER_ID` | Override marketing brief folder (else `~/.config/marketer/drive_folder_id`, else legacy `~/.config/openclaw/marketing_brief_drive_folder_id`) |
-| `SOCIAL_POSTING_DRIVE_FOLDER_ID` | Override social handoff folder (else `~/.config/social/drive_folder_id`) |
+| `SOCIAL_POSTING_DRIVE_FOLDER_ID` | Override LinkedIn **article** handoff folder (else `~/.config/social/drive_folder_id`) — **not** used for routine Twitter/LinkedIn feed posts |
 
-## Google Drive — social posting handoff (employees)
+## Google Drive — LinkedIn articles only (intern handoff)
 
-Use a **shared Drive folder** so the team can **read** source material and **grab** finished copy (or you **push** exports there) while **`hype-engine`** remains optional for auto-post.
+In this workspace, **save to Google Drive for long-form LinkedIn articles**, not for routine social feed posts.
+
+- **LinkedIn + Twitter feed posts** (short updates, threads, **`teaser.md`**, etc.): stay in **`workspace/drafts/social/...`**, then **`social-media-manager`** **pushes** approved bundles through **`hype-engine`** (already connected). **Do not** treat Drive as the default export path for those posts.
+- **LinkedIn articles (`article.md`)**: optional **Google Doc** export under **`04-articles/`** so **interns** can open the Doc and publish via LinkedIn’s **article** composer. Document links in **`publish-handoff.md`** / campaign **`README-handoff.md`**.
 
 **Config (pick one):**
 
-- **`~/.config/social/drive_folder_id`** — single line, folder ID.
+- **`~/.config/social/drive_folder_id`** — single line, folder ID for the shared **article** handoff tree (name is legacy; purpose here is articles).
 - Env **`SOCIAL_POSTING_DRIVE_FOLDER_ID`** overrides the file.
 
 **Share** the folder with:
 
 - The **OpenClaw** Google account (or service account **`client_email`**) for upload/list.
-- **Employees** who post (Editor or Commenter as you prefer).
+- **Interns / editors** who publish articles (Editor or Commenter as you prefer).
 
 **Suggested Drive layout (create manually or via agent + `gws-*` tools):**
 
 | Area | Purpose |
 |------|---------|
-| `01-briefs/` | Mirrors or links to marketer inputs; optional extra voice notes from leadership |
-| `02-calendar/` | Exported **`calendar.md`** or a Sheet the team trusts as schedule source |
-| `03-ready-to-post/` | One **Google Doc per slot** (date + AM/PM + platform): final body, hashtags, disclosure, asset link — employees copy-paste into LinkedIn/X **or** ops uses **`hype-engine`** from the same text |
-| `04-articles/` | **`linkedin-article-writer`** exports: full article Doc + **`publish-handoff.md`** link row |
+| `01-briefs/` | *(Optional)* Reference materials the team drops in; not required for HypeEngine posting |
+| `02-calendar/` | *(Optional)* Team calendar / Sheet if you mirror schedule outside the repo |
+| `04-articles/` | **`linkedin-article-writer`**: one Doc per article (full body); link from **`publish-handoff.md`** |
 
-**Auth:** Same patterns as **marketing brief** — prefer **host Google / OpenClaw-linked Google**; else service account JSON at **`~/.config/quizfactor/google_drive_credentials`** with the social folder shared to that account.
+**Do not** maintain **`03-ready-to-post/`** for LinkedIn/X feed copy in this setup—that duplicates **`hype-engine`**, which is the canonical path for those posts.
 
-**OpenClaw skills (optional upload):** If installed, **`gws-drive-upload`**, **`gws-docs-write`**, and related packages from **`openclaw-setup.md`** can create/update Docs from `workspace/drafts/social/...`. Skills only **describe** the workflow; the host must expose those tools.
+**Auth:** Same patterns as **marketing brief** — prefer **host Google / OpenClaw-linked Google**; else service account JSON at **`~/.config/quizfactor/google_drive_credentials`** with this folder shared to that account.
 
-**Skills that reference this flow:** **`social-media-manager`**, **`linkedin-article-writer`**, **`marketer-agent`** (upstream read).
+**OpenClaw skills (optional upload):** If installed, **`gws-drive-upload`**, **`gws-docs-write`**, and related packages from **`openclaw-setup.md`** can create/update **article** Docs from `workspace/drafts/linkedin/...`. Skills only **describe** the workflow; the host must expose those tools.
+
+**Skills that reference this flow:** **`linkedin-article-writer`** (primary), **`social-media-manager`** (optional read of team files at intake only — not export of every post), **`marketer-agent`** (upstream brief read uses a **different** Drive folder — see below).
 
 ## Google Drive — marketing project brief (`marketer-agent`)
 
