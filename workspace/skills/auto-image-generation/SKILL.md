@@ -1,12 +1,22 @@
 ---
 name: auto-image-generation
-description: Full creative briefs for static assets—social, ads, thumbnails, blog heroes—with aspect ratio matrix, layered prompts, negative prompts, brand constraints, A/B variant grid, and optional safe-zone notes; live pixels via Gemini API (native image or Imagen) when GEMINI_API_KEY is set.
+description: Creative briefs plus actual image files—social, ads, thumbnails—via Gemini (native image or Imagen); when OpenClaw/Gemini is configured, default to writing generated-*.png under drafts/images/ after the brief, not brief-only.
 metadata: {"clawdbot":{"emoji":"🖼️"},"openclaw":{"emoji":"🖼️"}}
 ---
 
 # auto-image-generation
 
 Deliver **designer-ready** image specs: not a single vague prompt, but **placement**, **ratio**, **prompt + negative**, **text overlay rules**, and **A/B variants**—equivalent detail to how `qf-course-researcher` specifies Notion property types (Select vs rich_text) so downstream work does not degrade.
+
+## When Gemini is available (this workspace — default)
+
+If **OpenClaw already has Gemini** (API key in **`~/.openclaw/.env`** / **`~/.config/gemini/api_key`** and/or host **`image_generate`** / equivalent tool), treat **pixel generation as the default outcome**, not optional:
+
+1. Write the brief artifacts (`concept.md`, `prompt-master.txt`, etc.) as today.
+2. **Then** call Gemini (**prefer host `image_generate` if exposed**; else **`generateContent`** with an image-capable model per [Gemini image docs](https://ai.google.dev/gemini-api/docs/image-generation)) and save **at least one** real file (e.g. **`generated-1.png`**) into the same draft folder.
+3. Record model id, time, and output filenames in **`gemini-render.md`**.
+
+Only skip the render step if the human explicitly asked **briefs only**, the tool/key is missing after checking, or the API refuses (document in `gemini-render.md`).
 
 ## Prerequisites
 
@@ -16,12 +26,12 @@ Deliver **designer-ready** image specs: not a single vague prompt, but **placeme
   workspace/drafts/images/<YYYY-MM-DD>-<slug>/
   ```
 - **Brief:** use case (feed post, story, Meta ad 1:1, display 1200×628, YT thumbnail), **must-win message**, **legal** (no competitor logos, no fake badges).
-- **Tools:** When generating **real files**, use **Gemini API** (this workspace’s default). OpenClaw **`image_generate`** may wrap the same API if configured. Otherwise output **briefs only** and state that in README.
+- **Tools:** **Gemini** produces **actual image files** in this setup. **Order:** try OpenClaw **`image_generate`** (or other host image tool) first if available; else **`generateContent`** with **`x-goog-api-key`** — see **`workspace/INTEGRATIONS.md`**.
 
 ## Credentials & API (qf-style)
 
-- **Briefs-only:** No keys; deliver prompts and `README` under `workspace/drafts/images/...`.
-- **Render (default: Gemini):** Store **`GEMINI_API_KEY`** in **`~/.openclaw/.env`** or **`~/.config/gemini/api_key`**. Send **`x-goog-api-key`** (not Bearer) to `generativelanguage.googleapis.com` — see **`workspace/INTEGRATIONS.md`**.
+- **Briefs-only (exception):** Only when the human asked no render, or no Gemini key/tool is available after checking — state that in **`README-handoff.md`**.
+- **Render (default when Gemini exists):** **`GEMINI_API_KEY`** in **`~/.openclaw/.env`** or **`~/.config/gemini/api_key`**. Send **`x-goog-api-key`** (not Bearer) to `generativelanguage.googleapis.com` — see **`workspace/INTEGRATIONS.md`**.
 - **Native image model (`generateContent`):** Map `prompt-master.txt` + aspect ratio from `brief.json` / matrix into `generationConfig.imageConfig.aspectRatio` (`"1:1"`, `"16:9"`, `"9:16"`, etc.—use values supported by the model you choose). Parse the response for **inline image bytes** (base64) and write **`generated-1.png`** (or `.jpg` per MIME) under the same draft folder. **Model IDs change** — pick the current image-capable model from [Gemini image generation docs](https://ai.google.dev/gemini-api/docs/image-generation).
 - **Imagen (`predict`):** Optional batch-style generation via e.g. `imagen-4.0-generate-001:predict` with `instances[].prompt` and `parameters.sampleCount` if your project uses Imagen instead of native image output.
 - **Negatives / brand:** Fold `negative-prompt.txt` into the **user text prompt** (Gemini image prompts are text-first); keep `text-overlay.md` as post-edit guidance if the API cannot place text reliably.
@@ -83,5 +93,5 @@ Deliver **designer-ready** image specs: not a single vague prompt, but **placeme
 - [ ] Negative prompt covers legal/safety brand items.
 - [ ] A/B table present when use case is ads or declared test.
 - [ ] No invented awards, rankings, or “official” marks.
-- [ ] User told folder path; clarified **Gemini** pixels vs **brief-only** (no `GEMINI_API_KEY`).
+- [ ] User told folder path; if Gemini/OpenClaw image tools were available, **at least one `generated-*` file** exists **or** failure/refusal documented in **`gemini-render.md`**.
 - [ ] If chaining to `adverts-creator`, list which variant maps to which ad headline in README.

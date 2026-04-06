@@ -119,6 +119,8 @@ If **`~/.openclaw/openclaw.json`** defines **Telegram, Discord**, etc., use **ch
 
 ## Gemini — image (generateContent)
 
+**Workspace default:** Gemini is **already configured** on the OpenClaw host for this project. Skills should **use** it for real image/video generation when relevant—not skip renders assuming keys are absent unless a check fails.
+
 Use an **image-capable** model id from the current [image generation](https://ai.google.dev/gemini-api/docs/image-generation) documentation. Auth header is **`x-goog-api-key`**, not `Authorization: Bearer`.
 
 ```bash
@@ -153,6 +155,8 @@ curl -sS -X POST \
 ```
 
 ## Gemini — video (Veo, async)
+
+Same **workspace default** as image: assume Gemini is available; **attempt Veo** for **`auto-video-generation`** when the project supports it (see skill for failure handoff).
 
 Video generation is **long-running**. Start the operation, **poll** until `done`, then **download** the file. Endpoint and JSON shape are updated periodically — verify against [video / Veo](https://ai.google.dev/gemini-api/docs/video).
 

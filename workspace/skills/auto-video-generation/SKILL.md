@@ -1,12 +1,20 @@
 ---
 name: auto-video-generation
-description: End-to-end video planning—concept, beat sheet, shot list, VO script, captions, platform specs—and optional rendered clips via Gemini Veo API when GEMINI_API_KEY is set; otherwise Remotion/ffmpeg handoff only.
+description: Video planning (beat sheet, VO, captions) plus actual MP4 when Gemini Veo is available on the key; with OpenClaw+Gemini configured, default to attempting Veo render after planning—else document handoff to Remotion/ffmpeg.
 metadata: {"clawdbot":{"emoji":"🎬"},"openclaw":{"emoji":"🎬"}}
 ---
 
 # auto-video-generation
 
 Produce **production-ready planning artifacts** for video: not just a script, but **timed beats**, **shot direction**, **audio plan**, and **caption timing** so an editor or codegen tool (e.g. Remotion) can execute without guessing. Each run should leave a **dated, named folder or file set** under the workspace `drafts/` tree—same discipline as `qf-course-researcher` creates a dated Notion page.
+
+## When Gemini is available (this workspace — default)
+
+If **OpenClaw already has Gemini** (`~/.openclaw/.env`, `~/.config/gemini/api_key`, or host tools wrapping the same API), **after** writing the planning files, **attempt** a **Gemini Veo** render (async start → poll → download **`.mp4`**) per [Gemini video / Veo docs](https://ai.google.dev/gemini-api/docs/video) and **`workspace/INTEGRATIONS.md`**. Save e.g. **`veo-output.mp4`** under the same `workspace/drafts/video/<run>/` folder and log model, operation id, and path in **`veo-render.md`**.
+
+- **If Veo succeeds:** the run delivers **both** the beat sheet **and** a real clip.
+- **If the key has no Veo access, quota fails, or the API errors:** do **not** pretend a file exists—note the error in **`veo-render.md`** and fall back to **Remotion/ffmpeg** handoff in **`README-handoff.md`**.
+- **Brief-only** only when the human explicitly asked no render.
 
 ## Prerequisites
 
@@ -33,9 +41,9 @@ Produce **production-ready planning artifacts** for video: not just a script, bu
 
 ## Credentials & API (qf-style)
 
-- **Planning-only:** No API keys; beat sheets and scripts under `workspace/drafts/video/...`.
-- **Rendered video (default: Gemini Veo):** Use **`GEMINI_API_KEY`** / **`~/.config/gemini/api_key`** with the **async** video flow: start generation → **poll** the long-running operation → **download** the file into `workspace/drafts/video/<run>/` (e.g. `veo-output.mp4`). Request body includes **prompt** (merge beat sheet + VO cues into one cinematic description), **`aspectRatio`** (`"9:16"` for vertical shorts, `"16:9"` for landscape), and **`resolution`** if supported. Exact endpoint and field names evolve — follow [Gemini video / Veo docs](https://ai.google.dev/gemini-api/docs/video) and **`workspace/INTEGRATIONS.md`**.
-- **Fallback:** **Remotion + ffmpeg** or **`eleven-labs-music`** for audio-only beds when Veo is not used or not enabled; do not assume licensed trending TikTok audio unless rights confirmed.
+- **Planning-only (exception):** When the human asked no render, or Gemini/Veo is unavailable after a real attempt — still ship beats + scripts under `workspace/drafts/video/...`.
+- **Rendered video (default when Gemini + Veo available):** **`GEMINI_API_KEY`** / **`~/.config/gemini/api_key`** — **async** Veo flow: start → **poll** → **download** `veo-output.mp4` (or similar) into the draft folder. Merge **beat sheet + VO** into one cinematic **prompt**; set **`aspectRatio`** (`"9:16"` / `"16:9"`) per brief. Endpoints evolve — follow [Gemini video / Veo docs](https://ai.google.dev/gemini-api/docs/video) and **`workspace/INTEGRATIONS.md`**.
+- **Fallback:** **Remotion + ffmpeg** or **`eleven-labs-music`** when Veo is not enabled on the project or the render fails; do not assume licensed trending TikTok audio unless rights confirmed.
 
 ## High-level Workflow
 
@@ -113,5 +121,5 @@ Recommended:
 - [ ] All factual claims in VO either generic or tied to provided research with citation note in `README-handoff.md`.
 - [ ] Audio/legal section addresses trending-sound risk.
 - [ ] Folder created under `drafts/video/<date>-<slug>/` with all required files.
-- [ ] User told exactly which path to open; **rendered MP4** only if **Gemini Veo** (or Remotion/ffmpeg) was actually invoked and file saved under the draft folder.
+- [ ] User told exactly which path to open; if Gemini was configured, **`veo-render.md`** records whether an **MP4** was saved or why Veo was skipped/failed; never claim a clip without a file or explicit API failure note.
 - [ ] If `video-generator/` patterns apply, reference `video-generator/references/composition-patterns.md` where useful (do not duplicate entire doc).

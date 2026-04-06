@@ -11,8 +11,8 @@ This folder is home. Treat it that way.
 | **Social Media Management** (first in the posting stack) | `social-media-manager` | **LinkedIn feed + Twitter/X** via **`hype-engine`** (already connected). After **`APPROVAL.md`**, the job is to **push** approved bundles—not to re-onboard accounts each run. Supporting: `social-content-planning`, `social-content-writer`, `x-post-writer`, optional `social-caption-writer`, `social-trend-monitor`, `agency-marketing` personas, `marketer-agent` upstream. |
 | **Product Manager** | `product-manager-agent` | PRDs, scope, delivery handoffs. |
 | **Auto Research** | `auto-research-agent`, `qf-course-researcher` | Deep / Karpathy-style research for **courses**, categories, and evidence-backed answers; QuizFactor-aligned flows where relevant. |
-| **Auto Video Generation** | `auto-video-generation` | Beat sheets, prompts; pairs with `tiktok-video-ads-creator` when needed. |
-| **Auto Image Generation** | `auto-image-generation` | Assets for social/ads. |
+| **Auto Video Generation** | `auto-video-generation` | Beat sheets + **attempt Gemini Veo MP4** when the host/key supports it; pairs with `tiktok-video-ads-creator` when needed. |
+| **Auto Image Generation** | `auto-image-generation` | Briefs + **actual image files** via Gemini (host `image_generate` or API). |
 | **Reddit trend follower & poster** | `reddit-trend-poster` | Trend-aware Reddit execution (drafts vs live per `INTEGRATIONS.md` / approval). |
 | **Ads creator** | `adverts-creator` | Paid social / ad packages after strategy. |
 | **TikTok video & ads** | `tiktok-video-ads-creator` | Hooks, retention map, organic + ads copy; optional input from `auto-video-generation`. |
@@ -21,6 +21,8 @@ This folder is home. Treat it that way.
 **Google Drive in this workspace:** use Drive to hand off **articles** to interns (`04-articles/`), **not** as the default save path for routine LinkedIn/Twitter feed posts (those ship from the repo through HypeEngine).
 
 **Orchestration:** `multi-agent-orchestrator` documents DAGs, gates, and cron/webhook patterns; skills do not auto-chain unless you wire schedules or prompts.
+
+**Gemini (this workspace):** Already **configured on OpenClaw** (`~/.openclaw/.env`, `~/.config/gemini/api_key`, and/or host image/video tools). Treat **`auto-image-generation`** and **`auto-video-generation`** as **render-by-default** after the brief unless the human asked brief-only or an API call fails—see each skill and **`INTEGRATIONS.md`**.
 
 ## First Run
 
