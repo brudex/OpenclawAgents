@@ -158,36 +158,78 @@ workspace/drafts/social/<campaign>/pipeline-state.md
 - Whoever finishes a phase **updates** `pipeline-state.md`: set **Status** to `complete`, set **Last updated** (ISO date) in a line under the table, and optionally add **`NEXT_PROMPT`** for the operator (one sentence: what to invoke next).
 - **Immediate focus when the calendar already exists:** set step 2 → `complete`; run step 3 until every slot has copy **and** **`post-image.png`** / **`article-hero.png`** (unless text-only flagged in intake); then step 4 (bundles)—**skip** caption writer unless requested.
 - **Host automation:** use **OpenClaw cron** (Gateway scheduler) so jobs persist across restarts. Official docs: [Scheduled tasks (cron)](https://docs.openclaw.ai/automation/cron-jobs). Jobs are stored at **`~/.openclaw/cron/jobs.json`**. For **what counts as “auto handoff”** (cron vs webhooks vs custom sessions), see **`multi-agent-orchestrator`** → **Automatic handoffs — what OpenClaw can (and cannot) do**.
-- **CLI examples (isolated session = full agent turn with your prompt):**
+- **Cron jobs (marketing workflow)** — full spec below. Replace **`CAMPAIGN_FOLDER`** and **`TIMEZONE`** in CLI `--message` / `--tz` before running.
+
+### 1) Twice daily — publish only (HypeEngine)
+
+**Does not** run **`marketer-agent`**, writers, or **`auto-image-generation`**. Only ships **already-approved** rows with **`post-bundle.md`** and images ready.
+
+- **Today** in **`TIMEZONE`**; row = **`twitter_x`** or **`linkedin_feed`**, **`Local time`** matches job (e.g. `09:00` vs `18:00`), **Approved Y**, **`HypeEngine post UUID` empty**.
+- **`hype-engine`:** Media upload → **one POST `/posts` per row** with **`date`/`time`** from **`APPROVAL.md`** (scheduled auto-publish; **no** publish-now). Record UUIDs in **`APPROVAL.md`**.
+- **Trends:** If **`USER.md`** allows, read latest **`workspace/drafts/social/trends/`** file; merge **0–2** brand-safe hashtags into HTML before POST; note **`Trend source:`**.
+- **Do not** invent new posts or draft new **`post-body.md`**.
+
+### 2) Weekly (optional) — continue pipeline **through bundles** — **no HypeEngine**
+
+Read **`workspace/drafts/social/CAMPAIGN_FOLDER/pipeline-state.md`**, run **next incomplete** phase among calendar / post_bodies / bundles, update **`pipeline-state.md`**. Skills: **`social-media-manager`**, **`social-content-planning`**, **`x-post-writer`**, **`social-content-writer`**, **`linkedin-article-writer`**, **`auto-image-generation`** (**`brand-images/`**), bundles + **`APPROVAL`** prep. **Do not** **`POST /posts`** here. Optional **`social-trend-monitor`** for calendar hints. **`strategy`** phase usually needs **`marketer-agent`** + Drive—run when pending or skip if human owns it.
+
+### 3) Every 48h (optional) — LinkedIn article draft
+
+**`linkedin-article-writer`** once (marketer + **`CAMPAIGN_FOLDER`** calendar themes), **`article-hero.png`**, **`workspace/drafts/linkedin/`**, **`publish-handoff.md`** if Drive.
+
+### CLI examples (`openclaw cron add`)
 
 ```bash
-# Morning: post due slots + optional trend merge (adjust tz and message)
+# 1a) Morning publish — set TIMEZONE and replace CAMPAIGN_FOLDER in --message and --tz
 openclaw cron add \
   --name "Social AM publish" \
   --cron "0 9 * * *" \
-  --tz "America/New_York" \
+  --tz "TIMEZONE" \
   --session isolated \
-  --message "Open workspace/drafts/social/<campaign>/calendar.md and APPROVAL.md. Today’s date only. Rows: Local time 09:00 (or morning slot), Approved Y, HypeEngine post UUID EMPTY. hype-engine: upload media if needed, POST /posts once per row with date+time from APPROVAL (scheduled—no separate publish-now). Skip if UUID set. Trends: 0-2 hashtags if USER.md allows."
+  --message "Open workspace/drafts/social/CAMPAIGN_FOLDER/calendar.md and APPROVAL.md. Today in TIMEZONE only. Rows: platform twitter_x or linkedin_feed, Local time 09:00, Approved Y, HypeEngine post UUID empty. hype-engine only: upload media from bundle, POST /posts once per row with date+time from APPROVAL, record UUIDs in APPROVAL. Skip if UUID set. Do not write new posts. If USER.md allows: read latest workspace/drafts/social/trends/ file, merge 0-2 brand-safe hashtags into body HTML before POST."
 
 openclaw cron add \
   --name "Social PM publish" \
   --cron "0 18 * * *" \
-  --tz "America/New_York" \
+  --tz "TIMEZONE" \
   --session isolated \
-  --message "Open workspace/drafts/social/<campaign>/calendar.md and APPROVAL.md. Today’s date only. Rows: Local time 18:00 (evening), Approved Y, HypeEngine UUID EMPTY. hype-engine: POST /posts once per row with date+time from APPROVAL (scheduled auto-publish). Skip if UUID set. Do not touch morning slots."
+  --message "Open workspace/drafts/social/CAMPAIGN_FOLDER/calendar.md and APPROVAL.md. Today in TIMEZONE only. Rows: twitter_x or linkedin_feed, Local time 18:00, Approved Y, HypeEngine post UUID empty. Same hype-engine rules: media, one POST /posts per row from APPROVAL, record UUIDs. Skip if UUID set. Do not process 09:00 rows."
 
-# Optional: draft a new LinkedIn article on a fixed interval (does not publish the article body via HypeEngine)
+# 2) Weekly pipeline — example Monday 07:00 (adjust cron day/hour)
+openclaw cron add \
+  --name "Social pipeline continue" \
+  --cron "0 7 * * 1" \
+  --tz "TIMEZONE" \
+  --session isolated \
+  --message "Read workspace/drafts/social/CAMPAIGN_FOLDER/pipeline-state.md. Execute next incomplete phase only: social-media-manager, social-content-planning, writers, auto-image-generation with brand-images, bundles per skills. Do NOT run hype-engine or POST /posts. Update pipeline-state.md. Optional social-trend-monitor for calendar planning only."
+
+# 3) LinkedIn article every 48h
 openclaw cron add \
   --name "LinkedIn article draft every 2d" \
   --every "48h" \
   --session isolated \
-  --message "Run linkedin-article-writer: one new article from marketer brief + calendar themes; save under workspace/drafts/linkedin/; update publish-handoff.md if using Google Drive."
+  --message "Run linkedin-article-writer once: article from marketer outputs + workspace/drafts/social/CAMPAIGN_FOLDER/calendar.md themes; article-hero.png via auto-image-generation; save under workspace/drafts/linkedin/; update publish-handoff.md if Google Drive in use."
 
 openclaw cron list
 ```
 
+Replace literal **`TIMEZONE`** and **`CAMPAIGN_FOLDER`** in each command (e.g. `America/New_York`, `2026-04-acme`).
+
+### OpenClaw GUI prompt (paste to agent)
+
+```text
+Read workspace/skills/social-media-manager/SKILL.md section "Cron jobs (marketing workflow)". Run openclaw cron add on this host with my values:
+
+CAMPAIGN_FOLDER = [paste folder name under workspace/drafts/social/]
+TIMEZONE = [e.g. America/New_York]
+
+Create four jobs: (1) Social AM publish 0 9 * * * (2) Social PM publish 0 18 * * * (3) Social pipeline continue weekly Monday 07:00 — or ask me for day/hour (4) LinkedIn article draft every 2d --every 48h.
+
+Use the exact --message strings from the skill, with CAMPAIGN_FOLDER and TIMEZONE substituted. Session isolated. Then openclaw cron list and paste output. Do not delete unrelated jobs.
+```
+
 - **Main session** (lighter): `openclaw cron add --session main --system-event "..." --wake now` — good for reminders; **isolated** is better for end-to-end post + API work.
-- Until cron is configured, use **`multi-agent-orchestrator`** templates or chat: *“Read `pipeline-state.md` in `<campaign path>` and execute the next incomplete step.”*
+- Full DAG: **`multi-agent-orchestrator/chain-templates/social-feed-pipeline.md`**
 
 ## Outputs (required per campaign folder)
 
