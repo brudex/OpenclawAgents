@@ -1,6 +1,6 @@
 ---
 name: auto-image-generation
-description: Creative briefs plus actual image files—social, ads, thumbnails—via Gemini (native image or Imagen); when OpenClaw/Gemini is configured, default to writing generated-*.png under drafts/images/ after the brief, not brief-only.
+description: Briefs + Gemini-rendered images using workspace brand-images/ (or BRAND_IMAGES_DIR) for QuizFactor/product logo & palette, merged with post copy and marketer/Drive context; copies to post-image.png / article-hero.png for HypeEngine.
 metadata: {"clawdbot":{"emoji":"🖼️"},"openclaw":{"emoji":"🖼️"}}
 ---
 
@@ -39,12 +39,47 @@ When **`social-media-manager`** (or a writer) asks for a **slot image**, use thi
 3. **`social-media-manager`** puts paths + alt into **`post-bundle.md`**; on publish, **`hype-engine`** **uploads** the file (Media API) and sets **`content[].media`** so the post is **not text-only**.  
 4. HypeEngine **draft / scheduled / published** is driven by **`APPROVAL.md`** `date` + `time` (or immediate if the operator sends `null` per API).
 
+## Brand kit (`brand-images/`) — QuizFactor logo & product look
+
+Generated images must **match the product** and **use your real brand**, not a model-invented mark.
+
+### Where the folder lives (resolve in this order)
+
+1. Env **`BRAND_IMAGES_DIR`** (e.g. `/home/admin/.openclaw/workspace/brand-images` on the OpenClaw server).  
+2. Else **`workspace/brand-images/`** relative to this workspace root (same filenames as on server).  
+3. If neither exists or is empty: **stop** before claiming a branded image—write `gemini-render.md` with `BRAND_KIT_MISSING` and ask the human to add assets (see **`workspace/brand-images/README.md`**).
+
+**On every run:** `list_dir` / read **`palette.md`**, **`logo-usage.md`**, **`product-context.md`** (if present), and note available rasters (`logo-primary.png`, `logo-mark.png`, …).
+
+### How the QuizFactor / product logo gets into the image (not “magic prompt only”)
+
+| Method | When to use |
+|--------|-------------|
+| **Reference image (preferred if host/API supports it)** | Pass **`logo-primary.png`** / **`logo-mark.png`** as **multimodal** input alongside text (e.g. `generateContent` with image `inline_data`, or OpenClaw tool that accepts reference images). Instruction: *“Composite or place this exact brand mark per logo-usage.md; match colors from palette.md.”* |
+| **Text-only fallback** | If the pipeline cannot send bytes: paste **verbatim** hex + short **logo description** from **`palette.md`** + **`logo-usage.md`** into `prompt-master.txt`. State *“Official QuizFactor mark only—no generic quiz icons, no other wordmarks.”* |
+| **Never** | Do not describe a logo from memory. Do not substitute a different product name or icon set. |
+
+### Merging **post copy** + **product truth** + **brand kit**
+
+Build the final generation brief in this order:
+
+1. **Scene / story** from **`post-body.md`** (or article title + TL;DR)—this is what the **illustration is about**.  
+2. **Product facts** (if available): path from campaign **`00-intake.md`** to **`marketer-agent`** outputs (`00-brief.md`, `02-positioning.md`) or **`USER.md`**—same source as the **content creator**; **Drive** remains the long-form product source for **`marketer-agent`**, not duplicated inside `brand-images/` except **`product-context.md`** for a short static line.  
+3. **Brand lock** from **`brand-images/`**: colors, logo rules, placement.  
+4. **`visual-dna.md`** (campaign) for illustration style across the batch.
+
+**First post of a campaign:** identical pipeline. If **`marketer-agent`** has not run yet, use **post copy** + **`product-context.md`** + **`brand-images/`** only; after marketing pack exists, prefer **`00-brief.md`** excerpts in `concept.md`.
+
+### Optional host script
+
+If you keep **`image-generation.ts`** (or similar) under `brand-images/` on the server, the **skill still treats this folder as the asset source**; wire execution through OpenClaw tools if you add a wrapper—the markdown workflow does not depend on TypeScript.
+
 ## Aligning images with copy (style & quality)
 
 Generic “nice illustration” prompts drift. For **every** social-slot run:
 
 1. **Read the actual post text** — at minimum the **`## Publish-ready`** block (or article **title + TL;DR + first H2 theme**). The image must reflect **specific nouns, metaphors, or outcomes** in that copy—not a unrelated category stock scene.
-2. **Campaign visual DNA (optional but recommended):** If **`workspace/drafts/social/<campaign>/visual-dna.md`** exists, **append** its locked lines to every `prompt-master.txt` (e.g. *“flat vector, navy #0B1F3A + coral accent #FF6B4A, soft studio light, no photorealistic faces, generous whitespace”*). If missing, derive 3–5 **style rules** from **`USER.md`**, **`SOUL.md`**, and **`marketer-agent`** `03-messaging-pillars.md` / `00-brief.md` once per campaign and **reuse** them for all slots in that folder.
+2. **Campaign visual DNA (optional but recommended):** If **`workspace/drafts/social/<campaign>/visual-dna.md`** exists, **append** its locked lines to every `prompt-master.txt`. **Always merge after** the **brand kit** block from **`brand-images/`** (`palette.md` / `logo-usage.md`) so colors and logo rules are not contradicted. If `visual-dna.md` is missing, derive 3–5 **style rules** from **`USER.md`**, **`SOUL.md`**, and **`marketer-agent`** `03-messaging-pillars.md` / `00-brief.md` once per campaign and **reuse** them for all slots in that folder.
 3. **Same model + ratio within a batch:** Use **one** image model id for all posts in the same **`calendar.md`** week unless the human asks otherwise; keep **`aspectRatio`** aligned to **`social-content-planning`** / calendar row so crops match HypeEngine/LinkedIn/X expectations.
 4. **Prompt structure:** `prompt-master.txt` = **[style DNA] + [subject tied to post] + [composition] + [lighting] + [what to avoid]`. Fold **`negative-prompt.txt`** into the same generation call as today.
 5. **Quality bar (words in prompt):** e.g. *sharp focus, clean edges, professional marketing asset, no watermark, no clutter*—adjust to brand; avoid vague “high quality” alone.
@@ -53,7 +88,7 @@ Generic “nice illustration” prompts drift. For **every** social-slot run:
 
 ## Prerequisites
 
-- **Workspace context:** `USER.md`, `SOUL.md`; optional brand hex codes from human.
+- **Workspace context:** `USER.md`, `SOUL.md`; **`brand-images/`** per **Brand kit** section (env **`BRAND_IMAGES_DIR`** or `workspace/brand-images/`).
 - **Output root:**
   ```text
   workspace/drafts/images/<YYYY-MM-DD>-<slug>/
@@ -130,3 +165,4 @@ Generic “nice illustration” prompts drift. For **every** social-slot run:
 - [ ] If chaining to `adverts-creator`, list which variant maps to which ad headline in README.
 - [ ] Image **subject** tied to **specific** post copy; **`visual-dna.md`** or equivalent style block **reused** across the campaign batch when present.
 - [ ] **`image-alt.txt`** reads true to the raster and to the post intent.
+- [ ] **`brand-images/`** loaded (`BRAND_IMAGES_DIR` or default); logo rules applied; no invented wordmark.

@@ -65,7 +65,7 @@ The **parent** social agent: owns **consistency** (voice, CTA ladder, disclosure
 1. **Intake (`00-intake.md`)**
    - Capture: goals, KPIs, platforms, **blacklist topics**, **legal/compliance** (region, disclaimers), **deadlines**, asset links.
    - **Images:** default **every** scheduled **`twitter_x`** / **`linkedin_feed`** / article row gets **`auto-image-generation`**. List **text-only** post IDs here if any row must ship without an image.
-   - **Visual consistency:** optional campaign file **`visual-dna.md`** (palette, illustration style, banned motifs)—**`auto-image-generation`** appends it to every slot prompt; create once per campaign if not present.
+   - **Visual consistency:** optional campaign **`visual-dna.md`** (illustration style, banned motifs). **Product logo & colors:** always from **`workspace/brand-images/`** or **`BRAND_IMAGES_DIR`** (e.g. `/home/admin/.openclaw/workspace/brand-images`)—see **`auto-image-generation`** → *Brand kit* and **`workspace/brand-images/README.md`**.
    - Optional: path to **`marketer-agent`** output (`workspace/drafts/marketing/.../README-handoff.md` or `06-channel-plan.md`) to align pillars and CTAs.
 
 2. **Trend pass (optional)**

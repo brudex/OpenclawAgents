@@ -40,6 +40,15 @@ Environment variables (alternative to files — set in `~/.openclaw/.env` or sys
 | `OPENAI_API_KEY`, `FAL_KEY` | Optional fallbacks if you add other tools later |
 | `MARKETING_BRIEF_DRIVE_FOLDER_ID` | Override marketing brief folder (else `~/.config/marketer/drive_folder_id`, else legacy `~/.config/openclaw/marketing_brief_drive_folder_id`) |
 | `SOCIAL_POSTING_DRIVE_FOLDER_ID` | Override LinkedIn **article** handoff folder (else `~/.config/social/drive_folder_id`) — **not** used for routine Twitter/LinkedIn feed posts |
+| `BRAND_IMAGES_DIR` | Absolute path to **brand kit** (logos, `palette.md`, `logo-usage.md`). Default: **`workspace/brand-images/`** next to this repo’s workspace root. Example on server: `/home/admin/.openclaw/workspace/brand-images` |
+
+## Brand images (`brand-images/`)
+
+**QuizFactor / product-branded** social and article images use a **fixed folder** of assets + text so Gemini does not invent the wrong logo.
+
+- **Layout:** See **`workspace/brand-images/README.md`** (`logo-primary.png`, `palette.md`, `logo-usage.md`, optional `product-context.md`).
+- **Override path:** Set **`BRAND_IMAGES_DIR`** in `~/.openclaw/.env` if the kit lives outside the repo (e.g. `/home/admin/.openclaw/workspace/brand-images`).
+- **Skill:** **`auto-image-generation`** must **list and read** this directory **before** every render (see that skill → *Brand kit*).
 
 ## Google Drive — LinkedIn articles only (intern handoff)
 

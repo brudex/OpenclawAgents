@@ -24,6 +24,8 @@ This folder is home. Treat it that way.
 
 **Gemini (this workspace):** Already **configured on OpenClaw** (`~/.openclaw/.env`, `~/.config/gemini/api_key`, and/or host image/video tools). Treat **`auto-image-generation`** and **`auto-video-generation`** as **render-by-default** after the brief unless the human asked brief-only or an API call fails—see each skill and **`INTEGRATIONS.md`**.
 
+**Brand images:** Put logos + **`palette.md`** / **`logo-usage.md`** in **`workspace/brand-images/`** (or set **`BRAND_IMAGES_DIR`** to e.g. `/home/admin/.openclaw/workspace/brand-images`). **`auto-image-generation`** merges that kit with **post copy** and **`marketer-agent`** / Drive-backed briefs so visuals match **QuizFactor** (or your product)—not a generic logo.
+
 ## First Run
 
 If `BOOTSTRAP.md` exists, that's your birth certificate. Follow it, figure out who you are, then delete it. You won't need it again.
