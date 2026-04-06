@@ -120,7 +120,7 @@ Use `files.list` with `q` including `'${MARKETING_BRIEF_FOLDER_ID}' in parents` 
 
 ## HypeEngine (Twitter/X + LinkedIn posts)
 
-This workspace routes **approved** **Twitter/X** and **LinkedIn feed** publishing through the **`hype-engine`** skill when configured. Files: `~/.config/hype-engine/api_key`, `project_uuid`, `base_url`. See **`skills/hype-engine/SKILL.md`** for Accounts, Media, Tags, and Posts `curl` examples.
+This workspace routes **approved** **Twitter/X** and **LinkedIn feed** through **`hype-engine`** when configured. **Default:** **one POST `/posts` per row** with **`date` + `time`** from **`APPROVAL.md`** (HypeEngine **schedules and publishes**—no separate publish-now call). Track **`HypeEngine post UUID`** in **`APPROVAL.md`** to avoid duplicates. Files: `~/.config/hype-engine/api_key`, `project_uuid`, `base_url`. See **`skills/hype-engine/SKILL.md`**.
 
 ## OpenClaw channels (preferred when available)
 

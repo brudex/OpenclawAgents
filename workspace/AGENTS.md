@@ -8,15 +8,15 @@ This folder is home. Treat it that way.
 
 | Agent / capability | Primary skill(s) | Notes |
 |--------------------|------------------|--------|
-| **Social Media Management** (first in the posting stack) | `social-media-manager` | **LinkedIn feed + Twitter/X** via **`hype-engine`** (Media upload + Posts). Every slot gets **`auto-image-generation`** → **`post-image.png`** or **`article-hero.png`** before bundle/approval unless marked text-only. Supporting: `social-content-planning`, writers, optional `social-caption-writer`, `social-trend-monitor`, `agency-marketing`, `marketer-agent` upstream. |
+| **Social Media Management** (first in the posting stack) | `social-media-manager` | **LinkedIn feed + Twitter/X** via **`hype-engine`**: Media upload + **one POST `/posts` per row** with **`date`/`time`** (scheduled auto-publish; **HypeEngine post UUID** idempotency). **`auto-image-generation`** uses **`brand-images/`** → **`post-image.png`** / **`article-hero.png`**. Cron AM/PM filter by **Local time** + empty UUID. Supporting: `social-content-planning`, writers, optional `social-caption-writer`, `social-trend-monitor`, `agency-marketing`, `marketer-agent`. |
 | **Product Manager** | `product-manager-agent` | PRDs, scope, delivery handoffs. |
 | **Auto Research** | `auto-research-agent`, `qf-course-researcher` | Deep / Karpathy-style research for **courses**, categories, and evidence-backed answers; QuizFactor-aligned flows where relevant. |
 | **Auto Video Generation** | `auto-video-generation` | Beat sheets + **attempt Gemini Veo MP4** when the host/key supports it; pairs with `tiktok-video-ads-creator` when needed. |
-| **Auto Image Generation** | `auto-image-generation` | Briefs + **actual image files** via Gemini (host `image_generate` or API). |
+| **Auto Image Generation** | `auto-image-generation` | Briefs + **Gemini** pixels; **`brand-images/`** / **`BRAND_IMAGES_DIR`** for logo/palette; merge with post copy → **`post-image.png`** / **`article-hero.png`**. |
 | **Reddit trend follower & poster** | `reddit-trend-poster` | Trend-aware Reddit execution (drafts vs live per `INTEGRATIONS.md` / approval). |
 | **Ads creator** | `adverts-creator` | Paid social / ad packages after strategy. |
 | **TikTok video & ads** | `tiktok-video-ads-creator` | Hooks, retention map, organic + ads copy; optional input from `auto-video-generation`. |
-| **LinkedIn Article Writer & Poster** (last / separate lane) | `linkedin-article-writer` | Long-form **`article.md`** + **`teaser.md`**. **Interns** publish the **article** (LinkedIn article UI ± **Google Drive** `04-articles/` per **`INTEGRATIONS.md`**). **`teaser.md`** is a **feed** post: after approval, **`social-media-manager`** pushes it through **HypeEngine** like other LinkedIn feed rows. |
+| **LinkedIn Article Writer & Poster** (last / separate lane) | `linkedin-article-writer` | **`article.md`** + **`article-hero.png`** + **`teaser.md`**. **Interns** publish the **article**; **`teaser.md`** → **HypeEngine** scheduled **`POST /posts`** with hero image like other **`linkedin_feed`** rows. |
 
 **Google Drive in this workspace:** use Drive to hand off **articles** to interns (`04-articles/`), **not** as the default save path for routine LinkedIn/Twitter feed posts (those ship from the repo through HypeEngine).
 

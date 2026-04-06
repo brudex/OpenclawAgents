@@ -23,7 +23,7 @@ metadata: {"clawdbot":{"emoji":"🧩"},"openclaw":{"emoji":"🧩"}}
 **Practical pattern for your social pipeline**
 
 1. **Cron job A (e.g. weekly):** `--message` = *Open `workspace/drafts/social/<campaign>/pipeline-state.md`. If `calendar` is incomplete, run social-media-manager + social-content-planning; else if `post_bodies` incomplete, run writers for missing rows; append RUNLOG.*  
-2. **Cron job B + C (AM/PM):** *Only* publish approved rows via **`hype-engine`** (already in **`social-media-manager`** examples).  
+2. **Cron job B + C (AM/PM):** *Only* send approved rows to **`hype-engine`** (**POST `/posts`** with **`date`/`time`**, **empty UUID** filter per slot time)—see **`social-media-manager`** cron examples; **no** separate publish-now step.  
 3. Keep **`APPROVAL.md`** as the **human gate** so cron does not post without approved rows.
 
 **Docs:** [Scheduled tasks (cron)](https://docs.openclaw.ai/automation/cron-jobs) · [Webhooks](https://docs.openclaw.ai/automation/cron-jobs#webhooks) (same page) · `openclaw cron list` / `openclaw cron add --help`
@@ -67,7 +67,7 @@ metadata: {"clawdbot":{"emoji":"🧩"},"openclaw":{"emoji":"🧩"}}
    - `chain-trend-tiktok.md` — `social-trend-monitor` → `tiktok-video-ads-creator`
    - `chain-image-ads.md` — `auto-image-generation` → `adverts-creator`
    - `chain-li-social.md` — `linkedin-article-writer` → `social-media-manager`
-   - `chain-social-feed-full.md` — `marketer-agent` → `social-media-manager` (calendar) → post bodies → **`auto-image-generation`** (per slot) → *optional* `social-caption-writer` → bundles → `hype-engine` (Media + Posts, after approval). Concrete file: **`chain-templates/social-feed-pipeline.md`**.
+   - `chain-social-feed-full.md` — `marketer-agent` → `social-media-manager` (calendar) → post bodies → **`auto-image-generation`** (per slot, **`brand-images/`**) → *optional* `social-caption-writer` → bundles → `hype-engine` (Media + **scheduled POST `/posts`**, UUID idempotency). Concrete file: **`chain-templates/social-feed-pipeline.md`**.
    - `chain-video-tiktok.md` — `auto-video-generation` → `tiktok-video-ads-creator`
    - **QuizFactor:** reference existing `qf-*` instead of duplicating.
 

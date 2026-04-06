@@ -1,6 +1,6 @@
 ---
 name: social-media-manager
-description: Social calendar, Gemini images per slot (post-image.png / article-hero.png), bundles + HypeEngine Media upload; LinkedIn+Twitter push; Drive for article intern handoff only. OpenClaw cron examples.
+description: Social calendar, branded Gemini images (brand-images/ + post-image.png), bundles, HypeEngine POST /posts with date+time (scheduled auto-publish, UUID idempotency); cron AM/PM; Drive for LinkedIn articles only.
 metadata: {"clawdbot":{"emoji":"📱"},"openclaw":{"emoji":"📱"}}
 ---
 
@@ -10,12 +10,12 @@ The **parent** social agent: owns **consistency** (voice, CTA ladder, disclosure
 
 ## Posting model (this workspace)
 
-**HypeEngine is already connected** to **LinkedIn** and **Twitter/X**. For approved **feed** slots (`linkedin_feed`, `twitter_x`), the operator’s job is to **push** the bundled copy through **`hype-engine`** (Accounts + Posts API)—not to re-onboard those accounts each run.
+**HypeEngine is already connected** to **LinkedIn** and **Twitter/X**. For approved **feed** slots (`linkedin_feed`, `twitter_x`), send each row **once** via **`hype-engine`**: Media API + **POST `/posts`** with **`date` + `time`** from **`APPROVAL.md`**—HypeEngine **schedules and auto-publishes** (no separate “publish now” call). See **`hype-engine`** → *Scheduling — no separate “publish now”*.
 
 **Pipeline order (how teams use it):**
 
-1. **First — this skill + HypeEngine:** calendar → writers → **`auto-image-generation`** (hero per slot) → bundles → **`APPROVAL.md`** → publish **short-form / feed** posts to LinkedIn and Twitter via HypeEngine (**upload** `post-image.png` / `article-hero.png` via Media API, attach UUIDs on the post).
-2. **Last — LinkedIn articles:** **`linkedin-article-writer`** produces **`article.md`** + **`article-hero.png`** + **`teaser.md`**. The **long-form article** is posted by **interns** (composer / Drive). HypeEngine publishes the **`teaser.md`** **feed** post **with image** when the row is approved.
+1. **First — this skill + HypeEngine:** calendar → writers → **`auto-image-generation`** (per slot, **`brand-images/`** / **`BRAND_IMAGES_DIR`**) → bundles → **`APPROVAL.md`** → **`hype-engine`**: upload **`post-image.png`** / **`article-hero.png`**, **POST `/posts`** scheduled (**record `HypeEngine post UUID`**; never duplicate the same Post ID).
+2. **Last — LinkedIn articles:** **`linkedin-article-writer`** produces **`article.md`** + **`article-hero.png`** + **`teaser.md`**. **Interns** publish the **article** body (composer / Drive). **`teaser.md`** **feed** row: same HypeEngine flow (**scheduled** **`POST /posts`** with hero image when approved).
 
 ## Operator summary (canonical playbook)
 
@@ -151,7 +151,7 @@ workspace/drafts/social/<campaign>/pipeline-state.md
 | 2 | `calendar` | `pending` \| `complete` | `calendar.md` with Post id + Draft path columns | `linkedin-article-writer` / `x-post-writer` / `social-content-writer` (per row) |
 | 3 | `post_bodies` | `pending` \| `complete` | Every slot: `post-body.md` **or** LinkedIn **`teaser.md` + `article.md`** **and** matching **`post-image.png`** or **`article-hero.png`** (+ `image-alt.txt` where applicable) | `auto-image-generation` (if images missing) → `social-media-manager` (bundles)—**or** optional `social-caption-writer` |
 | 4 | `bundles` | `pending` \| `complete` | `posts/<id>/post-bundle.md` + `APPROVAL.md` table filled for review | Human approval |
-| 5 | `publish` | `pending` \| `complete` | Approved rows in `APPROVAL.md` | `hype-engine` |
+| 5 | `publish` | `pending` \| `complete` | Approved rows in `APPROVAL.md` with **empty** HypeEngine post UUID | `hype-engine` (POST `/posts` + **date/time**; record UUID) |
 
 **Rules**
 

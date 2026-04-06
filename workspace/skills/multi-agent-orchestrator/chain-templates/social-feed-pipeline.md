@@ -56,9 +56,9 @@ flowchart LR
 
 ### Step 5 — `hype-engine`
 
-- **Inputs:** approved rows in **`APPROVAL.md`** + image files from bundle.
-- **Then:** **Media API** upload → **Posts API** with **`content[].media`** → `publish` → `complete`.
-- **Note:** Feed posts **include** Gemini-generated images. **LinkedIn long-form `article.md`** is **not** posted via HypeEngine; **interns** publish the article (with **`article-hero.png`**). **Google Drive is for articles, not routine feed posts.**
+- **Inputs:** approved rows in **`APPROVAL.md`** + image files from bundle. **Skip** any row whose **`HypeEngine post UUID`** is already set (*idempotency*).
+- **Then:** **Media API** upload → **one POST `/posts` per row** with **`date` + `time`** from **`APPROVAL.md`**, **`content[].media`**, and body HTML—HypeEngine **queues and publishes** at that time (**no** separate publish-now API). Write **post UUID** (+ media UUID) to **`APPROVAL.md`** → `publish` phase → `complete`.
+- **Note:** Images use **`brand-images/`** / **`BRAND_IMAGES_DIR`** per **`auto-image-generation`**. **LinkedIn long-form `article.md`** is **not** posted via HypeEngine; **interns** publish the article (with **`article-hero.png`**). **Google Drive** = articles only, not feed posts.
 
 ## Operator one-liner
 
