@@ -8,7 +8,7 @@ This folder is home. Treat it that way.
 
 | Agent / capability | Primary skill(s) | Notes |
 |--------------------|------------------|--------|
-| **Social Media Management** (first in the posting stack) | `social-media-manager` | **LinkedIn feed + Twitter/X** via **`hype-engine`** (already connected). After **`APPROVAL.md`**, the job is to **push** approved bundles—not to re-onboard accounts each run. Supporting: `social-content-planning`, `social-content-writer`, `x-post-writer`, optional `social-caption-writer`, `social-trend-monitor`, `agency-marketing` personas, `marketer-agent` upstream. |
+| **Social Media Management** (first in the posting stack) | `social-media-manager` | **LinkedIn feed + Twitter/X** via **`hype-engine`** (Media upload + Posts). Every slot gets **`auto-image-generation`** → **`post-image.png`** or **`article-hero.png`** before bundle/approval unless marked text-only. Supporting: `social-content-planning`, writers, optional `social-caption-writer`, `social-trend-monitor`, `agency-marketing`, `marketer-agent` upstream. |
 | **Product Manager** | `product-manager-agent` | PRDs, scope, delivery handoffs. |
 | **Auto Research** | `auto-research-agent`, `qf-course-researcher` | Deep / Karpathy-style research for **courses**, categories, and evidence-backed answers; QuizFactor-aligned flows where relevant. |
 | **Auto Video Generation** | `auto-video-generation` | Beat sheets + **attempt Gemini Veo MP4** when the host/key supports it; pairs with `tiktok-video-ads-creator` when needed. |

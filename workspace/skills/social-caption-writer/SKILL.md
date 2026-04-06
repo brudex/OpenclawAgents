@@ -15,8 +15,8 @@ Use **`social-caption-writer`** when the human wants **extra hook variants**, **
 ## Pipeline position (when used)
 
 1. **`marketer-agent`** → … → **`calendar.md`**.  
-2. **`x-post-writer`** / **`social-content-writer`** / **`linkedin-article-writer`** → **`post-body.md`** or **`teaser.md`**.  
-3. ***(Optional)* `social-caption-writer`** → `captions/*.md`.  
+2. **`x-post-writer`** / **`social-content-writer`** / **`linkedin-article-writer`** → **`post-body.md`** or **`teaser.md`**; **`auto-image-generation`** → **`post-image.png`** / **`article-hero.png`** + **`image-alt.txt`**.  
+3. ***(Optional)* `social-caption-writer`** → `captions/*.md` (may reference **`image-alt.txt`** for consistency).  
 4. **`social-media-manager`** → `post-bundle.md`, **`APPROVAL.md`**, **`hype-engine`**.
 
 When the human says “captions for the April calendar” **without** opting into this skill, prefer **re-running the content writer** to refresh in-file copy instead.

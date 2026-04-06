@@ -35,20 +35,21 @@ Produces **calendar artifacts** that are **executable** by downstream agents (no
 4. **Build master table (`calendar.md`)**
    - Columns:
 
-     | Slot date | Local time | Platform | Pillar | Format | Topic slug | Hook theme | CTA id | Asset type | Depends on | Post id | Draft path |
+     | Slot date | Local time | Platform | Pillar | Format | Topic slug | Hook theme | CTA id | Asset type | Depends on | Post id | Draft path | Image path |
 
    - **Post id:** stable id for `social-media-manager` folder `posts/<post-id>/`.  
    - **Draft path:** where **`social-content-writer`** / **`x-post-writer`** saves **`post-body.md`**, or link to **`linkedin-article-writer`** (`teaser.md` / `article.md`); leave **TBD** until written. Optional **`social-caption-writer`** reads the same paths only if the human requests a polish pass.  
+   - **Image path:** fill after **`auto-image-generation`** — typically **`posts/<post-id>/post-image.png`** or **`workspace/drafts/linkedin/.../article-hero.png`** for article/teaser rows. Default **every slot has an image** unless **`00-intake.md`** marks **text-only**.
    - **Conflict check:** two heavy asks (e.g. full video) not same day unless resourced.
 
 5. **Asset dependency rollup (`assets-needed.md`)**
-   - Table: Date | Asset | Owner | Skill (`auto-video-generation`, `auto-image-generation`) | Due **48h before** slot.
+   - Table: Date | Asset | Owner | Skill (`auto-video-generation`, **`auto-image-generation`**) | Due **48h before** slot. **Static feed image** for each row is **`auto-image-generation`** → **`post-image.png`** / **`article-hero.png`** (not optional unless text-only).
 
 6. **Risk flags (`risks.md`)**
    - Sensitive dates (elections, tragedies), competitor launches, **quiet periods**.
 
 7. **Handoff**
-   - `README.md` in planning folder: how `social-media-manager` consumes `calendar.md` and routes rows to **`linkedin-article-writer`** (articles), **`x-post-writer`** (X), or **`social-content-writer`** (short/multi-platform)—**not** a separate caption step by default.
+   - `README.md` in planning folder: how `social-media-manager` consumes `calendar.md` and routes rows to **`linkedin-article-writer`** (articles), **`x-post-writer`** (X), or **`social-content-writer`** (short/multi-platform), then **`auto-image-generation`** per slot for **`post-image.png`** / **`article-hero.png`**—**not** a separate caption step by default.
 
 8. **Scheduling**
    - Version calendar filename when **replanning** same campaign: `calendar-<YYYY-MM-DD>-v2.md`.
@@ -65,3 +66,4 @@ Produces **calendar artifacts** that are **executable** by downstream agents (no
 - [ ] Asset due dates **before** post dates.
 - [ ] Risks section non-empty for visible calendar weeks (holidays etc.).
 - [ ] File paths communicated to parent manager.
+- [ ] **`calendar.md`** includes **Image path** column; default expectation is **one image per slot** (text-only exceptions noted in intake).

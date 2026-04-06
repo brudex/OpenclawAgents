@@ -14,8 +14,9 @@ Then add `steps/*.md` from the sections below (or merge into one `dag.md` + `RUN
 flowchart LR
   A[marketer-agent] --> B[social-media-manager + social-content-planning]
   B --> C[linkedin-article-writer / x-post-writer / social-content-writer]
-  C --> D[social-media-manager bundles + APPROVAL]
-  D --> E[hype-engine]
+  C --> I[auto-image-generation per slot]
+  I --> D[social-media-manager bundles + APPROVAL]
+  D --> E[hype-engine Media + Posts]
 ```
 
 **Optional branch:** `C --> C2[social-caption-writer] --> D` — only if the human wants a polish pass.
@@ -38,10 +39,10 @@ flowchart LR
 
 ### Step 3 — Writers (pick per calendar row)
 
-- **`linkedin-article-writer`** — LinkedIn **articles** only → `workspace/drafts/linkedin/...` + **`teaser.md`**.
+- **`linkedin-article-writer`** — LinkedIn **articles** only → `workspace/drafts/linkedin/...` + **`teaser.md`** + **`article-hero.png`**.
 - **`x-post-writer`** — X only → **`posts/<post-id>/post-body.md`** (hashtags in-file).
 - **`social-content-writer`** — short LinkedIn feed, Reddit, Facebook, mixed → **`posts/<post-id>/post-body.md`**.
-- **Then:** `post_bodies` → `complete`; default **skip** caption step → go to bundles.
+- **Then:** run **`auto-image-generation`** per row → **`post-image.png`** or **`article-hero.png`** (+ `image-alt.txt`). **Then** `post_bodies` → `complete`; default **skip** caption step → go to bundles.
 
 ### Step 3b — *(Optional)* `social-caption-writer`
 
@@ -50,14 +51,14 @@ flowchart LR
 
 ### Step 4 — `social-media-manager` (bundles)
 
-- **Inputs:** `post-body.md` and/or `teaser.md` (+ optional captions).
-- **Outputs:** `posts/<post-id>/post-bundle.md`, **`APPROVAL.md`**.
+- **Inputs:** `post-body.md` and/or `teaser.md`, **`post-image.png`** or **`article-hero.png`**, (+ optional captions).
+- **Outputs:** `posts/<post-id>/post-bundle.md` (includes **`## Image`** block), **`APPROVAL.md`** (image path column).
 
 ### Step 5 — `hype-engine`
 
-- **Inputs:** approved rows in **`APPROVAL.md`**.
-- **Then:** `publish` → `complete`.
-- **Note:** HypeEngine is **already connected** to **LinkedIn + Twitter**—**push** approved **`twitter_x`** / **`linkedin_feed`** bundles (including **`teaser.md`** for article promo rows). **LinkedIn long-form `article.md`** is **not** posted via HypeEngine; **interns** publish the article (UI / optional Drive **`04-articles/`** per **`INTEGRATIONS.md`**). **Google Drive is for articles, not routine feed posts.**
+- **Inputs:** approved rows in **`APPROVAL.md`** + image files from bundle.
+- **Then:** **Media API** upload → **Posts API** with **`content[].media`** → `publish` → `complete`.
+- **Note:** Feed posts **include** Gemini-generated images. **LinkedIn long-form `article.md`** is **not** posted via HypeEngine; **interns** publish the article (with **`article-hero.png`**). **Google Drive is for articles, not routine feed posts.**
 
 ## Operator one-liner
 

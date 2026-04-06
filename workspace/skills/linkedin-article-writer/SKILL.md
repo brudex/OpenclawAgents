@@ -1,6 +1,6 @@
 ---
 name: linkedin-article-writer
-description: LinkedIn long-form articles only—~one every 2 days; article.md + teaser.md; interns post article (Drive/UI); HypeEngine (already connected) pushes teaser to LinkedIn feed after approval via social-media-manager.
+description: LinkedIn long-form articles—article.md + teaser.md + article-hero.png (Gemini via auto-image-generation); interns post article; HypeEngine pushes teaser with hero image after approval.
 metadata: {"clawdbot":{"emoji":"💼"},"openclaw":{"emoji":"💼"}}
 ---
 
@@ -11,7 +11,7 @@ metadata: {"clawdbot":{"emoji":"💼"},"openclaw":{"emoji":"💼"}}
 - **In scope:** LinkedIn **article** editorials—`article.md`, **`teaser.md`** to promote that article on the feed, outline, sources.  
 - **Out of scope:** Short **LinkedIn feed posts** that are not tied to a long article → **`social-content-writer`** (or **`x-post-writer`** / **`social-content-writer`** for other platforms). This skill is **not** a generic “LinkedIn post writer.”
 
-**Where this sits in the pipeline:** **`social-media-manager`** + **`hype-engine`** handle **routine LinkedIn + Twitter feed** posting first (approved bundles). **This skill is the long-form tail:** produce **`article.md`**; **interns** publish the **article** in LinkedIn (and/or copy from **Google Drive** per **`publish-handoff.md`**). **`teaser.md`** is a **feed** post—after approval, it is **pushed** through the same **already-connected** HypeEngine path as other LinkedIn feed rows.
+**Where this sits in the pipeline:** **`social-media-manager`** + **`hype-engine`** handle **routine LinkedIn + Twitter feed** posting (approved bundles **with images**). **This skill** produces **`article.md`**, **`article-hero.png`** (via **`auto-image-generation`** / Gemini), and **`teaser.md`**. **Interns** publish the **article** body; **`teaser.md`** goes to the **feed** through HypeEngine **with the hero image** attached when approved.
 
 **Thought leadership** artifacts with **structure** comparable to `qf-course-researcher` (numbered workflow, explicit deliverables per step): outline → draft → teaser → optional carousel → references.
 
@@ -53,28 +53,32 @@ metadata: {"clawdbot":{"emoji":"💼"},"openclaw":{"emoji":"💼"}}
 4. **TL;DR box**
    - Top of `article.md` after title: 3–5 bullets.
 
-5. **Teaser post (`teaser.md`)**
+5. **Hero image (`article-hero.png` + `image-alt.txt`)**
+   - Run **`auto-image-generation`** using **thesis + title + first hook** from the article; save **`article-hero.png`** (or `.jpg`) in **this** LinkedIn draft folder (see **`auto-image-generation`** → *Chaining*). Use **LinkedIn / blog hero** aspect ratio (e.g. **1.91:1** or **16:9** per planning matrix).
+   - After the image exists, add below the title in **`article.md`**: `![<alt from image-alt.txt>](article-hero.png)` so interns and exports show the visual.
+
+6. **Teaser post (`teaser.md`)**
    - **≤ ~700 characters**; hook + value + CTA (“link in comments” strategy if used).
 
-6. **Carousel optional (`carousel.md`)**
+7. **Carousel optional (`carousel.md`)**
    - 8–12 slides: `Slide N:` headline + 1–2 lines body.
 
-7. **Sources (`sources.md`)**
+8. **Sources (`sources.md`)**
    - Numbered list matching in-text markers if used.
 
-8. **Compliance (`compliance.md`)**
+9. **Compliance (`compliance.md`)**
    - **No** misleading job promises; **no** confidential employer data.
 
-9. **Handoff**
-   - **Article:** interns → LinkedIn article UI (or Drive Doc). **Teaser:** after approval, **`social-media-manager`** → **`hype-engine`** **push** (no extra LinkedIn OAuth work—connection is already in place).
-   - When this run backs a **calendar slot**, put **`Draft path`** in **`calendar.md`** to `workspace/drafts/linkedin/...`. **`teaser.md`** is **publish-ready** for the feed—**`social-media-manager`** bundles and **`hype-engine`** posts it like any other **`linkedin_feed`** row. **`social-caption-writer`** is **optional** only if the human wants a separate caption pass.
+10. **Handoff**
+   - **Article:** interns → LinkedIn article UI (or Drive Doc)—include **`article-hero.png`** when uploading/creating the article. **Teaser:** **`social-media-manager`** builds **`posts/<post-id>/post-bundle.md`** pointing **`## Image`** at **`article-hero.png`**; after approval, **`hype-engine`** **uploads** the image and attaches it to the **feed** post.
+   - Put **`Draft path`** in **`calendar.md`** to `workspace/drafts/linkedin/...`. **`social-caption-writer`** is **optional** only if the human wants a separate caption pass.
 
-10. **Scheduling**
+11. **Scheduling**
     - Series: `part-1`, `part-2` slugs; cross-link in article foot.
 
 ## Outputs (required)
 
-- `article.md`, `teaser.md`, `outline.md`, `README-handoff.md`
+- `article.md`, `teaser.md`, `outline.md`, **`article-hero.png`** (or `.jpg`), **`image-alt.txt`**, `README-handoff.md`
 - Optional: **`publish-handoff.md`** — Drive/Docs link, owner, and “article every ~2 days” cadence when humans publish the long-form piece outside HypeEngine.
 
 ## Agent Checklist
@@ -84,4 +88,5 @@ metadata: {"clawdbot":{"emoji":"💼"},"openclaw":{"emoji":"💼"}}
 - [ ] Sources file if factual claims beyond common knowledge.
 - [ ] No engagement bait structure.
 - [ ] Carousel file only if requested.
-- [ ] User given path; **article** = intern/human publish; **teaser** = HypeEngine feed push after approval (via manager).
+- [ ] User given path; **article** = intern/human publish; **teaser** = HypeEngine feed push **with `article-hero.png`** after approval (via manager).
+- [ ] **`article-hero.png`** exists or documented failure from **`auto-image-generation`**.

@@ -10,6 +10,8 @@ metadata: {"clawdbot":{"emoji":"📝"},"openclaw":{"emoji":"📝"}}
 
 **Not for:** long LinkedIn **articles** → **`linkedin-article-writer`**. **X-only** quick path → **`x-post-writer`**.
 
+**Images (workspace default):** For each slot, after **`post-body.md`**, run **`auto-image-generation`** so **`posts/<post-id>/post-image.png`** + **`image-alt.txt`** exist before **`social-media-manager`** bundles (see **`auto-image-generation`** → *Chaining*). Optional **`## Image brief`** section in `post-body.md` for the generator.
+
 ## When to use
 
 - Calendar slots for **`linkedin_feed`** (short post, not article), **`twitter_x`**, **`reddit`**, **`facebook`**, **`instagram`** caption-style, etc.
@@ -51,7 +53,7 @@ metadata: {"clawdbot":{"emoji":"📝"},"openclaw":{"emoji":"📝"}}
    ```
 
 3. **Reddit:** title + body if the slot is a post; note subreddit rules placeholder if unknown.
-4. **Handoff:** update the campaign **`pipeline-state.md`** (set **`post_bodies`** progress); **`social-media-manager`** merges into **`post-bundle.md`**. **`social-caption-writer`** is **optional**—only if the human wants a second pass.
+4. **Handoff:** update **`pipeline-state.md`**; **`auto-image-generation`** → **`social-media-manager`** (`post-bundle.md` + image block). **`social-caption-writer`** is **optional**—only if the human wants a second pass.
 
 ## Relationship to **social-community-engagement**
 
@@ -67,3 +69,4 @@ metadata: {"clawdbot":{"emoji":"📝"},"openclaw":{"emoji":"📝"}}
 - [ ] Platform in filename or first heading matches calendar **Platform** column.
 - [ ] Publish-ready copy + hashtags (or “no hashtags” note) in-file—no dependency on caption writer by default.
 - [ ] No fabricated stats; sources only if brief provided.
+- [ ] Slot image path will be filled by **`auto-image-generation`** unless row is text-only per intake.

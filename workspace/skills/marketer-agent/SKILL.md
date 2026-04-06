@@ -127,7 +127,7 @@ Before **any** GTM outputs (`00-brief.md`, channel plan, campaign concepts, ad b
 11. **Handoff index (`README-handoff.md`)**
     - Ordered list: which skill to run next, **input paths** from this folder, expected **output paths** under `workspace/drafts/...`.
     - **Recommended social execution chain** (document explicitly when social is in scope):  
-      `social-media-manager` (intake + **`social-content-planning`** → **`calendar.md`**) → **per-slot writers** (**`linkedin-article-writer`** for **articles only**; **`x-post-writer`** for X; **`social-content-writer`** for short LinkedIn feed + Reddit + other platforms; optional **`agency-marketing`**) → publish-ready **`post-body.md`** / **`teaser.md`** → **optional** **`social-caption-writer`** → bundles + **`APPROVAL.md`** → **`hype-engine`**. Track **`pipeline-state.md`** in the campaign folder.
+      `social-media-manager` (intake + **`social-content-planning`** → **`calendar.md`**) → **per-slot writers** (**`linkedin-article-writer`**; **`x-post-writer`**; **`social-content-writer`**; optional **`agency-marketing`**) → **`auto-image-generation`** (**`post-image.png`** / **`article-hero.png`** per slot, Gemini) → **optional** **`social-caption-writer`** → bundles + **`APPROVAL.md`** → **`hype-engine`** (Media upload + post). Track **`pipeline-state.md`** in the campaign folder.
 
 ## Coordination (explicit)
 

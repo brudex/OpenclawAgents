@@ -18,6 +18,39 @@ If **OpenClaw already has Gemini** (API key in **`~/.openclaw/.env`** / **`~/.co
 
 Only skip the render step if the human explicitly asked **briefs only**, the tool/key is missing after checking, or the API refuses (document in `gemini-render.md`).
 
+## Chaining from social posts & LinkedIn articles (canonical paths)
+
+When **`social-media-manager`** (or a writer) asks for a **slot image**, use this workspace contract so bundles and **HypeEngine** always know where to look:
+
+| Context | Where to save the **primary** raster | Notes |
+|---------|--------------------------------------|--------|
+| Social campaign slot | **`workspace/drafts/social/<campaign>/posts/<post-id>/post-image.png`** (or `.jpg`) | Still write full brief + `generated-*` under `workspace/drafts/images/<date>-<slug>/`, then **copy or symlink** the chosen asset to **`post-image.png`**. Add **`posts/<post-id>/image-alt.txt`** (one line, ≤125 chars) for accessibility / HypeEngine. |
+| LinkedIn long-form article | **`workspace/drafts/linkedin/<date>-<slug>/article-hero.png`** (or `.jpg`) | Hero for the article body + intern handoff; reference in **`article.md`** (e.g. `![Hero](article-hero.png)` after title) and in **`README-handoff.md`**. |
+| Teaser row (same article) | Reuse **`article-hero.png`** for the **feed** bundle when the calendar row points at the LinkedIn folder—**or** generate **`teaser-image.png`** in that folder if the teaser needs a distinct crop. |
+
+**Inputs for the image run:** first line / hook from **`post-body.md`** or article **thesis + title**; **platform** from **`calendar.md`** (map to aspect ratio: X/LinkedIn feed often **1.91:1** or **1:1** per `social-content-planning` matrix).
+
+## End-to-end flow (this workspace)
+
+**Write post → generate image → attach → HypeEngine → schedule/publish.**
+
+1. **`post-body.md` / `teaser.md` / `article.md`** exists first (copy is source of truth for *what* to illustrate).  
+2. This skill produces **`post-image.png`** / **`article-hero.png`** + **`image-alt.txt`**.  
+3. **`social-media-manager`** puts paths + alt into **`post-bundle.md`**; on publish, **`hype-engine`** **uploads** the file (Media API) and sets **`content[].media`** so the post is **not text-only**.  
+4. HypeEngine **draft / scheduled / published** is driven by **`APPROVAL.md`** `date` + `time` (or immediate if the operator sends `null` per API).
+
+## Aligning images with copy (style & quality)
+
+Generic “nice illustration” prompts drift. For **every** social-slot run:
+
+1. **Read the actual post text** — at minimum the **`## Publish-ready`** block (or article **title + TL;DR + first H2 theme**). The image must reflect **specific nouns, metaphors, or outcomes** in that copy—not a unrelated category stock scene.
+2. **Campaign visual DNA (optional but recommended):** If **`workspace/drafts/social/<campaign>/visual-dna.md`** exists, **append** its locked lines to every `prompt-master.txt` (e.g. *“flat vector, navy #0B1F3A + coral accent #FF6B4A, soft studio light, no photorealistic faces, generous whitespace”*). If missing, derive 3–5 **style rules** from **`USER.md`**, **`SOUL.md`**, and **`marketer-agent`** `03-messaging-pillars.md` / `00-brief.md` once per campaign and **reuse** them for all slots in that folder.
+3. **Same model + ratio within a batch:** Use **one** image model id for all posts in the same **`calendar.md`** week unless the human asks otherwise; keep **`aspectRatio`** aligned to **`social-content-planning`** / calendar row so crops match HypeEngine/LinkedIn/X expectations.
+4. **Prompt structure:** `prompt-master.txt` = **[style DNA] + [subject tied to post] + [composition] + [lighting] + [what to avoid]`. Fold **`negative-prompt.txt`** into the same generation call as today.
+5. **Quality bar (words in prompt):** e.g. *sharp focus, clean edges, professional marketing asset, no watermark, no clutter*—adjust to brand; avoid vague “high quality” alone.
+6. **Alt text = alignment check:** **`image-alt.txt`** must describe **what’s in the image** and **why it fits the post** in one line; if you can’t write that, the image probably doesn’t match—regenerate with a tighter prompt.
+7. **Optional spot-check:** When generating slot N, skim **`posts/<earlier-post-id>/image-alt.txt`** (not necessarily the binary) to keep **tone and illustration mode** consistent across the batch.
+
 ## Prerequisites
 
 - **Workspace context:** `USER.md`, `SOUL.md`; optional brand hex codes from human.
@@ -95,3 +128,5 @@ Only skip the render step if the human explicitly asked **briefs only**, the too
 - [ ] No invented awards, rankings, or “official” marks.
 - [ ] User told folder path; if Gemini/OpenClaw image tools were available, **at least one `generated-*` file** exists **or** failure/refusal documented in **`gemini-render.md`**.
 - [ ] If chaining to `adverts-creator`, list which variant maps to which ad headline in README.
+- [ ] Image **subject** tied to **specific** post copy; **`visual-dna.md`** or equivalent style block **reused** across the campaign batch when present.
+- [ ] **`image-alt.txt`** reads true to the raster and to the post intent.
