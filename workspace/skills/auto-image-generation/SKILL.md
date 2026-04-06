@@ -37,7 +37,7 @@ When **`social-media-manager`** (or a writer) asks for a **slot image**, use thi
 1. **`post-body.md` / `teaser.md` / `article.md`** exists first (copy is source of truth for *what* to illustrate).  
 2. This skill produces **`post-image.png`** / **`article-hero.png`** + **`image-alt.txt`**.  
 3. **`social-media-manager`** puts paths + alt into **`post-bundle.md`**; on publish, **`hype-engine`** **uploads** the file (Media API) and sets **`content[].media`** so the post is **not text-only**.  
-4. HypeEngine **draft / scheduled / published** is driven by **`APPROVAL.md`** `date` + `time` (or immediate if the operator sends `null` per API).
+4. HypeEngine: **one** POST `/posts` with **`date` + `time`** from **`APPROVAL.md`**—the product **schedules and publishes** at that time; **no extra “publish now”** step (see **`hype-engine`**).
 
 ## Brand kit (`brand-images/`) — QuizFactor logo & product look
 

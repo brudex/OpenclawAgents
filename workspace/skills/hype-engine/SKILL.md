@@ -14,9 +14,23 @@ Use the HypeEngine API v1 to manage social media **accounts**, upload **media**,
 For this workspace, **live** posts to **Twitter/X** and **LinkedIn** (feed / teaser-style updates) go through **HypeEngine** when `~/.config/hype-engine/` is configured—not direct Twitter or LinkedIn Marketing API calls from other skills. **Accounts are already connected**; the operator’s job on publish is to **push** approved content through the Posts API, not to re-do OAuth each run.
 
 - **Upstream (typical order):** `linkedin-article-writer` (**articles** + `teaser.md`) **or** `x-post-writer` / `social-content-writer` (`post-body.md`) → **`social-media-manager`** **`post-bundle.md`** + **`APPROVAL.md`** — optional **`social-caption-writer`** polish — then this skill ships to X/LinkedIn (or human approval in chat).
-- **This skill:** Resolve **account UUIDs** via the Accounts API (X and LinkedIn rows), **upload** images from **`post-image.png`** / **`article-hero.png`** via the **Media API** when the bundle lists a file path, map caption/teaser HTML into the Posts API `content[].body`, attach **`content[].media`** UUIDs, then **create** a draft, **schedule**, or **publish** per human instruction.
+- **This skill:** Resolve **account UUIDs** via the Accounts API (X and LinkedIn rows), **upload** images from **`post-image.png`** / **`article-hero.png`** via the **Media API** when the bundle lists a file path, map caption/teaser HTML into the Posts API `content[].body`, attach **`content[].media`** UUIDs, then **create the post once** via **POST `/posts`** with **`date` + `time`** from **`APPROVAL.md`** / **`calendar.md`** (see **Scheduling — no separate “publish now”** below). **Do not** call a separate “publish now” API by default—HypeEngine should **queue and publish** (or publish at the scheduled time) from that single create.
 - **Threads (X):** If the draft is a multi-tweet thread, either post as HypeEngine supports multi-part content for that account, or post tweet 1 and reply-chain per product behavior—document which you used in the run summary.
 - If HypeEngine is **down or unconfigured**, stop and say so; do not silently fall back to another API unless **`USER.md` / `TOOLS.md`** explicitly allows OpenClaw channels or raw LinkedIn for that agent.
+
+## Idempotency — do not publish the same calendar row twice
+
+Duplicate feed posts usually happen when **cron + manual run** both call **Create Post**, or when **AM and PM jobs** both match the same row.
+
+**Before** calling **POST** `/posts` for a campaign row:
+
+1. Open **`workspace/drafts/social/<campaign>/APPROVAL.md`** for that **Post ID**.  
+2. If **`HypeEngine post UUID`** (or **`Status`** = `published`) is **already filled** for that row → **do nothing** for that row; log *“skipped — already published”*.  
+3. After a **successful** POST `/posts` response (scheduled post created), **immediately** write the returned **post UUID** (and **`media UUID`** if new upload) into **`APPROVAL.md`** for that row. Optionally append a line to **`publish-log.md`**. HypeEngine publishes at **`date`/`time`**—no follow-up “publish” call unless explicitly required by your deployment.
+
+**Cron jobs:** Each job must filter rows by **calendar `Local time`** (e.g. AM job → only `09:00` slots; PM job → only `18:00` slots) **and** **Approved = yes** **and** **empty `HypeEngine post UUID`**. Do not use a vague “all rows for today” message without the time filter.
+
+**Manual test:** Publish **one** row, verify UUID written, then re-run the agent — it should **skip** that row.
 
 ## LinkedIn: feed post vs long-form **article**
 
@@ -118,6 +132,16 @@ Use this to discover tag UUIDs to attach to posts (for workflows like "favorites
 
 ## Posts API (creating and scheduling posts)
 
+### Scheduling — no separate “publish now” (default for this workspace)
+
+**Preferred flow:** one **POST `/posts`** per approved row, with:
+
+- **`date`** and **`time`** set from **`APPROVAL.md` Go-live datetime** (same as **`calendar.md` Local time** for that slot).
+
+HypeEngine then **schedules** the post and **publishes when the time arrives** (or per your instance’s rules if the datetime is “now” / past—verify in the HypeEngine UI). The agent **does not** need a second call to “publish now” unless **`USER.md` / `TOOLS.md`** or the human explicitly requires it **and** your API documents a separate publish endpoint.
+
+**Avoid:** creating a **draft** (omit `date`/`time`) and expecting auto-publish—drafts stay until something publishes them. **Avoid:** duplicate **POST `/posts`** for the same slot (idempotency).
+
 ### List posts
 
 ```bash
@@ -179,7 +203,7 @@ curl -X POST "$HYPE_BASE_URL/api/v1/$HYPE_PROJECT_UUID/posts" \
 - `versions` describes the base/original content and any per-account overrides.
 - `accountUuids` is the list of accounts this post should publish to.
 - `tags` is an array of tag UUIDs (from the Tags API).
-- `date` and `time` control scheduling; omit them to create a draft.
+- `date` and `time` control scheduling—**set both** from **`APPROVAL.md`** so HypeEngine handles the queue; omit only if you intentionally want a **draft** (not the default here).
 
 ### Update an existing post
 
@@ -211,10 +235,11 @@ curl -X PUT "$HYPE_BASE_URL/api/v1/$HYPE_PROJECT_UUID/posts/$POST_UUID" \
 
 ## Typical social posting workflow
 
+- **Check APPROVAL first:** For each **Post ID**, if **`HypeEngine post UUID`** is set → **skip** (see *Idempotency* above).
 - **Assume connected accounts**: In this workspace, LinkedIn + Twitter are **already linked** in HypeEngine—list UUIDs when needed, then **push** approved posts; no per-run OAuth narrative.
 - **Discover accounts**: Call the Accounts API to list available social accounts and grab their UUIDs. **Filter** to the **Twitter/X** and **LinkedIn** accounts you need before building `accountUuids`.
 - **Find or upload media**: Use the Media API to either list existing media or upload new images/videos and capture their UUIDs.
 - **Pick / create tags**: Use the Tags API to find tag UUIDs to attach to the post.
-- **Create or update posts**: Use the Posts API examples above to draft, schedule, or update posts across multiple accounts, attaching media and tags as needed.
+- **Create posts (default):** POST `/posts` with **`date` + `time`** + media UUIDs—let HypeEngine schedule/publish. **Update** only for edits, not as a second “go live” step.
 - **Pair with workspace drafts**: Read approved copy from `workspace/drafts/social/.../post-bundle.md` or captions files, and `workspace/drafts/linkedin/.../teaser.md` for LinkedIn teasers; convert line breaks to `<p>` / `<br>` as required by your HypeEngine payload format. **Do not** pull routine feed posts from Google Drive—Drive is for **LinkedIn article** handoff only (`INTEGRATIONS.md`).
 

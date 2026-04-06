@@ -21,7 +21,7 @@ The **parent** social agent: owns **consistency** (voice, CTA ladder, disclosure
 
 1. **Batch write (~2 weeks):** Using **`calendar.md`**, **`x-post-writer`** and **`social-content-writer`** (and **`linkedin-article-writer`** for article rows) generate copy **in advance**; then run **`auto-image-generation`** per slot so every **`twitter_x`** / **`linkedin_feed`** / article row has **`post-image.png`** or **`article-hero.png`** before bundling.
 2. **Approve:** Fill **`APPROVAL.md`** with **Approved Y/N** and **go-live datetime** matching each row’s **Local time** (e.g. morning `09:00`, evening `18:00`).
-3. **Cron (twice daily):** OpenClaw **Cron jobs** (Gateway menu / `openclaw cron`) run **two** recurring jobs (AM + PM). Each run **only** selects the next due, **already-written** slot and publishes via **`hype-engine`**—it does **not** invent new topics.
+3. **Cron (twice daily):** Two jobs (AM + PM) are **not** duplicates of each other: each must publish **only** rows whose **`calendar.md` `Local time`** matches that window (e.g. `09:00` vs `18:00`) **and** **`APPROVAL.md`** has **`HypeEngine post UUID` empty**. See **`hype-engine`** → *Idempotency*.
 4. **Trends:** Before each publish run, optionally refresh or read **`social-trend-monitor`** and merge **0–2 vetted** trending hashtags into **X** and **LinkedIn feed** copy (see below).
 5. **LinkedIn articles (last in the chain):** **`linkedin-article-writer`** on a **separate cadence** (~every 2 days). **Interns** post the **article** body (LinkedIn UI + optional Drive `04-articles/` per **`INTEGRATIONS.md`**). **HypeEngine** publishes **`teaser.md`** to the **LinkedIn feed** when approved—same connected account as other feed posts; it does **not** replace intern posting of the long-form article.
 
@@ -104,15 +104,15 @@ The **parent** social agent: owns **consistency** (voice, CTA ladder, disclosure
    - When metrics provided: `social-analytics` → `analytics/<period>-summary.md`; feed **next calendar** adjustments.
 
 7. **Approval package (`APPROVAL.md`)**
-   - Table: Post ID | Platform | Preview link or file path | **Image path** | **Approved Y/N** | Publisher | **Go-live datetime** (empty until human fills).
+   - Table: Post ID | Platform | Preview link or file path | **Image path** | **Approved Y/N** | Publisher | **Go-live datetime** | **HypeEngine post UUID** (empty until published—**never** re-post if filled) | **Media UUID** (optional).
 
-8. **Live publish (X + LinkedIn feed only, after approval)**
-   - For rows where Platform is **twitter_x** or **linkedin_feed** and **Approved Y/N** is yes: run **`hype-engine`** — **upload** the bundle’s image file via **Media API** (if present and not yet uploaded), capture **`media` UUID**, then create/schedule/publish post with **`content[].media`** including that UUID (see **`hype-engine`** Posts example). If **no image** and row was not text-only, **do not** publish without human OK. If **trend hashtags** are enabled, merge vetted tags into the HTML body **before** the API call. Log **post UUID** and **media UUID** in `APPROVAL.md` or `publish-log.md`.
+8. **HypeEngine handoff (X + LinkedIn feed only, after approval)**
+   - For each row where Platform is **twitter_x** or **`linkedin_feed`** and **Approved Y/N** is yes: **if `HypeEngine post UUID` is already set** → **skip** (idempotent). Else **`hype-engine`**: upload media if needed, then **POST `/posts` once** with **`date` + `time`** from **`APPROVAL.md`**—HypeEngine **queues and auto-publishes** at that time (**no** separate “publish now” call). Record **post UUID** + **media UUID** in **`APPROVAL.md`**. If **no image** and row was not text-only, **do not** send without human OK. Trends: merge before POST. See **`hype-engine`** → *Scheduling — no separate “publish now”* and *Idempotency*.
    - **LinkedIn long-form articles:** **not** published as the article via HypeEngine—**interns** post **`article.md`** (Drive / LinkedIn composer). HypeEngine only handles the **`teaser.md`** **feed** promo when that calendar row is approved. See **`hype-engine`** → *LinkedIn: feed post vs long-form article*.
    - Other platforms: unchanged (drafts only, or channels/APIs per `INTEGRATIONS.md` / `TOOLS.md`).
 
 9. **Close-out message to user**
-   - List **exact paths** created; state **nothing was published** unless step 8 ran or another approved tool executed.
+   - List **exact paths** created; state **nothing was sent to HypeEngine** unless step 8 ran (scheduled posts still “go live” later via HypeEngine, not via a second agent step).
 
 10. **Scheduling**
    - **Weekly** campaigns: one folder per week slug.
@@ -167,14 +167,14 @@ openclaw cron add \
   --cron "0 9 * * *" \
   --tz "America/New_York" \
   --session isolated \
-  --message "Open workspace/drafts/social/<campaign>/APPROVAL.md. For rows with today's date and morning time approved, run hype-engine. If USER.md allows trends, read latest social-trend-monitor file and merge 0-2 vetted hashtags into X/LinkedIn body only."
+  --message "Open workspace/drafts/social/<campaign>/calendar.md and APPROVAL.md. Today’s date only. Rows: Local time 09:00 (or morning slot), Approved Y, HypeEngine post UUID EMPTY. hype-engine: upload media if needed, POST /posts once per row with date+time from APPROVAL (scheduled—no separate publish-now). Skip if UUID set. Trends: 0-2 hashtags if USER.md allows."
 
 openclaw cron add \
   --name "Social PM publish" \
   --cron "0 18 * * *" \
   --tz "America/New_York" \
   --session isolated \
-  --message "Same as morning job but evening slots in APPROVAL.md for today."
+  --message "Open workspace/drafts/social/<campaign>/calendar.md and APPROVAL.md. Today’s date only. Rows: Local time 18:00 (evening), Approved Y, HypeEngine UUID EMPTY. hype-engine: POST /posts once per row with date+time from APPROVAL (scheduled auto-publish). Skip if UUID set. Do not touch morning slots."
 
 # Optional: draft a new LinkedIn article on a fixed interval (does not publish the article body via HypeEngine)
 openclaw cron add \
@@ -208,5 +208,6 @@ openclaw cron list
 - [ ] User told no live publish unless tools + approval satisfied; X/LinkedIn use **`hype-engine`** when posting live.
 - [ ] Sub-skill outputs referenced by path, not vague “see above.”
 - [ ] If using trends: **`Trend source:`** line in bundles; hashtags brand-safe and sparse.
-- [ ] Cron (if used): user has **`openclaw cron list`** and Gateway running; timezone matches **Local time** on calendar.
+- [ ] Cron (if used): user has **`openclaw cron list`** and Gateway running; timezone matches **Local time** on calendar; cron **message** filters by **Local time** + **empty HypeEngine post UUID** (see **`hype-engine`** idempotency).
+- [ ] No duplicate HypeEngine publishes: **`HypeEngine post UUID`** filled in **`APPROVAL.md`** after each successful post.
 - [ ] If **`social/drive_folder_id`** (or env) is set: used for **article** handoff (`04-articles/`) per **`INTEGRATIONS.md`**, **not** for exporting every feed **`post-bundle`** to Drive.
