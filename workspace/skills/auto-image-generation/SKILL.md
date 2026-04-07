@@ -64,11 +64,12 @@ Generated images must **match the product** and **use your real brand**, not a m
 Build the final generation brief in this order:
 
 1. **Scene / story** from **`post-body.md`** (or article title + TL;DR)—this is what the **illustration is about**.  
-2. **Product facts** (if available): path from campaign **`00-intake.md`** to **`marketer-agent`** outputs (`00-brief.md`, `02-positioning.md`) or **`USER.md`**—same source as the **content creator**; **Drive** remains the long-form product source for **`marketer-agent`**, not duplicated inside `brand-images/` except **`product-context.md`** for a short static line.  
+2. **Product facts** (if available): path from campaign **`00-intake.md`** to **`marketer-agent`** outputs (`00-brief.md`, `02-positioning.md`) or **`USER.md`**—same source as the **content creator**; **Google Drive** (when used) is the long-form product source for **`marketer-agent`** / writers, **not** a substitute for renders. **`prompt-master.txt` always layers three things:** ***Style benchmark*** (canonical block in this skill), **`brand-images/`** (logo + palette), and **copy-derived subject**—Drive-backed docs only add **extra product truth** for `concept.md` / positioning lines, not “brand instead of benchmark.”  
 3. **Brand lock** from **`brand-images/`**: colors, logo rules, placement.  
-4. **`visual-dna.md`** (campaign) for illustration style across the batch.
+4. **`visual-dna.md`** (campaign) for illustration style across the batch.  
+5. **Style benchmark** (*Canonical visual system* below): fold into **`prompt-master.txt`** on every run unless **`visual-dna.md`** explicitly replaces the illustration mode for that campaign.
 
-**First post of a campaign:** identical pipeline. If **`marketer-agent`** has not run yet, use **post copy** + **`product-context.md`** + **`brand-images/`** only; after marketing pack exists, prefer **`00-brief.md`** excerpts in `concept.md`.
+**First post of a campaign:** identical pipeline. If **`marketer-agent`** has not run yet, use **post copy** + **`product-context.md`** + **`brand-images/`** + ***Style benchmark***; after marketing pack exists, prefer **`00-brief.md`** excerpts in `concept.md`.
 
 ### Optional host script
 
@@ -76,12 +77,44 @@ If you keep **`image-generation.ts`** (or similar) under `brand-images/` on the 
 
 ## Style benchmark (flat vector educational)
 
-**Default illustration system** for social slots and LinkedIn article heroes: **`references/style-benchmark.md`**. It encodes the **hand + smartphone quiz UI**, **couch + tablet**, **floating minimalist edu icons** (books, brain-in-bulb, checkmarks, graduation cap), **deep navy + bright yellow + white linework**, **2D flat vector**, corporate-educational polish.
+**Default illustration system** for social slots and LinkedIn article heroes: fixed **composition + vector grammar** below, merged with **`post-body.md`** / **`article.md`** so pixels match copy—not generic stock. **This block is not optional** when using the default pipeline: you use **both** the benchmark (hand/phone/couch/tablet/floating icons + vector look) **and** **`brand-images/`**—Drive-only marketing docs never replace them.
+
+### Canonical visual system (structure & style)
+
+Use this block as the **stable backbone** of every `prompt-master.txt` (trim for token limits only; keep structure):
+
+> **Professional flat vector illustration** for an educational quiz / learning product. **Composition:** A **hand holding a smartphone** in the foreground; the phone screen shows a **quiz or lesson UI** with **multiple-choice-style buttons or clear lesson steps** (not illegible micro-text). In the **mid/background**, a person **relaxes on a couch** using a **tablet** that echoes the same learning theme. **Floating around the scene**, cute **minimalist** icons (same line weight): **open books**, **lightbulbs with simple brain shapes**, **checkmarks**, and a **graduation cap**—plus **one or two extra icons** tied to the **post/article topic** (see *Content from copy* below). **Default color scheme:** **deep navy blue** background, **bright yellow** accents, **white** linework and key highlights. **Quality:** clean, modern, **corporate educational** aesthetic, **high resolution**, **2D vector art** (not photorealistic), generous negative space, crisp edges.
+
+### Content from copy (mandatory)
+
+The benchmark is **not** a generic scene. **Derive scene meaning from the source document:**
+
+| Source | Minimum extraction |
+|--------|-------------------|
+| Social **`post-body.md`** | First **hook line** + **must-win message** + any **named topic, course, or outcome** in the `## Publish-ready` block (or equivalent). |
+| LinkedIn **`article.md`** | **Title** + **TL;DR** or lede + **first H2 theme** (or strongest concrete example in the opening sections). |
+
+**On-screen text (phone / tablet):** Where the model can render short UI text, use a **paraphrase** of the hook or thesis (**≤8 words per line**, **≤3 lines** on the phone; **no lorem ipsum**). Examples: “Cut study time in half”, “CompTIA Security+ in 20 min/day”—tuned to **this** post. If the API cannot place text reliably, state in `text-overlay.md` and keep the **visual metaphor** (icons, scene) tightly aligned with the same nouns.
+
+**Floating icons:** Keep the **benchmark set** (books, brain-lightbulb, checkmark, cap). **Add or emphasize** 1–2 motifs that mirror the copy (e.g. shield for security, cloud for cloud certs, chart for analytics).
+
+**Anti-generic check:** If the image could apply to **any** edtech post without reading the copy, the prompt is **too weak**—inject specific nouns from the post into `prompt-master.txt`.
+
+### Brand kit precedence (vs. benchmark defaults)
+
+If **`brand-images/`** (or **`BRAND_IMAGES_DIR`**) has **`palette.md`** / **`logo-usage.md`**:
+
+- **Logo** and **wordmark** rules always win (reference image or verbatim description per *Brand kit* above).
+- **Colors:** Prefer **brand hex** for primary accents and logo surrounds; **preserve** the overall **flat vector + white linework** read unless the brand doc forbids white lines. **Navy + yellow** above is the **default only when** the brand kit does not specify alternatives.
+
+### Negative prompt hints (benchmark-specific)
+
+Add to **`negative-prompt.txt`** as needed: photorealistic skin, wrong logo, unreadable tiny paragraphs, clutter competing with the phone hero, **celebrity likeness**, **watermarks**, **generic unrelated quiz topic** (if copy is about X, ban visual story about unrelated Y).
 
 **Every run:**
 
-1. Read **`references/style-benchmark.md`** and fold its **canonical visual system** into **`prompt-master.txt`** (adapt length for the API; keep structure).
-2. **Ground the scene in the generated post or article** — see *Content from copy* in that file: phone/tablet UI text and extra floating icons must reflect **specific** hooks, nouns, and outcomes from **`post-body.md`** / **`article.md`** (not a generic quiz that ignores the copy).
+1. Fold the **canonical visual system** block into **`prompt-master.txt`** (adapt length for the API; keep structure).
+2. Apply **Content from copy**: phone/tablet hints and extra floating icons must reflect **specific** hooks, nouns, and outcomes from **`post-body.md`** / **`article.md`**.
 3. **Then** apply **brand kit** (`palette.md`, `logo-usage.md`) so logo and colors stay compliant; brand colors **override** the benchmark default palette when they conflict; keep vector + white-linework **read** unless brand docs forbid it.
 
 If a campaign **`visual-dna.md`** explicitly defines a **different** illustration mode, follow **`visual-dna.md`** for that campaign—but still tie subject matter to the same copy rules above.
@@ -90,7 +123,7 @@ If a campaign **`visual-dna.md`** explicitly defines a **different** illustratio
 
 Generic “nice illustration” prompts drift. For **every** social-slot run:
 
-1. **Read the actual post text** — at minimum the **`## Publish-ready`** block (or article **title + TL;DR + first H2 theme**). The image must reflect **specific nouns, metaphors, or outcomes** in that copy—not an unrelated category stock scene. **Use the style benchmark** (`references/style-benchmark.md`) for composition and vector grammar **while** injecting those specifics into **on-device UI hints** and **scene metaphors** (see *Content from copy* in that reference).
+1. **Read the actual post text** — at minimum the **`## Publish-ready`** block (or article **title + TL;DR + first H2 theme**). The image must reflect **specific nouns, metaphors, or outcomes** in that copy—not an unrelated category stock scene. **Use *Style benchmark*** above for composition and vector grammar **while** injecting those specifics into **on-device UI hints** and **scene metaphors** (*Content from copy*).
 2. **Campaign visual DNA (optional but recommended):** If **`workspace/drafts/social/<campaign>/visual-dna.md`** exists, **append** its locked lines to every `prompt-master.txt`. **Always merge after** the **brand kit** block from **`brand-images/`** (`palette.md` / `logo-usage.md`) so colors and logo rules are not contradicted. If `visual-dna.md` is missing, derive 3–5 **style rules** from **`USER.md`**, **`SOUL.md`**, and **`marketer-agent`** `03-messaging-pillars.md` / `00-brief.md` once per campaign and **reuse** them for all slots in that folder.
 3. **Same model + ratio within a batch:** Use **one** image model id for all posts in the same **`calendar.md`** week unless the human asks otherwise; keep **`aspectRatio`** aligned to **`social-content-planning`** / calendar row so crops match HypeEngine/LinkedIn/X expectations.
 4. **Prompt structure:** `prompt-master.txt` = **[style DNA] + [subject tied to post] + [composition] + [lighting] + [what to avoid]`. Fold **`negative-prompt.txt`** into the same generation call as today.
@@ -133,7 +166,7 @@ Generic “nice illustration” prompts drift. For **every** social-slot run:
    - 1–2 sentences **creative idea** + **audience** + **emotion** (trust, urgency, curiosity).
 
 3. **Master prompt (`prompt-master.txt`)**
-   - Single detailed prompt: **style benchmark** (`references/style-benchmark.md`) + **subject tied to post/article copy** + composition, lighting, palette (brand kit where present). Default style = **flat 2D vector** per benchmark unless campaign **`visual-dna.md`** overrides.
+   - Single detailed prompt: ***Style benchmark* (this skill)** + **subject tied to post/article copy** + composition, lighting, palette (brand kit where present). Default style = **flat 2D vector** per benchmark unless campaign **`visual-dna.md`** overrides.
 
 4. **Negative prompt (`negative-prompt.txt`)**
    - Always include: `watermark`, `lowres`, `blurry`, `extra fingers`, **competitor logos**, **fake App Store badge**, **gore**, **photorealistic named celebrity** (unless rights cleared).
@@ -175,7 +208,7 @@ Generic “nice illustration” prompts drift. For **every** social-slot run:
 - [ ] No invented awards, rankings, or “official” marks.
 - [ ] User told folder path; if Gemini/OpenClaw image tools were available, **at least one `generated-*` file** exists **or** failure/refusal documented in **`gemini-render.md`**.
 - [ ] If chaining to `adverts-creator`, list which variant maps to which ad headline in README.
-- [ ] **Style benchmark** (`references/style-benchmark.md`) reflected in **`prompt-master.txt`** unless campaign **`visual-dna.md`** overrides; image **subject** and on-screen hints tied to **specific** post/article copy.
+- [ ] ***Style benchmark*** (this skill) reflected in **`prompt-master.txt`** unless campaign **`visual-dna.md`** overrides; image **subject** and on-screen hints tied to **specific** post/article copy.
 - [ ] **`visual-dna.md`** or equivalent style block **reused** across the campaign batch when present (and still copy-grounded).
 - [ ] **`image-alt.txt`** reads true to the raster and to the post intent.
 - [ ] **`brand-images/`** loaded (`BRAND_IMAGES_DIR` or default); logo rules applied; no invented wordmark.
