@@ -53,11 +53,14 @@ Generated images must **match the product** and **use your real brand**, not a m
 
 ### How the QuizFactor / product logo gets into the image (not “magic prompt only”)
 
+**Common failure:** The model writes **“QuizFactor”** (or your product name) in a **plain / display sans-serif** in the top-left and treats it as the logo. **That is not acceptable** when **`logo-primary.png`** or **`logo-mark.png`** exists—only the **official raster** (or a **composite** of that file) counts. Download LinkedIn / profile marks once into those filenames; **do not** expect a URL or text prompt to substitute.
+
 | Method | When to use |
 |--------|-------------|
-| **Reference image (preferred if host/API supports it)** | Pass **`logo-primary.png`** / **`logo-mark.png`** as **multimodal** input alongside text (e.g. `generateContent` with image `inline_data`, or OpenClaw tool that accepts reference images). Instruction: *“Composite or place this exact brand mark per logo-usage.md; match colors from palette.md.”* |
-| **Text-only fallback** | If the pipeline cannot send bytes: paste **verbatim** hex + short **logo description** from **`palette.md`** + **`logo-usage.md`** into `prompt-master.txt`. State *“Official QuizFactor mark only—no generic quiz icons, no other wordmarks.”* |
-| **Never** | Do not describe a logo from memory. Do not substitute a different product name or icon set. |
+| **Post-process composite (default when PNG exists)** | Generate scene with **reserved empty top-left** (*no* brand lettering—see step 4 under *Logo placement*), then overlay **`logo-mark.png`** / **`logo-primary.png`** with ImageMagick, sharp, etc. Log **`COMPOSITED_LOGO`** in **`gemini-render.md`**. |
+| **Reference image (single-pass)** | Pass **`logo-*.png`** as **multimodal** **`inline_data`**. Instruction: *“**Only** the attached image is the mark—top-left per **logo-usage.md**; **do not** redraw; **do not** add typographic wordmark.”* |
+| **Text-only fallback** | **Only** if **no** `logo-*.png` exists **and** **`logo-usage.md`** explicitly allows emergency typeset—otherwise **stop** or add PNGs first. |
+| **Never** | No logo-from-memory; no wrong icon set; **no** “logo” that is **only styled text** of the company name when PNG assets exist; **no** `media.licdn.com` URLs in the API—save as **`logo-mark.png`** locally. |
 
 ### Logo placement — top-left (default for feed + article heroes)
 
@@ -65,10 +68,11 @@ When the team wants the **real mark** visible on every generated image (typical 
 
 1. **Asset source:** Use **`logo-primary.png`** or **`logo-mark.png`** from **`brand-images/`** (or **`BRAND_IMAGES_DIR`**). **Do not** paste **remote URLs** (e.g. `media.licdn.com` profile photos) into prompts—**download** the file once, crop to transparent PNG if needed, save under the names above so multimodal / compositing gets stable bytes.
 2. **Placement spec** (matches default **`logo-usage.md`**): **top-left**, inset **~2.5–4%** of canvas from top and left; logo width **~8–14%** of full image width (primary) or **~6–10%** (mark). Keep **clear space**; main illustration (hand/phone/background figure) must **not** overlap the logo box.
-3. **Multimodal (preferred):** Alongside `prompt-master.txt`, pass the logo PNG as **reference** (`inline_data` / host tool image attachment). Instruction (append to user text): *“Place the **attached logo** in the **top-left** corner exactly; **do not** redraw or alter it; preserve aspect ratio; flat vector scene stays **below/right** of the logo safe zone.”*
-4. **Prompt-only (fallback):** If the API cannot accept images: quote dimensions + position from **`logo-usage.md`** and paste **verbatim** logo description/hex from **`palette.md`**—still specify **top-left** and **no substitution**.
-5. **`safe-zones.md`:** Record **logo lock rectangle** (e.g. top-left, 3% inset, max width 12%) so exports and LinkedIn 1.91:1 crops do not clip the mark.
-6. **Post-process (most reliable):** If the model keeps mis-drawing the mark, generate the **scene without** an in-prompt logo, then **composite** with ImageMagick (`composite -geometry …`) or a short Node/sharp script: overlay **`logo-mark.png`** at top-left. Note `COMPOSITED_LOGO` + command in **`gemini-render.md`**.
+3. **Multimodal single-pass:** Alongside `prompt-master.txt`, pass the logo PNG as **reference**. Instruction: *“**Attached image** is the only authorized mark—place in **top-left**; **do not** redraw; **do not** add separate typographic wordmark; preserve aspect ratio.”*
+4. **Prompt reserve + composite (recommended default):** In `prompt-master.txt`, include *“Top-left: **empty** reserved band (navy flat), **no** brand text, **no** fake logo lettering.”* Then overlay **`logo-mark.png`** (or primary) with tooling. Use this when multimodal still returns **text-as-logo**.
+5. **Prompt-only typeset** — **last resort** per table above when no PNG exists.
+6. **`safe-zones.md`:** Record **logo lock rectangle** (inset, max width) for composite math and LinkedIn crops.
+7. **Post-render logo QA:** If the top-left shows **only styled text** spelling the product name (not your file-based mark), treat as **failed**—run **composite** path and replace `post-image.png` / `article-hero.png`; log **`FIXED_TEXT_AS_LOGO`** in **`gemini-render.md`**.
 
 ### Merging **post copy** + **product truth** + **brand kit**
 
@@ -97,7 +101,7 @@ If you keep **`image-generation.ts`** (or similar) under `brand-images/` on the 
 **The first paragraph of every `prompt-master.txt`** (before the quoted canonical block) **must** be a short imperative block, verbatim in spirit—**do not skip** because the topic is “technical” or “IT certs”:
 
 ```text
-STYLE LOCK — NON-NEGOTIABLE: Flat 2D vector illustration only (clean corporate editorial / app-marketing vector), like Figma or Illustrator flats — NOT anime, NOT manga, NOT cinematic digital painting, NOT semi-realistic character art, NOT 3D render. NO holographic or floating sci-fi UI, NO cyberpunk, NO server room or data center, NO futuristic city skyline, NO cyan/teal neon glow as the dominant look, NO “tech command center” or tactical jumpsuit characters. NO large hero faces in painterly style. REQUIRED COMPOSITION: **hand holding smartphone** in foreground with simple quiz/lesson UI. **Mid/background:** a **second figure actively using learning tech**—**dynamic pose** (standing, seated at desk, walking with phone, subtle “yes!” / progress gesture, café perch, **or** relaxed lounge—**vary across posts; do NOT default to “always on a sofa”**); same quiz/lesson theme on **phone or tablet** in that figure’s hands. Small floating minimalist line icons (books, brain-in-lightbulb, checkmark, graduation cap) plus 1–2 topic icons from the post copy. REQUIRED PALETTE unless brand kit overrides: deep navy background, bright yellow accents, white linework. The ONLY “tech” is the phone/tablet screens — flat UI mockups, not glowing Blade Runner panels.
+STYLE LOCK — NON-NEGOTIABLE: Flat 2D vector illustration only (clean corporate editorial / app-marketing vector), like Figma or Illustrator flats — NOT anime, NOT manga, NOT cinematic digital painting, NOT semi-realistic character art, NOT 3D render. NO holographic or floating sci-fi UI, NO cyberpunk, NO server room or data center, NO futuristic city skyline, NO cyan/teal neon glow as the dominant look, NO “tech command center” or tactical jumpsuit characters. NO large hero faces in painterly style. REQUIRED COMPOSITION: **hand holding smartphone** in foreground with simple quiz/lesson UI. **Mid/background:** a **second figure actively using learning tech**—**dynamic pose** (standing, seated at desk, walking with phone, subtle “yes!” / progress gesture, café perch, **or** relaxed lounge—**vary across posts; do NOT default to “always on a sofa”**); same quiz/lesson theme on **phone or tablet** in that figure’s hands. Small floating minimalist line icons (books, brain-in-lightbulb, checkmark, graduation cap) plus 1–2 topic icons from the post copy. REQUIRED PALETTE unless brand kit overrides: deep navy background, bright yellow accents, white linework. The ONLY “tech” is the phone/tablet screens — flat UI mockups, not glowing Blade Runner panels. **BRAND CORNER:** Do **not** draw the product name as typographic “logo” text in the top-left—**leave a clean navy reserve** for the **real `logo-mark.png` / `logo-primary.png`** (post-composite) or use the **attached logo image** only; **no fake wordmark lettering**.
 ```
 
 Then immediately follow with the **Canonical visual system** quote below (tokens permitting). If the API has a length limit, **shorten the quote last**—never delete the **STYLE LOCK** paragraph.
@@ -144,11 +148,13 @@ If **`brand-images/`** (or **`BRAND_IMAGES_DIR`**) has **`palette.md`** / **`log
 
 `anime`, `manga`, `manhwa`, `cel shading`, `visual novel`, `cyberpunk`, `holographic interface`, `HUD`, `sci-fi control room`, `mission control room`, `server rack`, `data center`, `tactical suit`, `jumpsuit`, `futuristic city`, `skyline at night`, `neon cyan`, `electric blue glow`, `cinematic lighting`, `octane render`, `Unreal Engine`, `highly detailed face`, `semi-realistic portrait`, `digital painting`, `concept art`, `tech test evaluation`, `matrix code rain`, `Matrix-style`
 
+Also add when **`logo-*.png`** exists: **`typographic wordmark as logo`**, **`brand name spelled out as fake logo`**, **`styled company name text in corner`**, **`invented logotype lettering`**—the real mark must come from **file + composite** or **multimodal attachment**, not AI type.
+
 Also as needed: photorealistic skin, wrong logo, unreadable tiny paragraphs, clutter competing with the phone hero, **celebrity likeness**, **watermarks**, **generic unrelated quiz topic** (if copy is about X, ban visual story about unrelated Y).
 
 ### Post-render visual QA (one retry)
 
-After saving **`generated-1.png`**, **glance** at the output (or read a vision description). If you see **any** of: anime face, holographic/blue sci-fi UI as the main subject, server room, cyberpunk city, painterly detail skin, or **missing** the **foreground hand + smartphone with quiz UI** and a **secondary learner + device** in the scene → **regenerate once** with the **STYLE LOCK** repeated twice (top + bottom of prompt) and **`negative-prompt.txt`** doubled; note **`REGENERATED_STYLE_DRIFT`** in **`gemini-render.md`**. Do **not** ship cyberpunk/holographic art as QuizFactor branded flats. Sofa/lounge is **optional**, not required for QA pass.
+After saving **`generated-1.png`**, **glance** at the output (or read a vision description). If you see **any** of: anime face, holographic/blue sci-fi UI as the main subject, server room, cyberpunk city, painterly detail skin, or **missing** the **foreground hand + smartphone with quiz UI** and a **secondary learner + device** in the scene → **regenerate once** with the **STYLE LOCK** repeated twice (top + bottom of prompt) and **`negative-prompt.txt`** doubled; note **`REGENERATED_STYLE_DRIFT`** in **`gemini-render.md`**. Do **not** ship cyberpunk/holographic art as QuizFactor branded flats. Sofa/lounge is **optional**, not required for QA pass. **Logo QA:** If **`logo-*.png`** exists but the corner shows **only typeset product name** (no true mark), do **not** ship—apply **`COMPOSITED_LOGO`** or regenerate with **reserved blank corner**; log **`FIXED_TEXT_AS_LOGO`**.
 
 **Every run:**
 
@@ -252,4 +258,4 @@ Generic “nice illustration” prompts drift. For **every** social-slot run:
 - [ ] **STYLE LOCK** paragraph is **first** in **`prompt-master.txt`**; full benchmark negatives included; ***Style benchmark*** reflected unless **`visual-dna.md`** overrides; subject + on-screen hints tied to **specific** post/article copy; **mid/background figure** uses a **dynamic** pose (*Background figure — dynamic variants*)—**not** sofa-by-default across a batch; **Post-render visual QA** passed (or one regenerate logged in **`gemini-render.md`**).
 - [ ] **`visual-dna.md`** or equivalent style block **reused** across the campaign batch when present (and still copy-grounded).
 - [ ] **`image-alt.txt`** reads true to the raster and to the post intent.
-- [ ] **`brand-images/`** loaded (`BRAND_IMAGES_DIR` or default); **`logo-usage.md`** respected; logo **top-left** (or campaign override) applied via **reference image**, **prompt**, or **`COMPOSITED_LOGO`** fallback; no invented wordmark; no hotlinked CDN URLs as “logo.”
+- [ ] **`brand-images/`** loaded (`BRAND_IMAGES_DIR` or default); **`logo-usage.md`** respected; final pixel uses **real `logo-*.png`** via **`COMPOSITED_LOGO`** (preferred) or verified multimodal—**not** AI-rendered **text-as-logo** when PNGs exist; no hotlinked CDN URLs as “logo.”

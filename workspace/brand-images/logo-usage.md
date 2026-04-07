@@ -7,6 +7,10 @@
 
 Replace placeholders with your real exports; do **not** hotlink URLs (e.g. LinkedIn `media.licdn.com`) in API calls—**download** the asset once, optimize, commit or sync to the server under `brand-images/`.
 
+### No “text as logo”
+
+Image models often spell **QuizFactor** (or your name) in a **font** in the corner. **That is not your logo** if you have **`logo-*.png`**. **`auto-image-generation`** expects **pixel-accurate** marks: **composite** the PNG after generation or pass it as a **reference image**—never accept styled text as a substitute unless this file says **typeset-only** is allowed and no PNG exists yet.
+
 ## Placement on AI-generated heroes (default)
 
 | Rule | Value |
