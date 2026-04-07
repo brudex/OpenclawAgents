@@ -59,6 +59,17 @@ Generated images must **match the product** and **use your real brand**, not a m
 | **Text-only fallback** | If the pipeline cannot send bytes: paste **verbatim** hex + short **logo description** from **`palette.md`** + **`logo-usage.md`** into `prompt-master.txt`. State *“Official QuizFactor mark only—no generic quiz icons, no other wordmarks.”* |
 | **Never** | Do not describe a logo from memory. Do not substitute a different product name or icon set. |
 
+### Logo placement — top-left (default for feed + article heroes)
+
+When the team wants the **real mark** visible on every generated image (typical for LinkedIn/X):
+
+1. **Asset source:** Use **`logo-primary.png`** or **`logo-mark.png`** from **`brand-images/`** (or **`BRAND_IMAGES_DIR`**). **Do not** paste **remote URLs** (e.g. `media.licdn.com` profile photos) into prompts—**download** the file once, crop to transparent PNG if needed, save under the names above so multimodal / compositing gets stable bytes.
+2. **Placement spec** (matches default **`logo-usage.md`**): **top-left**, inset **~2.5–4%** of canvas from top and left; logo width **~8–14%** of full image width (primary) or **~6–10%** (mark). Keep **clear space**; main illustration (hand/phone/couch) must **not** overlap the logo box.
+3. **Multimodal (preferred):** Alongside `prompt-master.txt`, pass the logo PNG as **reference** (`inline_data` / host tool image attachment). Instruction (append to user text): *“Place the **attached logo** in the **top-left** corner exactly; **do not** redraw or alter it; preserve aspect ratio; flat vector scene stays **below/right** of the logo safe zone.”*
+4. **Prompt-only (fallback):** If the API cannot accept images: quote dimensions + position from **`logo-usage.md`** and paste **verbatim** logo description/hex from **`palette.md`**—still specify **top-left** and **no substitution**.
+5. **`safe-zones.md`:** Record **logo lock rectangle** (e.g. top-left, 3% inset, max width 12%) so exports and LinkedIn 1.91:1 crops do not clip the mark.
+6. **Post-process (most reliable):** If the model keeps mis-drawing the mark, generate the **scene without** an in-prompt logo, then **composite** with ImageMagick (`composite -geometry …`) or a short Node/sharp script: overlay **`logo-mark.png`** at top-left. Note `COMPOSITED_LOGO` + command in **`gemini-render.md`**.
+
 ### Merging **post copy** + **product truth** + **brand kit**
 
 Build the final generation brief in this order:
@@ -199,7 +210,7 @@ Generic “nice illustration” prompts drift. For **every** social-slot run:
    - If no text: state “clean image; caption carries copy.”
 
 6. **Safe zones (`safe-zones.md`)**
-   - For 9:16: top/bottom UI overlay avoidance; for YT thumb: **right third** often occluded by timestamp—keep face/keyword left.
+   - Reserve **top-left** for **`logo-primary` / `logo-mark`** per *Logo placement — top-left* (inset + max width); for 9:16 add top/bottom UI overlay avoidance; for YT thumb: **right third** often occluded by timestamp—keep face/keyword left.
 
 7. **A/B variants (`variants.md`)**
    - Table: `Variant` | `What changed` | `Hypothesis` | `Prompt delta summary`.
@@ -233,4 +244,4 @@ Generic “nice illustration” prompts drift. For **every** social-slot run:
 - [ ] **STYLE LOCK** paragraph is **first** in **`prompt-master.txt`**; full benchmark negatives included; ***Style benchmark*** reflected unless **`visual-dna.md`** overrides; subject + on-screen hints tied to **specific** post/article copy; **Post-render visual QA** passed (or one regenerate logged in **`gemini-render.md`**).
 - [ ] **`visual-dna.md`** or equivalent style block **reused** across the campaign batch when present (and still copy-grounded).
 - [ ] **`image-alt.txt`** reads true to the raster and to the post intent.
-- [ ] **`brand-images/`** loaded (`BRAND_IMAGES_DIR` or default); logo rules applied; no invented wordmark.
+- [ ] **`brand-images/`** loaded (`BRAND_IMAGES_DIR` or default); **`logo-usage.md`** respected; logo **top-left** (or campaign override) applied via **reference image**, **prompt**, or **`COMPOSITED_LOGO`** fallback; no invented wordmark; no hotlinked CDN URLs as “logo.”
