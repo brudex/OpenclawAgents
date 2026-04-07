@@ -79,9 +79,21 @@ If you keep **`image-generation.ts`** (or similar) under `brand-images/` on the 
 
 **Default illustration system** for social slots and LinkedIn article heroes: fixed **composition + vector grammar** below, merged with **`post-body.md`** / **`article.md`** so pixels match copy—not generic stock. **This block is not optional** when using the default pipeline: you use **both** the benchmark (hand/phone/couch/tablet/floating icons + vector look) **and** **`brand-images/`**—Drive-only marketing docs never replace them.
 
+**Hard requirement for OpenClaw / any agent:** Updating this `SKILL.md` does **nothing** to the image API by itself. Whoever calls **`image_generate`** / Gemini **must read this skill** and **paste** the **STYLE LOCK** + **Canonical visual system** into the **actual** `prompt-master.txt` (or equivalent single string). Improvising “IT certification hero art” from post copy alone will drift to sci‑fi/anime/holographic stock—**that is a failure mode**, not an acceptable shortcut.
+
+### STYLE LOCK — mandatory first lines (anti-drift)
+
+**The first paragraph of every `prompt-master.txt`** (before the quoted canonical block) **must** be a short imperative block, verbatim in spirit—**do not skip** because the topic is “technical” or “IT certs”:
+
+```text
+STYLE LOCK — NON-NEGOTIABLE: Flat 2D vector illustration only (clean corporate editorial / app-marketing vector), like Figma or Illustrator flats — NOT anime, NOT manga, NOT cinematic digital painting, NOT semi-realistic character art, NOT 3D render. NO holographic or floating sci-fi UI, NO cyberpunk, NO server room or data center, NO futuristic city skyline, NO cyan/teal neon glow as the dominant look, NO “tech command center” or tactical jumpsuit characters. NO large hero faces in painterly style. REQUIRED COMPOSITION: hand holding smartphone in foreground with simple quiz/lesson UI; person relaxing on couch with tablet in mid-background; small floating minimalist line icons (books, brain-in-lightbulb, checkmark, graduation cap) plus 1–2 topic icons from the post copy. REQUIRED PALETTE unless brand kit overrides: deep navy background, bright yellow accents, white linework. The ONLY “tech” is the phone/tablet screens — flat UI mockups, not glowing Blade Runner panels.
+```
+
+Then immediately follow with the **Canonical visual system** quote below (tokens permitting). If the API has a length limit, **shorten the quote last**—never delete the **STYLE LOCK** paragraph.
+
 ### Canonical visual system (structure & style)
 
-Use this block as the **stable backbone** of every `prompt-master.txt` (trim for token limits only; keep structure):
+Use this block as the **stable backbone** of every `prompt-master.txt` (trim for token limits only; keep structure; **never trim the STYLE LOCK paragraph**):
 
 > **Professional flat vector illustration** for an educational quiz / learning product. **Composition:** A **hand holding a smartphone** in the foreground; the phone screen shows a **quiz or lesson UI** with **multiple-choice-style buttons or clear lesson steps** (not illegible micro-text). In the **mid/background**, a person **relaxes on a couch** using a **tablet** that echoes the same learning theme. **Floating around the scene**, cute **minimalist** icons (same line weight): **open books**, **lightbulbs with simple brain shapes**, **checkmarks**, and a **graduation cap**—plus **one or two extra icons** tied to the **post/article topic** (see *Content from copy* below). **Default color scheme:** **deep navy blue** background, **bright yellow** accents, **white** linework and key highlights. **Quality:** clean, modern, **corporate educational** aesthetic, **high resolution**, **2D vector art** (not photorealistic), generous negative space, crisp edges.
 
@@ -109,13 +121,22 @@ If **`brand-images/`** (or **`BRAND_IMAGES_DIR`**) has **`palette.md`** / **`log
 
 ### Negative prompt hints (benchmark-specific)
 
-Add to **`negative-prompt.txt`** as needed: photorealistic skin, wrong logo, unreadable tiny paragraphs, clutter competing with the phone hero, **celebrity likeness**, **watermarks**, **generic unrelated quiz topic** (if copy is about X, ban visual story about unrelated Y).
+**Always** merge these into **`negative-prompt.txt`** (or the same user prompt string for APIs without a separate negative field) for default QuizFactor social/article runs—especially when post copy mentions **IT, AWS, security, coding, certifications**, which otherwise pull holographic/sci‑fi defaults:
+
+`anime`, `manga`, `manhwa`, `cel shading`, `visual novel`, `cyberpunk`, `holographic interface`, `HUD`, `sci-fi control room`, `mission control room`, `server rack`, `data center`, `tactical suit`, `jumpsuit`, `futuristic city`, `skyline at night`, `neon cyan`, `electric blue glow`, `cinematic lighting`, `octane render`, `Unreal Engine`, `highly detailed face`, `semi-realistic portrait`, `digital painting`, `concept art`, `tech test evaluation`, `matrix code rain`, `Matrix-style`
+
+Also as needed: photorealistic skin, wrong logo, unreadable tiny paragraphs, clutter competing with the phone hero, **celebrity likeness**, **watermarks**, **generic unrelated quiz topic** (if copy is about X, ban visual story about unrelated Y).
+
+### Post-render visual QA (one retry)
+
+After saving **`generated-1.png`**, **glance** at the output (or read a vision description). If you see **any** of: anime face, holographic/blue sci-fi UI as the main subject, server room, cyberpunk city, painterly detail skin, or **no smartphone-in-hand + couch + tablet** composition → **regenerate once** with the **STYLE LOCK** repeated twice (top + bottom of prompt) and **`negative-prompt.txt`** doubled; note **`REGENERATED_STYLE_DRIFT`** in **`gemini-render.md`**. Do **not** ship cyberpunk/holographic art as QuizFactor branded flats.
 
 **Every run:**
 
-1. Fold the **canonical visual system** block into **`prompt-master.txt`** (adapt length for the API; keep structure).
+1. Put the **STYLE LOCK** paragraph **first** in **`prompt-master.txt`**, then the **canonical visual system** block.
 2. Apply **Content from copy**: phone/tablet hints and extra floating icons must reflect **specific** hooks, nouns, and outcomes from **`post-body.md`** / **`article.md`**.
 3. **Then** apply **brand kit** (`palette.md`, `logo-usage.md`) so logo and colors stay compliant; brand colors **override** the benchmark default palette when they conflict; keep vector + white-linework **read** unless brand docs forbid it.
+4. Merge benchmark **negative** list; run **Post-render visual QA** before copying to **`post-image.png`** / **`article-hero.png`**.
 
 If a campaign **`visual-dna.md`** explicitly defines a **different** illustration mode, follow **`visual-dna.md`** for that campaign—but still tie subject matter to the same copy rules above.
 
@@ -170,6 +191,7 @@ Generic “nice illustration” prompts drift. For **every** social-slot run:
 
 4. **Negative prompt (`negative-prompt.txt`)**
    - Always include: `watermark`, `lowres`, `blurry`, `extra fingers`, **competitor logos**, **fake App Store badge**, **gore**, **photorealistic named celebrity** (unless rights cleared).
+   - **Always include** the ***Negative prompt hints (benchmark-specific)*** list from *Style benchmark* (anime, holographic UI, server room, cyberpunk, etc.) unless **`visual-dna.md`** explicitly defines a different illustration mode.
    - Add use-case negatives (e.g. “cluttered UI” for app mockups).
 
 5. **Text-on-image policy (`text-overlay.md`)**
@@ -208,7 +230,7 @@ Generic “nice illustration” prompts drift. For **every** social-slot run:
 - [ ] No invented awards, rankings, or “official” marks.
 - [ ] User told folder path; if Gemini/OpenClaw image tools were available, **at least one `generated-*` file** exists **or** failure/refusal documented in **`gemini-render.md`**.
 - [ ] If chaining to `adverts-creator`, list which variant maps to which ad headline in README.
-- [ ] ***Style benchmark*** (this skill) reflected in **`prompt-master.txt`** unless campaign **`visual-dna.md`** overrides; image **subject** and on-screen hints tied to **specific** post/article copy.
+- [ ] **STYLE LOCK** paragraph is **first** in **`prompt-master.txt`**; full benchmark negatives included; ***Style benchmark*** reflected unless **`visual-dna.md`** overrides; subject + on-screen hints tied to **specific** post/article copy; **Post-render visual QA** passed (or one regenerate logged in **`gemini-render.md`**).
 - [ ] **`visual-dna.md`** or equivalent style block **reused** across the campaign batch when present (and still copy-grounded).
 - [ ] **`image-alt.txt`** reads true to the raster and to the post intent.
 - [ ] **`brand-images/`** loaded (`BRAND_IMAGES_DIR` or default); logo rules applied; no invented wordmark.
